@@ -1,0 +1,124 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "bdcb7d9ce87a85e0846b",
+  "position": {
+    "x": 252.28985507246378,
+    "y": 298.66666666666669,
+    "z": 25000,
+    "height": 419.24637681159419,
+    "width": 1025.855072463768,
+    "tabOrder": 25000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_nonvisitactivitytype"
+                    }
+                  },
+                  "Property": "Description"
+                }
+              },
+              "queryRef": "dim_nonvisitactivitytype.Description",
+              "displayName": "NVA Type"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Start Date"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Start Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Finish Date"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Finish Date"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "NVA Duration"
+                }
+              },
+              "queryRef": "All Measures.NVA Duration"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Non Visit Activity Log'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#808080'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

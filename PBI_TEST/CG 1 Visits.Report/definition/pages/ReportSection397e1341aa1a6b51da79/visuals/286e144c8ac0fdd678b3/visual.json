@@ -1,0 +1,37 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "286e144c8ac0fdd678b3",
+  "position": {
+    "x": 671.82481751824821,
+    "y": 690.21897810218979,
+    "z": 16000,
+    "height": 29.78102189781022,
+    "width": 288.17518248175185,
+    "tabOrder": 16000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Icons created by Uniconlabs and FreePik from Flaticon.com",
+                    "textStyle": {
+                      "fontSize": "8pt",
+                      "color": "#808080"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

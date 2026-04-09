@@ -1,0 +1,472 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "8a21f0be212b1f7472f9",
+  "position": {
+    "x": 1.3473684210526315,
+    "y": 125.30526315789474,
+    "z": 22000,
+    "height": 594.1894736842105,
+    "width": 1278.6526315789474,
+    "tabOrder": 20000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "Key Account Name"
+                }
+              },
+              "queryRef": "dim_store.Key Account Name",
+              "displayName": "Key Account"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "Store Name"
+                }
+              },
+              "queryRef": "dim_store.Store Name",
+              "displayName": "Store"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "External Id"
+                }
+              },
+              "queryRef": "dim_store.External Id",
+              "displayName": "Store External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_representative"
+                    }
+                  },
+                  "Property": "Representative"
+                }
+              },
+              "queryRef": "dim_representative.Representative"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_representative"
+                    }
+                  },
+                  "Property": "Externalid"
+                }
+              },
+              "queryRef": "dim_representative.Externalid",
+              "displayName": "Rep External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Territory Name"
+                }
+              },
+              "queryRef": "dim_territory.Territory Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Externalid"
+                }
+              },
+              "queryRef": "dim_territory.Externalid",
+              "displayName": "Territory External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Sales Team Names"
+                }
+              },
+              "queryRef": "dim_territory.Sales Team Names",
+              "displayName": "Sales Team"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Sales Team External Id"
+                }
+              },
+              "queryRef": "dim_territory.Sales Team External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Region Name"
+                }
+              },
+              "queryRef": "dim_territory.Region Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Region External Id"
+                }
+              },
+              "queryRef": "dim_territory.Region External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Team Name"
+                }
+              },
+              "queryRef": "dim_territory.Team Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Team External Id"
+                }
+              },
+              "queryRef": "dim_territory.Team External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Start Date"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Start Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Start Hour"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Start Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Finish Date"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Finish Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Finish Hour"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Finish Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Duration"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Duration"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Cancel Reason"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Cancel Reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Non Visit Activity"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Non Visit Activity",
+              "displayName": "Non Visit Activity Key"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Route"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Route",
+              "displayName": "Route Key"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_nonvisitactivity"
+                    }
+                  },
+                  "Property": "Type"
+                }
+              },
+              "queryRef": "fac_nonvisitactivity.Type"
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "dim_representative"
+                  }
+                },
+                "Property": "Externalid"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "207.04312914795983D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_store.Store Name"
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_nonvisitactivity.Non Visit Activity"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_nonvisitactivity.Route"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_nonvisitactivity.Type"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Non Visit Activities'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#808080'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

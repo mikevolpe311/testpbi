@@ -1,0 +1,100 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "f533901cddebe78b2b76",
+  "position": {
+    "x": 10.057773043423822,
+    "y": 0,
+    "z": 0,
+    "height": 719.66814963343563,
+    "width": 1269.9422269565762,
+    "tabOrder": 0
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "20240207 2.0.3",
+                    "textStyle": {
+                      "fontSize": "10.6667px",
+                      "color": "#b3b3b3"
+                    }
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Added Version Changes Sheet"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Changed Size of Filters page to be 16:9"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Changed all Dates to Short Date"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Added Year-Week, Year-Month, Year-MonthName (sorted by Year-month) to dim_date"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Used Year-Week on Rep Visit Coverage Matrix"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Used Year-MonthName on Non-Visit Activity Graph"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Changed Scheduled Visits Completed % Gauge to just Visits completed % as some clients don't have scheduled visits - this can be enabled again by just using the filter on the filter tab "
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Changed All-Page filter for Store Status to Active or (Blank), removed filter on List - Non Visit Activities that required a Store"
+                  }
+                ]
+              },
+              {
+                "textRuns": [
+                  {
+                    "value": "Greyed out Keys on Lists, moved to rightmost columns"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

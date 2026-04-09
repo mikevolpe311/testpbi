@@ -1,0 +1,824 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "45c1ef7430198661fa81",
+  "position": {
+    "x": 1.44,
+    "y": 125.28,
+    "z": 22000,
+    "height": 594.72,
+    "width": 1278.72,
+    "tabOrder": 20000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "Key Account Name"
+                }
+              },
+              "queryRef": "dim_store.Key Account Name",
+              "displayName": "Key Account"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "Store Name"
+                }
+              },
+              "queryRef": "dim_store.Store Name",
+              "displayName": "Store"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_store"
+                    }
+                  },
+                  "Property": "External Id"
+                }
+              },
+              "queryRef": "dim_store.External Id",
+              "displayName": "Store External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_representative"
+                    }
+                  },
+                  "Property": "Representative"
+                }
+              },
+              "queryRef": "dim_representative.Representative"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_representative"
+                    }
+                  },
+                  "Property": "Externalid"
+                }
+              },
+              "queryRef": "dim_representative.Externalid",
+              "displayName": "Rep External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Territory Name"
+                }
+              },
+              "queryRef": "dim_territory.Territory Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Externalid"
+                }
+              },
+              "queryRef": "dim_territory.Externalid",
+              "displayName": "Territory External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Sales Team Names"
+                }
+              },
+              "queryRef": "dim_territory.Sales Team Names",
+              "displayName": "Sales Team"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Sales Team External Id"
+                }
+              },
+              "queryRef": "dim_territory.Sales Team External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Region Name"
+                }
+              },
+              "queryRef": "dim_territory.Region Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Region External Id"
+                }
+              },
+              "queryRef": "dim_territory.Region External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Team Name"
+                }
+              },
+              "queryRef": "dim_territory.Team Name"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_territory"
+                    }
+                  },
+                  "Property": "Team External Id"
+                }
+              },
+              "queryRef": "dim_territory.Team External Id"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Actual Start Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Actual Start Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Actual Start Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Actual Start Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Actual Finish Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Actual Finish Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Actual Finish Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Actual Finish Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Actual Duration"
+                }
+              },
+              "queryRef": "fac_storevisit.Actual Duration"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Planned Start Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Planned Start Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Planned Start Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Planned Start Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Planned Finish Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Planned Finish Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Planned Finish Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Planned Finish Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Planned Duration"
+                }
+              },
+              "queryRef": "fac_storevisit.Planned Duration"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Scheduled Duration"
+                }
+              },
+              "queryRef": "fac_storevisit.Scheduled Duration"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Scheduled Start Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Scheduled Start Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Scheduled Start Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Scheduled Start Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Scheduled Finish Date"
+                }
+              },
+              "queryRef": "fac_storevisit.Scheduled Finish Date"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Scheduled Finish Hour"
+                }
+              },
+              "queryRef": "fac_storevisit.Scheduled Finish Hour"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Status"
+                }
+              },
+              "queryRef": "fac_storevisit.Status"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_visitcancelreason"
+                    }
+                  },
+                  "Property": "Description"
+                }
+              },
+              "queryRef": "dim_visitcancelreason.Description",
+              "displayName": "Visit Cancel Reason"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_visittype"
+                    }
+                  },
+                  "Property": "Description"
+                }
+              },
+              "queryRef": "dim_visittype.Description",
+              "displayName": "Visit Type"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Audit 1 Items Updated"
+                }
+              },
+              "queryRef": "All Measures.Call Audit 1 Items Updated",
+              "nativeQueryRef": "Audit 1 Items Updated",
+              "displayName": "Audit 1 Items Updated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Audit 2 Items Updated"
+                }
+              },
+              "queryRef": "All Measures.Call Audit 2 Items Updated",
+              "nativeQueryRef": "Audit 2 Items Updated",
+              "displayName": "Audit 2 Items Updated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Audit 3 Items Updated"
+                }
+              },
+              "queryRef": "All Measures.Call Audit 3 Items Updated",
+              "nativeQueryRef": "Audit 3 Items Updated",
+              "displayName": "Audit 3 Items Updated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Displays at Start"
+                }
+              },
+              "queryRef": "All Measures.Call Displays at Start",
+              "nativeQueryRef": "Displays at Start",
+              "displayName": "Displays at Start"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Displays Added"
+                }
+              },
+              "queryRef": "All Measures.Call Displays Added",
+              "nativeQueryRef": "Displays Added",
+              "displayName": "Displays Added"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Displays Updated"
+                }
+              },
+              "queryRef": "All Measures.Call Displays Updated",
+              "nativeQueryRef": "Displays Updated",
+              "displayName": "Displays Updated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Displays Removed"
+                }
+              },
+              "queryRef": "All Measures.Call Displays Removed",
+              "nativeQueryRef": "Displays Removed",
+              "displayName": "Displays Removed"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Distance"
+                }
+              },
+              "queryRef": "All Measures.Call Distance",
+              "nativeQueryRef": "Distance",
+              "displayName": "Distance"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Opportunities Added"
+                }
+              },
+              "queryRef": "All Measures.Call Opportunities Added",
+              "nativeQueryRef": "Opportunities Added",
+              "displayName": "Opportunities Added"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Opportunities Updated"
+                }
+              },
+              "queryRef": "All Measures.Call Opportunities Updated",
+              "nativeQueryRef": "Opportunities Updated",
+              "displayName": "Opportunities Updated"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Opportunities Deleted"
+                }
+              },
+              "queryRef": "All Measures.Call Opportunities Deleted",
+              "nativeQueryRef": "Opportunities Deleted",
+              "displayName": "Opportunities Deleted"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Survey Questions Answered"
+                }
+              },
+              "queryRef": "All Measures.Call Survey Questions Answered",
+              "nativeQueryRef": "Survey Questions Answered",
+              "displayName": "Survey Questions Answered"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Survey Questions Assigned"
+                }
+              },
+              "queryRef": "All Measures.Call Survey Questions Assigned",
+              "nativeQueryRef": "Survey Questions Assigned",
+              "displayName": "Survey Questions Assigned"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Tasks Assigned"
+                }
+              },
+              "queryRef": "All Measures.Call Tasks Assigned",
+              "nativeQueryRef": "Tasks Assigned",
+              "displayName": "Tasks Assigned"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "All Measures"
+                    }
+                  },
+                  "Property": "Call Tasks Completed"
+                }
+              },
+              "queryRef": "All Measures.Call Tasks Completed",
+              "nativeQueryRef": "Tasks Completed",
+              "displayName": "Tasks Completed"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Store Visit"
+                }
+              },
+              "queryRef": "fac_storevisit.Store Visit",
+              "displayName": "Store Visit Key"
+            },
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "fac_storevisit"
+                    }
+                  },
+                  "Property": "Route"
+                }
+              },
+              "queryRef": "fac_storevisit.Route",
+              "displayName": "Route Key "
+            }
+          ]
+        }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "fac_storevisit"
+                  }
+                },
+                "Property": "Actual Start Date"
+              }
+            },
+            "direction": "Descending"
+          }
+        ]
+      }
+    },
+    "objects": {
+      "columnWidth": [
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "207.04312914795983D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "dim_store.Store Name"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "118.45198497269902D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_storevisit.Actual Start Date"
+          }
+        }
+      ],
+      "columnFormatting": [
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_storevisit.Store Visit"
+          }
+        },
+        {
+          "properties": {
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 0,
+                      "Percent": -0.3
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "fac_storevisit.Route"
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Store Visits'"
+                }
+              }
+            },
+            "fontSize": {
+              "expr": {
+                "Literal": {
+                  "Value": "11D"
+                }
+              }
+            },
+            "bold": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "fontColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#808080'"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

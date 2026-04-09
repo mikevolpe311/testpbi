@@ -1,0 +1,17 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.5.0/schema.json",
+  "name": "4fbd1c95983a0b077949",
+  "position": {
+    "x": 785.77419354838707,
+    "y": 129.3763440860215,
+    "z": 20000,
+    "height": 199.56989247311827,
+    "width": 239.48387096774195,
+    "tabOrder": 2000
+  },
+  "visualGroup": {
+    "displayName": "Order Strike Rate",
+    "groupMode": "ScaleMode"
+  },
+  "isHidden": true
+}
