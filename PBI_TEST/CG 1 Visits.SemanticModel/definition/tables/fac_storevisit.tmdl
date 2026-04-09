@@ -1632,6 +1632,7 @@ table fac_storevisit
 
 		annotation SummarizationSetBy = Automatic
 
+	/// Test Description GIT Update
 	column DMBit1
 		dataType: boolean
 		formatString: """TRUE"";""TRUE"";""FALSE"""
