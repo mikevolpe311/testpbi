@@ -1,0 +1,100 @@
+relationship 95e072e2-51cf-4bdb-8325-c1b37aa18891
+	fromColumn: fac_storevisit.'Actual Start Date'
+	toColumn: dim_date.Dim_Date
+
+relationship 0d315cb5-81b6-4104-9291-87b03198f7a8
+	fromColumn: fac_storevisit.Representative
+	toColumn: dim_representative.Dim_Representative
+
+relationship be85afc2-dfb1-4113-b99e-e61a1c691ef7
+	fromColumn: fac_storevisit.'Current Territory'
+	toColumn: dim_territory.Dim_Territory
+
+relationship f0adc50f-ed84-483a-b522-aaed7e098253
+	isActive: false
+	fromColumn: dim_store.'Primary Territory'
+	toColumn: dim_territory.Dim_Territory
+
+relationship e26117de-b45d-4605-bb22-6fab8535c8c6
+	crossFilteringBehavior: bothDirections
+	fromColumn: fac_storevisit.'Current Store'
+	toColumn: dim_store.Dim_Store
+
+relationship 252460b5-0fbc-4bd5-aeeb-99bfdeae3c35
+	crossFilteringBehavior: bothDirections
+	securityFilteringBehavior: bothDirections
+	fromColumn: dim_dwterritoryuser.currentterritory
+	toColumn: dim_territory.Dim_Territory
+
+relationship d799c934-8a82-49c7-81b8-8d92e68fa8cf
+	fromColumn: fac_storevisit.'Visit Type'
+	toColumn: dim_visittype.'Visit Type'
+
+relationship d2011ae9-1250-4027-8850-e2c2e345f080
+	fromColumn: fac_storevisit.'Visit Cancel Reason'
+	toColumn: dim_visitcancelreason.'Visit Cancel Reason'
+
+relationship a1d3aad9-0f33-4763-8572-81b1d19ae7b3
+	isActive: false
+	crossFilteringBehavior: bothDirections
+	fromColumn: dim_dwproductuser.Dwuser
+	toColumn: dim_dwuser.Dim_Dwuser
+
+relationship 24833fd2-44ec-45f5-8912-4c408a9f359b
+	isActive: false
+	fromColumn: dim_dwproductuser.dim_productpack
+	toColumn: dim_productpack.Dim_Productpack
+
+relationship e857485a-9a3e-42f3-b014-25065a62c7ed
+	isActive: false
+	fromColumn: dim_dwstoreuser.dim_dwuser
+	toColumn: dim_dwuser.Dim_Dwuser
+
+relationship 824015bf-6dba-4a38-92b7-57dabbc8155a
+	isActive: false
+	fromColumn: dim_dwstoreuser.dim_store
+	toColumn: dim_store.Dim_Store
+
+relationship aa086ce4-972b-4693-ba37-a4adf7c2b90e
+	fromColumn: fac_nonvisitactivity.Type
+	toColumn: dim_nonvisitactivitytype.'Non Visit Activity Type'
+
+relationship 74e8e05b-5fca-4cee-93b7-0c29e7e583e6
+	fromColumn: fac_nonvisitactivity.'Current Territory'
+	toColumn: dim_territory.Dim_Territory
+
+relationship 7ffabaa3-43cd-4fd7-83fc-ecd6d8a248f5
+	fromColumn: fac_nonvisitactivity.Representative
+	toColumn: dim_representative.Dim_Representative
+
+relationship 7ee5ff40-2612-4fa7-bbcf-17c8156c2049
+	fromColumn: fac_nonvisitactivity.'Start Date'
+	toColumn: dim_date.Dim_Date
+
+relationship 9c2f23ca-e81e-4294-a234-45d08b744a18
+	fromColumn: fac_nonvisitactivity.'Current Store'
+	toColumn: dim_store.Dim_Store
+
+relationship af4dc514-b443-425d-b444-2210098f9b66
+	fromColumn: dim_dwterritoryuser.dwuser
+	toColumn: dim_dwuser.Dim_Dwuser
+
+relationship ba64ba0c-7f63-477f-b8a7-3cbaa3fc9f35
+	fromColumn: fac_terrassignment.currentterritory
+	toColumn: dim_territory.Dim_Territory
+
+relationship a914450e-a33d-4abe-86a8-4aca3a967266
+	fromColumn: fac_terrassignment.currentstore
+	toColumn: dim_store.Dim_Store
+
+relationship f3a9d335-4122-4ec9-a0d8-3215c1b47004
+	isActive: false
+	fromColumn: fac_storevisit.StoreTerritory
+	toColumn: fac_terrassignment.StoreTerritory
+
+relationship 623b9d79-00f2-4638-8a90-dc209adbc879
+	isActive: false
+	toCardinality: many
+	fromColumn: dim_store.'Primary Territory'
+	toColumn: dim_dwterritoryuser.currentterritory
+

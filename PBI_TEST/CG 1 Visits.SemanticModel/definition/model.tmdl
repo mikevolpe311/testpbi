@@ -1,0 +1,100 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+queryGroup Security
+
+	annotation PBI_QueryGroupOrder = 0
+
+queryGroup 'Standard Dimensions'
+
+	annotation PBI_QueryGroupOrder = 1
+
+queryGroup 'Audit & Ranging'
+
+	annotation PBI_QueryGroupOrder = 2
+
+queryGroup Displays
+
+	annotation PBI_QueryGroupOrder = 3
+
+queryGroup Orders
+
+	annotation PBI_QueryGroupOrder = 4
+
+queryGroup 'Tasks & Surveys'
+
+	annotation PBI_QueryGroupOrder = 5
+
+queryGroup 'Non-Visit Activities'
+
+	annotation PBI_QueryGroupOrder = 6
+
+queryGroup Promotions
+
+	annotation PBI_QueryGroupOrder = 7
+
+queryGroup 'Store Visits'
+
+	annotation PBI_QueryGroupOrder = 8
+
+queryGroup 'Shelf Profile'
+
+	annotation PBI_QueryGroupOrder = 9
+
+queryGroup Parameters
+
+	annotation PBI_QueryGroupOrder = 10
+
+queryGroup Sales
+
+	annotation PBI_QueryGroupOrder = 11
+
+queryGroup Route
+
+	annotation PBI_QueryGroupOrder = 12
+
+queryGroup 'Territory Assignment'
+
+	annotation PBI_QueryGroupOrder = 13
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["ServerName","DatabaseName","dim_representative","dim_date","dim_dwproductuser","dim_dwstoreuser","dim_dwterritoryuser","dim_dwuser","dim_productpack","dim_store","dim_team","dim_territory","dim_adjustmentreason","dim_auditscope","dim_audittype","dim_displaytype","dim_displayitem","dim_displaylocation","dim_displaystatus","dim_displaysubtype","dim_nonvisitactivitytype","dim_ordersource","dim_ordertype","dim_promoproductpack","dim_promostore","dim_promotion","dim_returnaction","dim_returnreason","dim_shelfprofile","dim_shelfprofilelevel","dim_visitcancelreason","dim_visittype","fac_audit","fac_displayitem","fac_displaytrans","fac_nonvisitactivity","fac_orderdata","fac_ordersummary","fac_shelfprofiletrans","fac_storevisit","fac_display","dim_auditorder","dim_question","dim_answervalue","fac_task","dim_activity","fac_surveyanswer","dim_questiongroup","DateFilter","Sample Query","dim_ranginggroup","fac_scandata","dim_source","fac_route","fac_routeinventory","fac_routeinventorytrans","fac_terrassignment","Time Filter Selector"]
+
+annotation __TEdtr = 1
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_date
+ref table dim_dwproductuser
+ref table dim_dwstoreuser
+ref table dim_dwterritoryuser
+ref table dim_dwuser
+ref table dim_productpack
+ref table dim_representative
+ref table dim_store
+ref table dim_team
+ref table dim_territory
+ref table dim_visitcancelreason
+ref table dim_visittype
+ref table fac_storevisit
+ref table 'All Measures'
+ref table dim_cg_time
+ref table dim_cg_ranginggroup
+ref table dim_nonvisitactivitytype
+ref table fac_nonvisitactivity
+ref table fac_terrassignment
+
+ref role Rep
+ref role HeadOffice
+ref role HomeOffice
+ref role Test
+
+ref cultureInfo en-US
+

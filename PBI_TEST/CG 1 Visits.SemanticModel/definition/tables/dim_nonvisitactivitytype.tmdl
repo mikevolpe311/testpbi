@@ -1,0 +1,75 @@
+table dim_nonvisitactivitytype
+	lineageTag: 04cb4198-48b5-4ef4-a780-acab55521c56
+
+	column 'Non Visit Activity Type'
+		dataType: int64
+		formatString: 0
+		lineageTag: b5497eb3-2e95-4d72-8cd9-2151e07bd905
+		summarizeBy: none
+		sourceColumn: Non Visit Activity Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column Description
+		dataType: string
+		lineageTag: abce14e1-ba44-450c-bb4c-181a8c666f87
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'External Id'
+		dataType: string
+		lineageTag: 1d4f767b-59cc-4db8-8e63-571962978685
+		summarizeBy: none
+		sourceColumn: External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'List Order'
+		dataType: double
+		lineageTag: 254e9f1e-b8d2-40f9-ba28-f10cdcef4e8c
+		summarizeBy: none
+		sourceColumn: List Order
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Archived Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 24cdf7fa-0372-4c89-815f-6d695d42162c
+		summarizeBy: none
+		sourceColumn: Archived Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Deleted Date'
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e4925457-1c1c-4774-b7e0-c346daa1c6af
+		summarizeBy: none
+		sourceColumn: Deleted Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_nonvisitactivitytype-f33efff0-a51f-40fd-a444-9c2e8f035ef2 = m
+		mode: import
+		queryGroup: 'Non-Visit Activities'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_nonvisitactivitytype1 = public{[Name="dim_nonvisitactivitytype"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_nonvisitactivitytype1,{"dim_nonvisitactivitytype","description","externalid","listorder","archiveddate","deleteddate"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_nonvisitactivitytype", "Non Visit Activity Type"},{"description", "Description"},{"externalid", "External Id"},{"listorder", "List Order"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

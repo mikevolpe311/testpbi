@@ -1,0 +1,36 @@
+table dim_dwterritoryuser
+	lineageTag: 8d0d60e9-0a6a-4392-a2e2-dced21053c9b
+
+	column currentterritory
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: b8ccaa86-be85-4244-9314-1b977880737e
+		summarizeBy: none
+		sourceColumn: currentterritory
+
+		annotation SummarizationSetBy = Automatic
+
+	column dwuser
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 68fbc645-8ca9-47cb-8cc2-50e1b5e591e2
+		summarizeBy: none
+		sourceColumn: dwuser
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_dwterritoryuser-e19c238d-97de-44e3-b3db-98f27204ec6d = m
+		mode: import
+		queryGroup: Security
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				    dim_dwterritoryuser1 = public{[Name="dim_dwterritoryuser"]}[Data],
+				    #"Selected Columns" = Table.SelectColumns(dim_dwterritoryuser1,{"currentterritory", "dwuser"}),
+				    #"Removed Duplicates" = Table.Distinct(#"Selected Columns")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_ResultType = Table
+

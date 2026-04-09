@@ -1,0 +1,10 @@
+role Test
+	modelPermission: read
+
+	tablePermission dim_dwuser =
+			[Loginid] = "fclark"
+			
+			//"ryan.brauner"
+
+	annotation PBI_Id = 54f87bce8d834b7bbdd097c9ddebfc2a
+

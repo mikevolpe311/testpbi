@@ -1,0 +1,176 @@
+table dim_productpack
+	lineageTag: 71b373fb-c9e2-4683-88ae-730b4e21aa55
+
+	column Dim_Productpack
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: 64c0bd6f-7966-4428-92e6-b5953304366f
+		summarizeBy: none
+		sourceColumn: Dim_Productpack
+
+		annotation SummarizationSetBy = Automatic
+
+	column Manufacturer
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: b85a45d7-d751-4db4-9b0c-a13fa7657536
+		summarizeBy: none
+		sourceColumn: Manufacturer
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Brand'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: dd6578de-f313-4b5c-946c-7aee59d57e3f
+		summarizeBy: none
+		sourceColumn: Product Brand
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Category'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(255)
+		lineageTag: 30e3c1f6-60f1-4ec7-a59d-646a1cfbfd88
+		summarizeBy: none
+		sourceColumn: Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'List Order'
+		dataType: double
+		sourceProviderType: decimal(3, 0)
+		lineageTag: e4dae979-eff5-4b32-9dd9-f57fd6a511db
+		summarizeBy: sum
+		sourceColumn: List Order
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Product
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 4fd40d1d-d470-46d6-905a-516e9345b24e
+		summarizeBy: none
+		sourceColumn: Product
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Pack External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: cedc8368-22ed-485f-baf2-071ca2776b41
+		summarizeBy: none
+		sourceColumn: Product Pack External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Pack Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: e6195dfc-ddee-4c99-abcf-cee8d247dfa0
+		summarizeBy: none
+		sourceColumn: Product Pack Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Upc
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: ce284301-dc85-4f4e-afce-d86d71ea1a84
+		summarizeBy: none
+		sourceColumn: Upc
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Category Code'
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: ba312b5c-f47e-4f02-a560-79b65649caa0
+		summarizeBy: none
+		sourceColumn: Product Category Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Brand Code'
+		dataType: string
+		sourceProviderType: nvarchar(75)
+		lineageTag: 189dbeb3-0467-49cb-90a4-9404ced17d59
+		summarizeBy: none
+		sourceColumn: Product Brand Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Product Category Code'
+		dataType: string
+		sourceProviderType: nvarchar(25)
+		lineageTag: 9fd580f4-5e5d-4aae-8692-b032958c3d46
+		summarizeBy: none
+		sourceColumn: Alt Product Category Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Product Category'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: e2d57e97-41c3-4057-88eb-3f13c234942c
+		summarizeBy: none
+		sourceColumn: Alt Product Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Product Segment Code'
+		dataType: string
+		sourceProviderType: nvarchar(25)
+		lineageTag: 85f4efa2-c414-4f84-97f0-301d8a058677
+		summarizeBy: none
+		sourceColumn: Alt Product Segment Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Product Segment'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: e7e42a0b-799d-4cbb-9f7f-458bc82be5ee
+		summarizeBy: none
+		sourceColumn: Alt Product Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Competitor
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 56c9ac37-87e9-4ffe-a170-c4a61fea2a2e
+		summarizeBy: none
+		sourceColumn: Competitor
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Product Subcategory'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 97aba401-9f30-4a95-9142-afffd97cb391
+		summarizeBy: none
+		sourceColumn: Product Subcategory
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_productpack-5de93540-8e1f-4d5a-8d67-ee5e7f93c4e7 = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_productpack1 = public{[Name="dim_productpack"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_productpack1,{"dim_productpack","manufacturer","productbrand","productcategory","listorder","product","productpackexternalid","productpackname","upc","productcategorycode","productbrandcode","altproductcategorycode","altproductcategory","altproductsegmentcode","altproductsegment","competitor","productsubcategory"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_productpack", "Dim_Productpack"},{"manufacturer", "Manufacturer"},{"productbrand", "Product Brand"},{"productcategory", "Product Category"},{"listorder", "List Order"},{"product", "Product"},{"productpackexternalid", "Product Pack External Id"},{"productpackname", "Product Pack Name"},{"upc", "Upc"},{"productcategorycode", "Product Category Code"},{"productbrandcode", "Product Brand Code"},{"altproductcategorycode", "Alt Product Category Code"},{"altproductcategory", "Alt Product Category"},{"altproductsegmentcode", "Alt Product Segment Code"},{"altproductsegment", "Alt Product Segment"},{"competitor", "Competitor"},{"productsubcategory", "Product Subcategory"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

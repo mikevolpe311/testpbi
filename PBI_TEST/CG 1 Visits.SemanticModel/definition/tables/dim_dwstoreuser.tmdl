@@ -1,0 +1,46 @@
+table dim_dwstoreuser
+	lineageTag: 9ba93c36-36dc-45d1-906c-94b4d8690f1e
+
+	column Dim_Dwstoreuser
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: b66f43d5-e6a3-4da1-883b-de6b62f7a23b
+		summarizeBy: none
+		sourceColumn: Dim_Dwstoreuser
+
+		annotation SummarizationSetBy = Automatic
+
+	column dim_store
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 02a890d9-27ca-4523-b592-ebe411bc90af
+		summarizeBy: none
+		sourceColumn: dim_store
+
+		annotation SummarizationSetBy = Automatic
+
+	column dim_dwuser
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 4ab3e2d7-0c31-4b94-8fef-00d877f8d95f
+		summarizeBy: none
+		sourceColumn: dim_dwuser
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_dwstoreuser-6a15a476-fa76-42c2-9f2e-df1b3fdea915 = m
+		mode: import
+		queryGroup: Security
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_dwstoreuser1 = public{[Name="dim_dwstoreuser"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_dwstoreuser1,{"dim_dwstoreuser","currentstore","dwuser"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_dwstoreuser", "Dim_Dwstoreuser"}, {"currentstore", "dim_store"}, {"dwuser", "dim_dwuser"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

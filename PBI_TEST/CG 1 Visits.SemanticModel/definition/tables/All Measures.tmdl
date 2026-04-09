@@ -1,0 +1,920 @@
+table 'All Measures'
+	lineageTag: c851a8f7-7cc3-4414-94d6-4aee57d6a10b
+
+	measure 'Visits Completed' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Status]="Completed")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 8f5db9ae-6fbc-43be-943b-2066d2f33ef8
+
+		changedProperty = FormatString
+
+	measure 'Visits Per Day Avg' = AVERAGEX(VALUES(dim_date[dim_date]), [Visits Completed])
+		formatString: #,0.0
+		displayFolder: Call
+		lineageTag: 75dee867-83f6-44aa-aafb-afa7434ccac8
+
+		changedProperty = FormatString
+
+	measure 'Value 1 Share of Shelf %' = DIVIDE([Shelf Profile Value1 Shelf], [Shelf Profile Total Shelf])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Shelf Profile
+		lineageTag: 45c62ff3-65d0-4e10-8820-bd00926bd7ae
+
+	measure 'MSL %' = ```
+			
+			var _mslRanged = CALCULATE(DISTINCTCOUNT(fac_audit[Audit]),fac_audit[Ranged] = true,fac_audit[Out Of Stock] = false, fac_audit[In Standard Range] = true)	
+			var _totalRanged = CALCULATE(DISTINCTCOUNT(fac_audit[Audit]), fac_audit[In Standard Range] = true)	
+			return	
+			    DIVIDE(_mslRanged, _totalRanged)	 
+			```
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: ffdde56e-7b33-42d8-aec3-36f0331cdfc8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Visits With Orders' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Completed Orders]<>0)
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 86504605-8529-4e45-8a89-b4e0544a88a5
+
+	measure 'Strike Rate %' = ```
+			var _callswithOrders = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Completed Orders]>0)*100    
+			var _storeVisits = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Status]="Completed")
+			return  
+			DIVIDE(_callswithOrders, _storeVisits)
+			
+			```
+		isHidden
+		displayFolder: Order
+		lineageTag: 4043c07c-1c1c-4cae-bdb9-10e3b6ffd00e
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Stores Active %' = ```
+			
+			var _storesOrdering = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Completed Orders]>0)	
+			var _storeVisits = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Status]="Completed")
+			return	
+			    DIVIDE(_storesOrdering, _storeVisits)
+			```
+		formatString: 0.00%;-0.00%;0.00%
+		displayFolder: Store
+		lineageTag: 67b33ac3-002c-415a-87f6-0584bbcabeb9
+
+	measure 'Active Stores' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Completed Orders]>0)
+		formatString: #,0
+		displayFolder: Store
+		lineageTag: 80936d30-b40e-4882-9f3e-3e1d532e86ef
+
+		changedProperty = FormatString
+
+	measure 'Stores Visited' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Status]="Completed")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: aece233c-04ae-4294-8ad9-8df806773404
+
+		changedProperty = FormatString
+
+	measure 'Return Units %' = ```
+			
+				var _totalReturnedQty = Sum(fac_orderdata[Std Returned Quantity]) 
+				var _totalOrderQty = Sum(fac_orderdata[Std Order Quantity])
+				return  
+				DIVIDE(_totalReturnedQty, _totalOrderQty)
+			
+			```
+		isHidden
+		displayFolder: Order
+		lineageTag: ae82ad1f-6d95-4faa-9fbd-747c3ec244d8
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Visit Frequency' = ```
+			
+			var _calls = [Visits Completed]
+			var _storesCompletedCalls = [Stores Visited]
+			return  
+			DIVIDE(_calls, _storesCompletedCalls)
+			```
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 725a22da-7873-4c96-bcf2-b9abf2339794
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Completed Scheduled Visits %' = ```
+			
+			var _completedCalls = [Visits Completed]
+			var _totalCalls = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]), fac_storevisit[Scheduled Call]=True)
+			return 
+			DIVIDE(_completedCalls, _totalCalls)
+			```
+		formatString: #,0.0
+		displayFolder: Call
+		lineageTag: 8e39ebb2-012e-42c9-8fe7-419a71524808
+
+	measure 'Stores Visited %' = ```
+			
+			var _storecount = 1
+			var _storesCalledOn = [Stores Visited]
+			var _allStores = [All Stores]
+			return 
+			DIVIDE(_storesCalledOn, _allStores)
+			
+			```
+		formatString: #,0%;-#,0%;#,0%
+		displayFolder: Call
+		lineageTag: 137bc582-77dd-4dc5-ae8e-4d98a4ea522e
+
+		changedProperty = FormatString
+
+	measure 'All Stores' = if(isblank(calculate([All Stores (Assignment)],all(dim_store))),[All Stores (Primary Territory)],[All Stores (Assignment)])
+		formatString: #,0
+		displayFolder: Store
+		lineageTag: 73a23903-2560-4ebd-ba76-65c7c1ffb84c
+
+		changedProperty = FormatString
+
+	measure 'Visits Planned' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Status]="Planned")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: e74a4ee0-c285-46c5-ac4a-1b3995015cc9
+
+	measure 'Order Value Avg' = AVERAGE(fac_orderdata[Extended Net Price])
+		isHidden
+		displayFolder: Order
+		lineageTag: 3ff3cdf2-1d84-4e10-8707-3e907a881178
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Out of Stock' = CALCULATE(DISTINCTCOUNT(fac_audit[Audit]),fac_audit[Out Of Stock] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: f0786880-a054-40e4-b20c-41fce9de3dcb
+
+	measure Transparent = "#ffffff00"
+		displayFolder: Label
+		lineageTag: 37d25e42-d06a-49f0-a9ff-d6255a233a54
+
+	measure 'Time Variance' =
+			CALCULATE(
+			    SUM(fac_storevisit[Actual Duration]) - SUM(fac_storevisit[Planned Duration]),
+			fac_storevisit[Scheduled Call] = True, fac_storevisit[Status] = "Completed"
+			)
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 515468fc-71b6-43bd-b52c-4b2637ab3abe
+
+	measure 'Date Range' = "Time Period :" & Min(dim_date[Dim_Date]) & " to " & Max(dim_date[Dim_Date])
+		displayFolder: Label
+		lineageTag: 5a62116c-f2f4-479f-ac78-9bb35847b340
+
+	measure 'LY Visits Completed' = CALCULATE([Visits Completed],DATEADD(dim_date[Dim_Date],-1,YEAR))
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 4252c976-8f25-4f34-96b0-7442aca7b678
+
+		changedProperty = FormatString
+
+	measure 'LY Visits Scheduled' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Scheduled Call]=True,DATEADD(dim_date[Dim_Date],-1,YEAR))
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: dbb426ce-bc36-4fff-867a-17257273678f
+
+		changedProperty = FormatString
+
+	measure 'Current User' = ```
+			
+			var _Rep = LOOKUPVALUE(dim_representative[Full Name],dim_representative[Id],USERPRINCIPALNAME())
+			var _TouchLogin = USERPRINCIPALNAME()
+			return 
+			IF(isblank(_Rep), _TouchLogin, _Rep)
+			```
+		displayFolder: Label
+		lineageTag: dabb1697-254b-448e-a600-8b3d1222e9f2
+
+	measure 'Visits Completed Change' = CALCULATE([Visits Completed] - [LY Visits Completed])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 366bb44c-adf2-475a-bbae-83845947ec46
+
+		changedProperty = FormatString
+
+	measure 'Icon Arrow Calls' =
+			SWITCH(
+			    TRUE (),
+			    [Visits Completed Change] <= 0, UNICHAR (9660),
+			    [Visits Completed Change] > 0,  UNICHAR (9650),
+			    BLANK ()
+			)
+		displayFolder: Label
+		lineageTag: 0f718040-657a-4bd1-a6d0-de6249702338
+
+	measure 'LY Visits Per Day Avg' = AVERAGEX(VALUES(dim_date[dim_date]), [LY Visits Completed])
+		formatString: #,0.00
+		displayFolder: Call
+		lineageTag: 611e29f7-3864-4b74-946f-15cc70ec814e
+
+		changedProperty = FormatString
+
+	measure 'Visits Not Completed' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Status]<>"Completed")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: c14609dc-6d48-42e9-a14d-82b4843be353
+
+		changedProperty = FormatString
+
+	measure 'Stores Ordering' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Completed Orders]>0)
+		formatString: #,0
+		isHidden
+		displayFolder: Order
+		lineageTag: 34a0ec52-cc25-494a-90f9-614db45f7d3a
+
+		changedProperty = FormatString
+
+	measure 'Stores with Uncompleted Visits' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Current Store]),fac_storevisit[Scheduled Call]=True,fac_storevisit[Status]<>"Completed")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 59147368-6e7b-4ee3-a680-47afffb4e84f
+
+		changedProperty = FormatString
+
+	measure 'Stores Not Visited' = COUNTROWS(filter(dim_store,isblank([Visits Completed])))
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: b77e8eed-6807-49ad-86d4-34b723ab2255
+
+		changedProperty = FormatString
+
+	measure 'Expected Visits' = calculate([Working Days]*6,USERELATIONSHIP(dim_store[Primary Territory],dim_territory[Dim_Territory]),all('dim_date'))   // Needs to be configored - Client Specific
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: ef393ed1-7afb-49aa-82bf-846d6bdc0608
+
+	measure 'Expected Visits Current Date Range' =
+			
+			var _Coverage =[Expected Visits]
+			//var _TimePeriod = DISTINCTCOUNTNOBLANK(dim_date[dim_date])
+			//Alternate
+			var _TimePeriod = Max(dim_date[Dim_Date])-Min(dim_date[Dim_Date])
+			return _TimePeriod * _Coverage * 4 / 365
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 5acb75c0-8151-45d7-b2e9-532ebcc2e61c
+
+		changedProperty = FormatString
+
+	measure 'Working Days' = calculate(DISTINCTCOUNTNOBLANK(fac_storevisit[DC_RepStoreVisit]),all(dim_store),fac_storevisit[Status]="Completed")
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: e948f7b3-ccfe-4828-82fe-dcf53fc3579f
+
+		changedProperty = FormatString
+
+	measure 'Total Reps Visiting' = DISTINCTCOUNTNOBLANK(fac_storevisit[Representative])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 4a1b6b9f-6e74-4894-b0b5-0e103fbbc7dc
+
+	measure 'Average Visits Per Day' = [Visits Completed]/[Working Days]
+		formatString: #,0.0
+		displayFolder: Call
+		lineageTag: 7aa4eba4-b322-4746-b744-a23acabc5ead
+
+		changedProperty = FormatString
+
+	measure 'Stores Ordering 2' = DISTINCTCOUNTNOBLANK(fac_orderdata[dim_store])
+		formatString: #,0
+		isHidden
+		displayFolder: Order
+		lineageTag: e6734c28-11c8-49d4-97e4-121472389e7a
+
+		changedProperty = FormatString
+
+	measure '% Total stores Ordering' = DIVIDE([Stores Ordering 2],[All Stores])
+		formatString: 0.0%;-0.0%;0.0%
+		isHidden
+		displayFolder: Order
+		lineageTag: 0079fec5-2fd9-4e8a-b626-55923cbadb5a
+
+		changedProperty = FormatString
+
+	measure '% Order vs Stores Called' = DIVIDE([Stores Ordering 2],[Stores Visited])
+		formatString: 0.0%;-0.0%;0.0%
+		isHidden
+		displayFolder: Order
+		lineageTag: 8173d0e8-1a54-4811-a3e8-46837af391cb
+
+		changedProperty = FormatString
+
+	measure 'Order Value' = sum(fac_orderdata[Extended Net Price])
+		formatString: #,0
+		isHidden
+		displayFolder: Order
+		lineageTag: d8abc835-0842-43b5-a5a6-459439087e61
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'Order Volume' = sum(fac_orderdata[U1 Order Quantity])
+		formatString: #,0
+		isHidden
+		displayFolder: Order
+		lineageTag: 8a669fac-4ca1-48f9-9cd3-9de241e5937c
+
+		changedProperty = FormatString
+
+		annotation PBI_FormatHint = {"isDecimal":true}
+
+	measure 'LQ Visits Completed' = CALCULATE([Visits Completed],DATEADD(dim_date[Dim_Date],-3,month))
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 9fb96e94-c0dd-43ba-93fa-92dde7c6328a
+
+	measure Ranging = DISTINCTCOUNT(fac_audit[dim_store] /*CALCULATE(DISTINCTCOUNTNOBLANK(fac_audit[Current Store]),Dim_AuditOrder[auditorder]=1 Most current Audit*/  )
+		formatString: #,0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 20181352-f7f6-4a04-8d52-06a98f628b4c
+
+	measure 'Ranging %' = divide([Ranging],[All Stores])//calculate([Ranging],all(fac_audit[DMBit1],fac_audit[DMBit2],fac_audit[DMBit3],fac_audit[DMBit4],fac_audit[DMBit5])))
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: ba1750b0-0d84-4fda-a919-df67f125f1a4
+
+		changedProperty = FormatString
+
+	measure 'Ranging On Shelf' = CALCULATE(DISTINCTCOUNTNOBLANK(fac_audit[dim_store]),dim_auditorder[auditorder]=1 /*Most current Audit*/,or(fac_audit[DMBit1],/*On Shelf*/or(fac_audit[DMBit2],or(fac_audit[DMBit3],or(fac_audit[DMBit4],fac_audit[DMBit5])))))
+		formatString: #,0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 82e9edd8-a15f-431a-b1c5-55916c5e0fa6
+
+		changedProperty = FormatString
+
+	measure Tasks = CALCULATE(count(fac_task[fac_task]),all(dim_date))
+		formatString: #,0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: 7254957e-df5a-47eb-8ea6-0dd0345536ae
+
+	measure 'Completed Tasks' = calculate(count(fac_task[fac_task]),fac_task[answered])
+		formatString: #,0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: c5dc3714-7694-44db-b885-16a617187882
+
+	measure 'Tasks % Completed' = DIVIDE([Completed Tasks],[Tasks])
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		isHidden
+		displayFolder: Tasks
+		lineageTag: c95d8a49-cc40-4389-9020-ad4358d99b19
+
+		changedProperty = FormatString
+
+	measure 'Stores With Tasks' = calculate(DISTINCTCOUNTNOBLANK(fac_task[dim_store]),all(dim_date))
+		formatString: #,0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: 07d22b4d-0b71-4800-81fa-756445992206
+
+	measure 'Stores With Completed Tasks' = calculate(DISTINCTCOUNTNOBLANK(fac_task[dim_store]),fac_task[answered])
+		formatString: #,0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: 4d7ad315-8bc2-4fbe-a791-c861ecb95db0
+
+	measure 'Task Store Compliance %' = DIVIDE([Stores With Completed Tasks],[Stores With Tasks])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Tasks
+		lineageTag: 76f9ff4e-9353-4fac-bfc5-8bdef894bd71
+
+		changedProperty = FormatString
+
+	measure 'Date Range Fiscal Quarter' = if(SELECTEDVALUE(dim_date[Fiscal Year Quarter])<>"","Time Period :" & SELECTEDVALUE(dim_date[Fiscal Year Quarter]),"")
+		displayFolder: Label
+		lineageTag: ea630507-d94f-4c8c-a0dc-05f31cbd6394
+
+	measure 'Rolling 12 Months Average Visits Per Day' =
+			CALCULATE (
+			    'All Measures'[Average Visits Per Day],
+			    DATESBETWEEN (
+			        dim_date[Dim_Date],
+			        NEXTDAY ( SAMEPERIODLASTYEAR ( LASTDATE ( dim_date[Dim_Date] ) ) ),
+			        LASTDATE ( dim_date[Dim_Date] )
+			    ), all(dim_date)
+			)
+		formatString: #,0.00
+		displayFolder: Call
+		lineageTag: 4cffe049-6f78-40cb-b6ab-6f83754b15ba
+
+	measure 'Order Drop Size' = CALCULATE(CALCULATE((sum(fac_orderdata[U1 Order Quantity])/DISTINCTCOUNT(fac_orderdata[Order Summary]))))
+		isHidden
+		displayFolder: Order
+		lineageTag: 619b7095-7f8c-485d-9401-02fe751d1cbe
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'NVA Duration' = sum(fac_nonvisitactivity[Duration])/60
+		formatString: #,0.00
+		displayFolder: Non-Visit Activity
+		lineageTag: c67570a0-d35b-443f-91c4-851b151c65a6
+
+	measure 'First Store Id total for Completed Orders' =
+			
+			CALCULATE(
+				MIN('dim_store'[Store Id]),
+				ALLSELECTED('fac_storevisit'[Completed Orders])
+			)
+		isHidden
+		displayFolder: Order
+		lineageTag: fdaaf5b1-8358-4711-a3b8-7c43cbfae6bb
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure MSL = CALCULATE(CALCULATE(DISTINCTCOUNT(fac_audit[Audit]),fac_audit[Out Of Stock] = false))/CALCULATE(COUNT(fac_audit[Audit]), fac_audit[Ranged] = True)
+		formatString: #,0.00
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: d034d4f0-a03b-4b5b-a6e6-cf881f699e5d
+
+	measure OOS = CALCULATE(DISTINCTCOUNT(fac_audit[Audit]),fac_audit[Out Of Stock] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 8d4218e4-53d8-4751-893d-a4973f42fe98
+
+	measure 'Displays Per Store' = CALCULATE(CALCULATE(DISTINCTCOUNT(fac_display[Display]))/DISTINCTCOUNT(fac_display[Current Store]))
+		isHidden
+		displayFolder: Display
+		lineageTag: 7984f540-19f9-44bb-a5e9-df5f9e2315d4
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure Displays = DISTINCTCOUNT(fac_displayitem[Display Item])
+		formatString: 0
+		isHidden
+		displayFolder: Display
+		lineageTag: 8026f064-fd92-4049-b447-443d99766f40
+
+	measure 'Displays Per Store (Trans)' = CALCULATE(CALCULATE(DISTINCTCOUNT(fac_displaytrans[ID]))/DISTINCTCOUNT(fac_displaytrans[Current Store]))
+		isHidden
+		displayFolder: Display
+		lineageTag: 38d70dcc-efad-4d53-b5b9-cfc9245faea9
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Visit Coverage %' = DIVIDE([Stores Visited],[All Stores])
+		formatString: #,0%;-#,0%;#,0%
+		displayFolder: Call
+		lineageTag: 6512040f-6d18-48cc-97a2-ef4322aa1f5d
+
+	measure 'Store Count Distinct' = DISTINCTCOUNT(fac_storevisit[Current Store])
+		formatString: #,0
+		displayFolder: Store
+		lineageTag: b6499b01-34d2-4a97-9e2b-01ea5dd1fce2
+
+	measure 'Strike Rate' = CALCULATE(CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Completed Orders]>0 ))/DISTINCTCOUNT(fac_storevisit[Store Visit])
+		formatString: 0%;-0%;0%
+		isHidden
+		displayFolder: Order
+		lineageTag: 4edbbbf2-2e64-484c-ab3e-75873cef1c40
+
+	measure 'Expected Tasks' = calculate(count(fac_task[fac_task]),not(fac_task[answered]),all(dim_date))
+		formatString: #,0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: e2e3a59c-04ee-4986-a849-24678ad5c083
+
+	measure 'Stores With Outstanding Tasks' = calculate(DISTINCTCOUNTNOBLANK(fac_task[dim_store]), not(fac_task[answered]),all(dim_date))
+		formatString: 0
+		isHidden
+		displayFolder: Tasks
+		lineageTag: 1fff0d0c-4431-488a-9d33-2ba215d946b2
+
+	measure 'Survey Answers' = count(fac_surveyanswer[fac_surveyanswer])
+		formatString: #,0
+		isHidden
+		displayFolder: Survey
+		lineageTag: 74ee2c96-48e6-423c-b67f-32988c76f0d5
+
+	measure 'Survey Stores' = DISTINCTCOUNTNOBLANK(fac_surveyanswer[currentstore])
+		formatString: #,0
+		isHidden
+		displayFolder: Survey
+		lineageTag: 8d7fb7ad-f2a4-4714-a650-831c9926f396
+
+	measure 'Survey Answers to Date' =
+			if('All Measures'[Survey Answers]>0,
+			CALCULATE (
+			    COUNTROWS (fac_surveyanswer),
+			    ALL ( dim_date ),
+			    DATESYTD ( dim_date[dim_date] )
+			),BLANK())
+		formatString: 0
+		isHidden
+		displayFolder: Survey
+		lineageTag: 3a91f5ba-44dd-462a-b0ed-80a3a569a51d
+
+	measure 'Shelf Profile Total Shelf' = ```
+			sum(fac_shelfprofiletrans[Value1])
+				+sum(fac_shelfprofiletrans[Value2])
+				+sum(fac_shelfprofiletrans[Value3])
+				+sum(fac_shelfprofiletrans[Value4])
+				+sum(fac_shelfprofiletrans[Value5])
+				+sum(fac_shelfprofiletrans[Value6])
+				+sum(fac_shelfprofiletrans[Value7])
+				+sum(fac_shelfprofiletrans[Value8])
+				+sum(fac_shelfprofiletrans[Value9])  /* Add to this if there are more up to 20  */
+			
+			```
+		isHidden
+		displayFolder: Shelf Profile
+		lineageTag: f81e3560-1000-4729-90f2-403636e5c24c
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shelf Profile Value1 Shelf' = sum(fac_shelfprofiletrans[Value1])
+		isHidden
+		displayFolder: Shelf Profile
+		lineageTag: 1f8895ca-ad17-4c08-a6cc-b0e96599db03
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Shelf Profile Stores' = DISTINCTCOUNTNOBLANK(fac_shelfprofiletrans[Current Store])
+		formatString: 0
+		isHidden
+		displayFolder: Shelf Profile
+		lineageTag: 473f6c12-587c-44b9-8fbc-be8f355068d1
+
+	measure 'Audit Ranged' = CALCULATE(COUNT(fac_audit[Audit]), fac_audit[Ranged] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 7bf7ee8d-640f-4c0b-aa21-411109364c2a
+
+	measure 'Audit Standard Range' = CALCULATE([Audit Total], fac_audit[In Standard Range] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: a1017044-4d1e-46ce-b79e-898acab966c3
+
+	measure 'Audit Damaged' = CALCULATE([Audit Total], fac_audit[Damaged] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: bd7acfa3-0249-40c9-9e69-82aac24b308d
+
+	measure 'Audit Total' = COUNT(fac_audit[Audit])
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 6877ad02-73d1-4569-ac94-a05269157921
+
+	measure 'Audit Stores' = DISTINCTCOUNTNOBLANK(fac_audit[dim_store])
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: f59097cb-7de5-4144-851a-eac5acbc20f5
+
+	measure 'Audit % Damaged' = DIVIDE([Audit Damaged],[Audit Total])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: f9507db3-86ce-419a-8fba-5317f15a9148
+
+	measure 'Audit % Ranged' = DIVIDE([Audit Ranged],[Audit Total])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: ea77c3f0-a870-4168-a4d7-693f350c8b6a
+
+	measure 'Audit Out of Stock' = CALCULATE([Audit Total], fac_audit[Out Of Stock] = True)
+		formatString: 0
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: 3add0ecc-b4ac-4acf-ae8c-18890e70b4d1
+
+	measure 'Audit % Out of Stock' = DIVIDE([Audit Out of Stock],[Audit Total])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Audit & Ranging
+		lineageTag: d34b951f-f0aa-4a0c-85ab-3318bc2eefcb
+
+	measure 'Visits Scheduled' = CALCULATE(DISTINCTCOUNT(fac_storevisit[Store Visit]),fac_storevisit[Scheduled Call]=True)
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 7cafff71-8322-419d-bd66-ebb09b9da59c
+
+	measure 'Visits Completed %' = DIVIDE([Visits Completed],DISTINCTCOUNT(fac_storevisit[Store Visit]))
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: Call
+		lineageTag: 88c3f34b-b992-4b12-b054-5de1bc2b6e28
+
+	measure 'Visits % Completed of Expected' = DIVIDE([Visits Completed],[Expected Visits])
+		formatString: #,0%;-#,0%;#,0%
+		displayFolder: Call
+		lineageTag: f8159cca-6992-44b0-8b0b-e391f56080d4
+
+	measure 'Avg Time in Visit' = calculate(SUM(fac_storevisit[Actual Duration])/60,fac_storevisit[Status] = "Completed")/[Working Days]
+		formatString: #,0.0
+		displayFolder: Call
+		lineageTag: 65edc299-c724-40dc-bf01-bdf16c9df65b
+
+	measure 'Avg Time NVA per Day' = ([NVA Duration]/60)/[Working Days]
+		formatString: #,0.0
+		displayFolder: Non-Visit Activity
+		lineageTag: 82bd2a10-e6b5-480d-8147-5b507cfdb183
+
+	measure 'Order Value LY' = calculate(sum(fac_orderdata[Extended Net Price]),USERELATIONSHIP(fac_orderdata[dim_date],dim_date[dim_date_ly]))
+		formatString: #,0.00
+		isHidden
+		displayFolder: Order
+		lineageTag: 66cfee6d-f0f9-4662-9221-e25f2f8c971e
+
+	measure 'Order Volume LY' = calculate(sum(fac_orderdata[U1 Order Quantity]),USERELATIONSHIP(fac_orderdata[dim_date],dim_date[dim_date_ly]))
+		formatString: #,0.00
+		isHidden
+		displayFolder: Order
+		lineageTag: 17ea46bf-fd44-445c-89b2-c419b99ef434
+
+	measure 'Order Value Growth' = [Order Value]-[Order Value LY]
+		formatString: #,0.00
+		isHidden
+		displayFolder: Order
+		lineageTag: 66f41aa4-4db1-44f1-a60c-111b26dbce7d
+
+	measure '% Order Value Growth' = [Order Value Growth]/[Order Value LY]
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Order
+		lineageTag: 625ccd7b-a10d-4703-bebb-aa9272f9392d
+
+	measure '% Order Volume Growth' = [Order Volume Growth]/[Order Volume LY]
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Order
+		lineageTag: 7f8b621c-9fd1-4961-a255-20e8a6b16e74
+
+	measure 'Order Volume Growth' = [Order Volume]-[Order Volume LY]
+		formatString: #,0.00
+		isHidden
+		displayFolder: Order
+		lineageTag: 075c1e05-073c-4fc8-b17d-9f9656f7f593
+
+	measure 'Sales Value' = sum(fac_scandata[scandataactualsales])
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: 0a5d3ebc-5961-4a4e-99ed-4091e8c9a6df
+
+	measure 'Sales Volume' = sum(fac_scandata[scandataactualvolume])
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: 12ba41ba-a6d9-4c7a-85e6-068c313caf9b
+
+	measure 'Sales Value LY' = calculate(sum(fac_scandata[scandataactualsales]),USERELATIONSHIP(fac_scandata[dim_date],dim_date[dim_date_ly]))
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: 50c7fb23-c3ba-45a6-8c9d-fd1a69cf21ee
+
+	measure 'Sales Volume LY' = calculate(sum(fac_scandata[scandataactualvolume]),USERELATIONSHIP(fac_scandata[dim_date],dim_date[dim_date_ly]))
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: c38f7d44-fe74-49c7-a0cc-ff900511696b
+
+	measure 'Sales Value Growth' = [Sales Value]-[Sales Value LY]
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: 36fb1cf1-af72-48c1-9487-a20b252cf1e4
+
+	measure 'Sales Volume Growth' = [Sales Volume]-[Sales Volume LY]
+		formatString: #,0.00
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: aa84de7d-1154-49f8-87e3-835cd7e4dae9
+
+	measure '% Sales Volume Growth' = divide([Sales Volume Growth],[Sales Volume LY])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: d4f6fdcb-fdfb-4314-8f63-3873eaa94b25
+
+	measure '% Sales Value Growth' = divide([Sales Value Growth],[Sales Value LY])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Scan Data
+		lineageTag: eb7d5457-e8e4-462d-814f-b9df719ef8a1
+
+	measure '_Displays Up' = calculate(DISTINCTCOUNTNOBLANK(fac_display[Display]),dim_displaystatus[Is Up]=True)
+		formatString: #,0
+		isHidden
+		displayFolder: Display
+		lineageTag: d4f5ae5c-0a94-4d69-8bcd-60a184fe8109
+
+	measure '_Stores with Displays Up' = calculate(DISTINCTCOUNTNOBLANK(fac_display[Current Store]),dim_displaystatus[Is Up]=True)
+		formatString: #,0
+		isHidden
+		displayFolder: Display
+		lineageTag: 5f09298b-46b7-41ae-b744-3c78c6b5b5bf
+
+	measure '_% Stores with Displays Up' = DIVIDE([_Stores with Displays Up],[All Stores])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Display
+		lineageTag: 4f0bc75e-de15-497a-b6e1-392c4d4506d8
+
+	measure '_Avg Displays Up per Store' = divide([_Displays Up],[_Stores with Displays Up])
+		isHidden
+		displayFolder: Display
+		lineageTag: 05cfc89f-069e-40b6-8264-e3c354b6faf3
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Route Completed Calls' = sum(fac_route[numcompletedvisits])
+		formatString: #,0
+		isHidden
+		displayFolder: Route
+		lineageTag: ce1399b5-e8f6-4190-b02d-a3ced7bf370a
+
+	measure '_Route NonCompleted Calls' = sum(fac_route[numnotcompletedvisits])
+		formatString: #,0
+		isHidden
+		displayFolder: Route
+		lineageTag: e97d5b44-02c4-46e6-8d1a-93b860f26233
+
+	measure '_Route Expected Calls' = sum(fac_route[numvisits])
+		formatString: #,0
+		isHidden
+		displayFolder: Route
+		lineageTag: 54fd9e76-7e09-4cc3-843b-c94799f068d7
+
+	measure '_% Route Completed Visits' = DIVIDE([_Route Completed Calls],[_Route Expected Calls])
+		formatString: 0.00%;-0.00%;0.00%
+		isHidden
+		displayFolder: Route
+		lineageTag: ec24e12f-43e4-49f2-89cf-5a9331e20735
+
+	measure '_Route Reassigned Calls' = sum(fac_route[numcompletedreassignedvisits])
+		formatString: #,0
+		isHidden
+		displayFolder: Route
+		lineageTag: 3cc5988b-9479-472b-a45d-b74b5fe692f6
+
+	measure '_Routes Total Orders' = sum(fac_route[numorders])
+		formatString: 0
+		isHidden
+		displayFolder: Route
+		lineageTag: e8649e16-8589-4b9f-b995-67f913152975
+
+	measure '_Routes Total Order Net Value' = sum(fac_route[totalordernetvalue])
+		isHidden
+		displayFolder: Route
+		lineageTag: 7a75b0f0-b5f0-4622-981e-096e59eab812
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure '_Routes Distance Travelled' = sum(fac_route[distancetravelled])
+		isHidden
+		displayFolder: Route
+		lineageTag: 032d4b5a-f1eb-418a-bfed-0cf2ab918584
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	measure 'Visit Coverage % with Text' = if(not(ISFILTERED(dim_store[Store Name])),[Visit Coverage %],if(isblank([All Stores]), blank(),if([Stores Visited]=[All Stores],"Visited","Not Visited")))
+		formatString: #,0.00%;-#,0.00%;#,0.00%
+		displayFolder: Call
+		lineageTag: a6fed2cc-e302-4ca7-9289-499857608342
+
+	measure 'Call Displays Added' = sum(fac_storevisit[Displays Added])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: d046d7d4-e866-49ac-b187-14060d074c5f
+
+	measure 'Call Displays Updated' = sum(fac_storevisit[Displays Updated])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 402cf966-8d5d-4e72-b1a5-c42c363c7b43
+
+	measure 'Call Displays Removed' = sum(fac_storevisit[Displays Deleted])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 6591c066-1e50-4d72-a56a-a1513d6ea778
+
+	measure 'Call Opportunities Added' = sum(fac_storevisit[Opportunities Added])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: e544607f-1734-4071-8fa5-15c883373428
+
+	measure 'Call Opportunities Deleted' = sum(fac_storevisit[Opportunities Deleted])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 80106a61-ed0f-4f0d-b5c5-30979a9f2f09
+
+	measure 'Call Opportunities Updated' = sum(fac_storevisit[Opportunities Updated])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 409954af-1ec2-4749-8296-18d60a3c51a3
+
+	measure 'Call Survey Questions Answered' = sum(fac_storevisit[Survey Questions Answered])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 1e73465c-1d43-44c3-b295-b0ae3023f042
+
+	measure 'Call Survey Questions Assigned' = sum(fac_storevisit[Survey Questions Assigned])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 0b51fb51-56f8-4ae3-9d89-45c249e56c71
+
+	measure 'Call Tasks Completed' = sum(fac_storevisit[Tasks Completed])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 03e02dc7-ddc1-433c-8c2e-7b222d782ea7
+
+	measure 'Call Tasks Assigned' = sum(fac_storevisit[Tasks Assigned])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 9e582a86-5749-4ebf-b147-590e177dbecd
+
+	measure 'Call Audit 1 Items Updated' = sum(fac_storevisit[Audit 1 Items Updated])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 226dc575-1026-46e7-a1cf-79b3b08fa64c
+
+	measure 'Call Audit 2 Items Updated' = sum(fac_storevisit[Audit 2 Items Updated])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 0a0b8fe9-ec24-4145-9e10-d5d04a375fd7
+
+	measure 'Call Audit 3 Items Updated' = sum(fac_storevisit[Audit 3 Alerted Items])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 3f1ffc3d-a452-4c46-871f-d21393f9b687
+
+	measure 'Call Audit 1 Items' = sum(fac_storevisit[Audit 1 Items])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 7d52a599-fb93-48f0-a28e-279046725f36
+
+	measure 'Call Audit 2 Items' = sum(fac_storevisit[Audit 2 Items])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 9a793008-8265-4401-a1f5-7b072259207a
+
+	measure 'Call Audit 3 Items' = sum(fac_storevisit[Audit 3 Items])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: c515796b-6add-44b6-9a99-479cf2c4b1a2
+
+	measure 'Call Displays at Start' = sum(fac_storevisit[Displays At Start])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 7f263cdc-4301-4846-af55-457de4881edc
+
+	measure 'Call Duration' = SUM(fac_storevisit[Actual Duration])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: 943eebef-d489-43e3-b2d4-37645c4fb5fc
+
+	measure 'Call Distance' = sum(fac_storevisit[Distance From Store])
+		formatString: #,0
+		displayFolder: Call
+		lineageTag: ac2f808d-8508-4116-a97d-ca053ee6584b
+
+	measure 'All Stores (Primary Territory)' = CALCULATE(DISTINCTCOUNT(dim_store[Dim_Store]),all('dim_date'),USERELATIONSHIP(dim_territory[dim_territory],dim_store[Primary Territory]),filter(dim_territory,not(isblank(dim_territory[dim_territory]))))
+		formatString: #,0
+		displayFolder: Store
+		lineageTag: 8ea453c3-63d7-4bee-a05c-5cfbe6b3e3f5
+
+	measure 'All Stores (Assignment)' = CALCULATE(DISTINCTCOUNT(fac_terrassignment[currentstore]),all('dim_date'))
+		formatString: #,0
+		displayFolder: Store
+		lineageTag: a1dbe469-120d-4d8a-9e22-ebd08fc94d91
+
+	column Column
+		isHidden
+		formatString: 0
+		displayFolder: Label
+		lineageTag: 52da16da-0c68-467b-b235-b2f9d6315ef9
+		summarizeBy: sum
+		isNameInferred
+		sourceColumn: [Column]
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'All Measures-8f08f555-2357-41f6-b6a1-1a56af7f949b' = calculated
+		mode: import
+		source = Row("Column", BLANK())
+
+	annotation 436ba87b-9c83-4389-a31b-ebd06a36be98 = {"Expression":""}
+

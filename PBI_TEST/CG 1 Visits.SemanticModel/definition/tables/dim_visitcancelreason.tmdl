@@ -1,0 +1,81 @@
+table dim_visitcancelreason
+	lineageTag: 461eb9de-b452-4b88-9f92-f02c0aa614f8
+
+	column 'Visit Cancel Reason'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(15)
+		lineageTag: 406b9505-368c-4a66-afbb-8c8a8209c389
+		summarizeBy: none
+		sourceColumn: Visit Cancel Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'List Order'
+		dataType: double
+		sourceProviderType: decimal(3, 0)
+		lineageTag: 0c909c21-2d5f-4372-98b5-38fa20066440
+		summarizeBy: none
+		sourceColumn: List Order
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Description
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 4ef02901-df9b-4133-a670-469011049f38
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 6df7bdf9-62db-494e-91d5-eb859ffb4305
+		summarizeBy: none
+		sourceColumn: External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Archived Date'
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 67a63500-825a-4e80-9587-8d5e3e413001
+		summarizeBy: none
+		sourceColumn: Archived Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Deleted Date'
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 8734fe42-6a75-434f-be1c-73a206926774
+		summarizeBy: none
+		sourceColumn: Deleted Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_visitcancelreason-4a04d863-13eb-4e87-ba0f-6c46322375e4 = m
+		mode: import
+		queryGroup: 'Store Visits'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_visitcancelreason1 = public{[Name="dim_visitcancelreason"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_visitcancelreason1,{"dim_visitcancelreason","listorder","description","externalid","archiveddate","deleteddate"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_visitcancelreason", "Visit Cancel Reason"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

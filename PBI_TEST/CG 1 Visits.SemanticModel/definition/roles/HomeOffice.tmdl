@@ -1,0 +1,5 @@
+role HomeOffice
+	modelPermission: read
+
+	annotation PBI_Id = 7be0fa21258b48299f15ca7ffc624f41
+

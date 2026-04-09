@@ -1,0 +1,219 @@
+table dim_representative
+	lineageTag: 0ea18b54-03c3-44c9-8f6d-ca3bb5a03b2f
+
+	column Dim_Representative
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: 00e043e0-f884-4caf-ac92-dc8517b0af94
+		summarizeBy: none
+		sourceColumn: Dim_Representative
+
+		annotation SummarizationSetBy = Automatic
+
+	column Id
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(90)
+		lineageTag: cac4b97b-66bd-44d1-8fbc-f35b3d7ed280
+		summarizeBy: none
+		sourceColumn: Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'First Name'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(120)
+		lineageTag: bef5b9d6-68ac-4096-a712-b976847c0cd8
+		summarizeBy: none
+		sourceColumn: First Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Middle Name'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(120)
+		lineageTag: 8baf9e91-b385-4d17-80d1-fb7bc1e7e5ab
+		summarizeBy: none
+		sourceColumn: Middle Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last Name'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(120)
+		lineageTag: aa7ac777-0cab-4818-bc6f-069544385cb2
+		summarizeBy: none
+		sourceColumn: Last Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Externalid
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: b88d67f0-afd8-4a29-ae8c-277d77f946d5
+		summarizeBy: none
+		sourceColumn: Externalid
+
+		annotation SummarizationSetBy = Automatic
+
+	column Role
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 58c75002-6abe-417a-95f9-531543e4014e
+		summarizeBy: none
+		sourceColumn: Role
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Territory'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 68cefc3e-43d9-453c-b88c-3c78de0539fc
+		summarizeBy: none
+		sourceColumn: Primary Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Territory Name'
+		dataType: string
+		sourceProviderType: nvarchar(105)
+		lineageTag: 321a8756-ca31-43fb-8542-0ea091394673
+		summarizeBy: none
+		sourceColumn: Primary Territory Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: 541c06b0-1809-4e8a-b95d-1880105f2968
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 4c659fce-20e5-4cf4-9950-9849d35d49fa
+		summarizeBy: none
+		sourceColumn: Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		sourceProviderType: nvarchar(180)
+		lineageTag: 5167ac4d-bdaa-4391-bbcc-03bd33ab54e1
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 82a2ec28-3d4e-4f91-bb4d-f817918e488f
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column District
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: 44cd164a-ade1-4dc8-9c15-711a25ac6778
+		summarizeBy: none
+		sourceColumn: District
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 52546675-03c2-42ab-9be9-596c9ee08be3
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 237310c4-c477-422f-bf7f-094f7969e37e
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Postcode
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: 43f1bdf4-c234-4a9c-8e87-11e8a494a577
+		summarizeBy: none
+		sourceColumn: Postcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: nvarchar(90)
+		lineageTag: 0bc5e863-4b02-4775-b30e-7213744cc62e
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		sourceProviderType: nvarchar(120)
+		lineageTag: 76bf20af-cfe6-465a-a7b0-13c06d5b3be1
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column Suburb
+		dataType: string
+		sourceProviderType: nvarchar(180)
+		lineageTag: e55ae20d-869b-4fc1-ae8f-fac1e0c39f8e
+		summarizeBy: none
+		sourceColumn: Suburb
+
+		annotation SummarizationSetBy = Automatic
+
+	column Representative = dim_representative[First Name]&" "&dim_representative[Last Name]
+		lineageTag: ab204fe1-73f5-4964-9626-e13e78442b4d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Full Name' = CONCATENATE('dim_representative'[First Name] & " " , 'dim_representative'[Last Name])
+		lineageTag: 9239e4f3-ba76-442d-b316-ce651b974da3
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_representative-11882e3b-048e-4aa3-9717-41e467080ee7 = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_representative1 = public{[Name="dim_representative"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_representative1,{"dim_representative","id","firstname","middlename","lastname","externalid","role","primaryterritory","primaryterritoryname","status","address","city","country","district","latitude","longitude","postcode","region","state","suburb"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_representative", "Dim_Representative"},{"id", "Id"},{"firstname", "First Name"},{"middlename", "Middle Name"},{"lastname", "Last Name"},{"externalid", "Externalid"},{"role", "Role"},{"primaryterritory", "Primary Territory"},{"primaryterritoryname", "Primary Territory Name"},{"status", "Status"},{"address", "Address"},{"city", "City"},{"country", "Country"},{"district", "District"},{"latitude", "Latitude"},{"longitude", "Longitude"},{"postcode", "Postcode"},{"region", "Region"},{"state", "State"},{"suburb", "Suburb"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

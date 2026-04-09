@@ -1,0 +1,81 @@
+table dim_visittype
+	lineageTag: 8876faec-cda4-413f-b5ae-017c34563477
+
+	column 'Visit Type'
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: a7ea15da-1fb0-4349-8017-8ace5365141e
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'List Order'
+		dataType: double
+		sourceProviderType: decimal(3, 0)
+		lineageTag: af12cef3-07c7-4f68-9b8d-683a908ab8d9
+		summarizeBy: none
+		sourceColumn: List Order
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Description
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 5fea0de9-17fc-4759-bf13-7fd48aa17711
+		summarizeBy: none
+		sourceColumn: Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: da06eac9-3cb8-40ea-bcb1-f2e2c118bfb0
+		summarizeBy: none
+		sourceColumn: External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Archived Date'
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: cabf8735-7ba9-4e03-b0f5-3b4f2f484e2a
+		summarizeBy: none
+		sourceColumn: Archived Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Deleted Date'
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 22826d6d-3882-4a43-84d7-20ad0384c95b
+		summarizeBy: none
+		sourceColumn: Deleted Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_visittype-7dd1813c-9d2c-4811-b75b-020d9df98095 = m
+		mode: import
+		queryGroup: 'Store Visits'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_visittype1 = public{[Name="dim_visittype"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_visittype1,{"dim_visittype","listorder","description","externalid","archiveddate","deleteddate"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_visittype", "Visit Type"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

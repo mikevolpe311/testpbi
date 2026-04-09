@@ -1,0 +1,46 @@
+table dim_dwproductuser
+	lineageTag: edb79b22-9bde-4e05-9f3f-75efa98bf198
+
+	column Dim_Dwproductuser
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: d1bb61b6-8e4e-4f69-8a87-4b10926ab4d7
+		summarizeBy: none
+		sourceColumn: Dim_Dwproductuser
+
+		annotation SummarizationSetBy = Automatic
+
+	column dim_productpack
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 2d86e3b7-55be-4fcb-ba78-e7c547bab94d
+		summarizeBy: none
+		sourceColumn: dim_productpack
+
+		annotation SummarizationSetBy = Automatic
+
+	column Dwuser
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 061fa5f2-47d4-4c4c-bf23-9817240f5368
+		summarizeBy: none
+		sourceColumn: Dwuser
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_dwproductuser-3d95b9ee-3166-42aa-bb6d-b8487bb009a1 = m
+		mode: import
+		queryGroup: Security
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_dwproductuser1 = public{[Name="dim_dwproductuser"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_dwproductuser1,{"dim_dwproductuser","currentproductpack","dwuser"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_dwproductuser", "Dim_Dwproductuser"}, {"currentproductpack", "dim_productpack"}, {"dwuser", "Dwuser"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

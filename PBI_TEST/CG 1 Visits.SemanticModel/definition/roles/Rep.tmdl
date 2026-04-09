@@ -1,0 +1,7 @@
+role Rep
+	modelPermission: read
+
+	tablePermission dim_dwuser = [Loginid] = USERPRINCIPALNAME()
+
+	annotation PBI_Id = 2811ac0eb76a4b429d1d73cc40e5ef2d
+

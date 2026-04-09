@@ -1,0 +1,203 @@
+table fac_nonvisitactivity
+	lineageTag: 340ab737-2a05-405c-b13a-25533d7c594a
+
+	column 'Non Visit Activity'
+		dataType: string
+		lineageTag: e389edd1-f8c8-4260-8438-32702068f48e
+		summarizeBy: none
+		sourceColumn: Non Visit Activity
+
+		annotation SummarizationSetBy = Automatic
+
+	column Representative
+		dataType: string
+		lineageTag: 8b00c163-9bc0-48ca-9606-611d05179a49
+		summarizeBy: none
+		sourceColumn: Representative
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 16a340c5-fa57-44c6-a27f-49fbfb3365a1
+		summarizeBy: none
+		sourceColumn: Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start Hour'
+		dataType: string
+		lineageTag: 587b1ca6-6581-480a-adb0-17b1b0f9fe6b
+		summarizeBy: none
+		sourceColumn: Start Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Finish Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 490afe4b-2648-4d74-82e8-35d227cf30d5
+		summarizeBy: none
+		sourceColumn: Finish Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Finish Hour'
+		dataType: string
+		lineageTag: 7193c71c-bd87-4762-8f8a-68dea839e3a9
+		summarizeBy: none
+		sourceColumn: Finish Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column Duration
+		dataType: int64
+		formatString: 0
+		lineageTag: 99719c59-2fb3-4da2-ba7d-2f5c4ca82ef7
+		summarizeBy: sum
+		sourceColumn: Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'In Training'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: b3bde6ce-e7da-46de-9ec1-2054ea2aaf42
+		summarizeBy: none
+		sourceColumn: In Training
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		lineageTag: d55093ff-ee23-40a4-a4f9-345f0a8c1821
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cancel Reason'
+		dataType: string
+		lineageTag: 726a90ce-1f39-4277-90ce-acc4ffc2b4d2
+		summarizeBy: none
+		sourceColumn: Cancel Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Store'
+		dataType: string
+		lineageTag: f4bb6d0d-daab-4a6a-9cb8-331bd1221b0b
+		summarizeBy: none
+		sourceColumn: Current Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Historical Store'
+		dataType: string
+		lineageTag: b702ef46-446c-4ecf-b23f-dd5c9f2781f9
+		summarizeBy: none
+		sourceColumn: Historical Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Territory'
+		dataType: string
+		lineageTag: cd8d7e1c-6e80-46cf-ae4b-cbfd6691351c
+		summarizeBy: none
+		sourceColumn: Current Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Historical Territory'
+		dataType: string
+		lineageTag: 55c14c2b-b141-48d9-9928-f8967ce60543
+		summarizeBy: none
+		sourceColumn: Historical Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: int64
+		formatString: 0
+		lineageTag: 6713946a-e91b-45ce-ab13-ba7936df9aa9
+		summarizeBy: sum
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Route
+		dataType: string
+		lineageTag: 844a9989-23c1-4b68-b6b3-018d2f7edae6
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Route Description'
+		dataType: string
+		lineageTag: 09e17f1d-d575-41ba-ae38-8645ad534608
+		summarizeBy: none
+		sourceColumn: Route Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source
+		dataType: string
+		lineageTag: ae202464-edb3-45cd-aa12-9b794ed702f4
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Archived Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: 5fbdefc6-ba18-4dc9-adbd-6113907177e2
+		summarizeBy: none
+		sourceColumn: Archived Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Deleted Date'
+		dataType: dateTime
+		formatString: Short Date
+		lineageTag: b66fcdd7-1720-4c0f-929b-59573aeba99a
+		summarizeBy: none
+		sourceColumn: Deleted Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Type
+		dataType: int64
+		formatString: 0
+		lineageTag: 0c6e93a5-ebcd-430e-92ff-c511fb120e16
+		summarizeBy: none
+		sourceColumn: Type
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fac_nonvisitactivity-bcc3397d-29d9-4143-b03d-e86422c754b4 = m
+		mode: import
+		queryGroup: 'Non-Visit Activities'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				    fac_nonvisitactivity = public{[Name="fac_nonvisitactivity"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(fac_nonvisitactivity,{"fac_nonvisitactivity","representative","startdate","starthour","finishdate","finishhour","duration","intraining","status","cancelreason","currentstore","historicalstore","currentterritory","historicalterritory","team","route","routedescription","source","archiveddate","deleteddate","type"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_nonvisitactivity", "Non Visit Activity"},{"representative", "Representative"},{"startdate", "Start Date"},{"starthour", "Start Hour"},{"finishdate", "Finish Date"},{"finishhour", "Finish Hour"},{"duration", "Duration"},{"intraining", "In Training"},{"status", "Status"},{"cancelreason", "Cancel Reason"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"team", "Team"},{"route", "Route"},{"routedescription", "Route Description"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"type", "Type"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Start Date] >= DateFilter)
+				in
+				    #"Filtered Rows"
+
+	annotation PBI_ResultType = Exception
+

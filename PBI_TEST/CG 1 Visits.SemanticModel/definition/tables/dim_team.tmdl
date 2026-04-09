@@ -1,0 +1,48 @@
+table dim_team
+	lineageTag: 7f6af279-3cd5-4cda-9571-92889fa56d93
+
+	column Dim_Team
+		dataType: int64
+		isNullable: false
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 14cf12ae-0d06-4857-9842-98592533828a
+		summarizeBy: sum
+		sourceColumn: Dim_Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column Name
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(150)
+		lineageTag: 5788cb71-4d05-4973-82d2-678bb4abac7f
+		summarizeBy: none
+		sourceColumn: Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Externalid
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 85cd530f-327b-429d-91ca-07871894ffae
+		summarizeBy: none
+		sourceColumn: Externalid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_team-a8ec8e82-d123-48ef-96e3-d636520419b8 = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_team1 = public{[Name="dim_team"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_team1,{"dim_team","name","externalid"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_team", "Dim_Team"},{"name", "Name"},{"externalid", "Externalid"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

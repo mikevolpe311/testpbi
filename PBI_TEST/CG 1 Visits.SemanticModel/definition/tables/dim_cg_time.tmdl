@@ -1,0 +1,36 @@
+table dim_cg_time
+	lineageTag: 189821cf-6051-4f1e-926a-8e46fb958225
+
+	calculationGroup
+		precedence: 1
+
+		calculationItem Current = CALCULATE(SELECTEDMEASURE(), DATESQTD('dim_date'[Dim_Date]))
+
+		calculationItem YTD = CALCULATE(SELECTEDMEASURE(), DATESYTD('dim_date'[Dim_Date],"30/6"))
+
+		calculationItem MAT = ```
+				CALCULATE(SELECTEDMEASURE(), 
+				DATESINPERIOD('dim_date'[Dim_Date],LASTDATE('dim_date'[Dim_Date]),-1,YEAR) 
+				)
+				
+				
+				```
+
+	column Time
+		dataType: string
+		lineageTag: b1f51a2b-834a-4567-976b-8e3f12820fa8
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: f1ef660c-674e-4ef7-a967-d39d3c6f358b
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

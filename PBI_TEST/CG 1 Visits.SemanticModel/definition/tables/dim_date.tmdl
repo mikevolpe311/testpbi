@@ -1,0 +1,243 @@
+table dim_date
+	lineageTag: e77e26f2-fcac-484f-a237-5d28df3538d4
+
+	column Dim_Date
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: 7ba1050d-7d4f-43c6-8cae-1da8acee2e56
+		summarizeBy: none
+		sourceColumn: Dim_Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d9840d1e-db9c-4dbd-afb6-ad6794164bca
+		summarizeBy: sum
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 60571459-5ac9-474f-9233-0bb24a45d1ac
+		summarizeBy: sum
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: acfe4d60-1e7b-4f7a-8a22-b967b0acc12b
+		summarizeBy: sum
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Week No'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 822b7360-dba7-4425-abbb-66fd24b6794c
+		summarizeBy: sum
+		sourceColumn: Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Year'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a4fddd9d-5b5c-417c-8351-a2d5b33d9e9d
+		summarizeBy: sum
+		sourceColumn: Alt Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Alt Week No'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 1b1bde9f-89c0-48e4-a5ec-5bb44279249a
+		summarizeBy: sum
+		sourceColumn: Alt Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column Season
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 3e5d67aa-25a9-4d86-a9d1-7bce8c2d720b
+		summarizeBy: none
+		sourceColumn: Season
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month Name' = FORMAT(DATE(1,[Month],1),"MMM")
+		lineageTag: bff92f1d-c001-4542-8305-8e4105327757
+		summarizeBy: none
+		sortByColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year'
+		dataType: int64
+		formatString: 0
+		lineageTag: 57bd9faa-49db-4564-9ed8-99dcfc260920
+		summarizeBy: sum
+		sourceColumn: Fiscal Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Quarter'
+		dataType: int64
+		formatString: 0
+		lineageTag: 7144ccb9-0c72-4825-a437-d2e67f5b25c8
+		summarizeBy: sum
+		sourceColumn: Fiscal Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Period'
+		dataType: int64
+		formatString: 0
+		lineageTag: 00f2c862-6adc-4e87-98b9-ce6a3d2a81b4
+		summarizeBy: sum
+		sourceColumn: Fiscal Period
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month'
+		dataType: int64
+		formatString: 0
+		lineageTag: e4cfda81-68e1-4daf-874d-0187da077321
+		summarizeBy: sum
+		sourceColumn: Fiscal Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Day'
+		dataType: int64
+		formatString: 0
+		lineageTag: 90731392-e1e1-44fc-8635-9979969966cf
+		summarizeBy: sum
+		sourceColumn: Fiscal Day
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Week No'
+		dataType: int64
+		formatString: 0
+		lineageTag: c8881dde-c31f-464d-bb3a-09dfaaf8f3e9
+		summarizeBy: sum
+		sourceColumn: Fiscal Week No
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Name' = FORMAT(DATE(1,dim_date[Month],1),"MMM")
+		lineageTag: cae9b6eb-8dbd-44db-9be7-97c869819755
+		summarizeBy: none
+		sortByColumn: 'Fiscal Month Ordering'
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Month Ordering' = (dim_date[Quarter]-1)*12+dim_date[Month]
+		formatString: 0
+		lineageTag: 7b2657cd-cffe-4e37-ba6e-290619154c03
+		summarizeBy: sum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fiscal Year Quarter' = ```
+			IF(or(isblank(dim_date[Season]),dim_date[Season]="") 
+							,IF(dim_date[Time Filter Selector]="Quarters",dim_date[Fiscal Year]&"-Q"&dim_date[Fiscal Quarter]
+							,IF(dim_date[Time Filter Selector]="Months",dim_date[Fiscal Year]&"-"&if(dim_date[Fiscal Quarter]<10,"0","")&dim_date[Fiscal Quarter]
+							,dim_date[Fiscal Year]&"-"&if(dim_date[Fiscal Quarter]<10,"0","")&dim_date[Fiscal Quarter]))
+							,dim_date[Season])
+			```
+		lineageTag: 720ec427-6b31-4038-a3d2-9aafdc9bf961
+		summarizeBy: none
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	column c1season
+		dataType: string
+		lineageTag: 9d791ca7-563a-4a85-bc02-8f5c40de8932
+		summarizeBy: none
+		sourceColumn: c1season
+
+		annotation SummarizationSetBy = Automatic
+
+	column c2season
+		dataType: string
+		lineageTag: c1dd1bad-449a-45c4-a640-3f8294167459
+		summarizeBy: none
+		sourceColumn: c2season
+
+		annotation SummarizationSetBy = Automatic
+
+	column dim_date_ly = dateadd(dim_date[Dim_Date],-364,DAY)
+		formatString: Short Date
+		lineageTag: 0fabba3d-1202-4a45-b657-13f4764786a4
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Time Filter Selector'
+		dataType: string
+		lineageTag: 48e3bd4b-b092-4e61-b337-ae83194a567b
+		summarizeBy: none
+		sourceColumn: Time Filter Selector
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Week = dim_date[Year]&"-"&if(dim_date[Week No]<10,"0")&dim_date[Week No]
+		lineageTag: a1eb83bf-14c6-4d80-ad3a-1fd066c98b95
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-Month = dim_date[Year]&"-"&if(dim_date[Month]<10,"0")&dim_date[Month]
+		lineageTag: d41f8f11-4208-40a6-a11f-360e3a024bc7
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column Year-MonthName = dim_date[Year]&"-"&dim_date[Month Name]
+		lineageTag: 832f81ae-b5ad-4009-8470-a772880604de
+		summarizeBy: none
+		sortByColumn: Year-Month
+
+		changedProperty = SortByColumn
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date-2fb7fb55-1c26-4825-b235-db93f3da85a8 = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				    dim_date1 = public{[Name="dim_date"]}[Data],
+				    #"Selected Columns" = Table.SelectColumns(dim_date1,{"dim_date", "calyear", "calquarter", "calmonth", "calweekno", "fyyear", "fyquarter", "fyperiod", "fymonth", "fyday", "fyweekno", "c1year", "c1weekno", "calseason", "c1season", "c2season"}),
+				    #"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_date", "Dim_Date"}, {"calyear", "Year"}, {"calquarter", "Quarter"}, {"calmonth", "Month"}, {"calweekno", "Week No"}, {"c1year", "Alt Year"}, {"c1weekno", "Alt Week No"}, {"calseason", "Season"}, {"fyyear", "Fiscal Year"}, {"fyquarter", "Fiscal Quarter"}, {"fyperiod", "Fiscal Period"}, {"fymonth", "Fiscal Month"}, {"fyday", "Fiscal Day"}, {"fyweekno", "Fiscal Week No"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Dim_Date] >= DateFilter and [Dim_Date] <= DateTime.Date( DateTime.LocalNow())),
+				    #"Added Custom" = Table.AddColumn(#"Filtered Rows", "Time Filter Selector", each #"Time Filter Selector")
+				in
+				    #"Added Custom"
+
+	annotation PBI_ResultType = Table
+

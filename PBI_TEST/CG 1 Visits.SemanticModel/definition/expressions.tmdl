@@ -1,0 +1,572 @@
+expression ServerName = "salesvanademo.cueuqdshq5ji.us-east-1.redshift.amazonaws.com" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 9203dc3e-6483-4176-afd4-4d02cc242d8c
+	queryGroup: Parameters
+
+	annotation PBI_ResultType = Text
+
+expression DatabaseName = "cgdemorelease1" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 44f995d6-4e81-4833-a63a-cb6836926d62
+	queryGroup: Parameters
+
+	annotation PBI_ResultType = Text
+
+/// Filter the Data down by Data
+expression DateFilter = #date(2022, 1, 1) meta [IsParameterQuery=true, Type="Date", IsParameterQueryRequired=true]
+	lineageTag: 984da1b3-c742-45c8-a539-3315d1f9028b
+	queryGroup: Parameters
+
+	annotation PBI_ResultType = Date
+
+expression 'Sample Query' = ```
+		let
+		    Source = Value.NativeQuery(AmazonRedshift.Database(ServerName, DatabaseName), 
+				"select 1 as ColumnName",
+				 null, [EnableFolding=true]),
+		     #"Selected Columns" = Table.SelectColumns(Source,{"columnname"})
+		in
+		    #"Selected Columns"
+		```
+	lineageTag: 3726cc0a-9cce-4cd1-916c-bb6a6472af93
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression dim_auditorder =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    dim_auditorder = public{[Name="dim_auditorder"]}[Data]
+		in
+		    dim_auditorder
+	lineageTag: 55ad16fb-af4a-4967-9591-d60e59704c20
+	queryGroup: 'Audit & Ranging'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Exception
+
+expression dim_adjustmentreason =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_adjustmentreason1 = public{[Name="dim_adjustmentreason"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_adjustmentreason1,{"dim_adjustmentreason","shortcode","description","externalid","archiveddate","deleteddate","listorder"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_adjustmentreason", "Adjustment Reason"},{"shortcode", "Short Code"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"listorder", "List Order"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 880839b8-59f4-4cda-8bb8-89399a5f89da
+	queryGroup: Orders
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression dim_auditscope =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_auditscope1 = public{[Name="dim_auditscope"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_auditscope1,{"dim_auditscope","listorder","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_auditscope", "Audit Scope"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 13ef9213-2f21-422c-9963-6c505c3a2159
+	queryGroup: 'Audit & Ranging'
+
+	annotation PBI_ResultType = Table
+
+expression dim_audittype =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_audittype1 = public{[Name="dim_audittype"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_audittype1,{"dim_audittype","listorder","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_audittype", "Audit Type"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 9f2aa03e-f3fa-4a55-a9a8-a28b6e4bd8e6
+	queryGroup: 'Audit & Ranging'
+
+	annotation PBI_ResultType = Table
+
+expression dim_ordersource =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_ordersource1 = public{[Name="dim_ordersource"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_ordersource1,{"dim_ordersource","listorder","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_ordersource", "Order Source"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 394c83d0-3b82-4908-aeaa-27af9cce5c46
+	queryGroup: Orders
+
+	annotation PBI_ResultType = Table
+
+expression dim_ordertype =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_ordertype1 = public{[Name="dim_ordertype"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_ordertype1,{"dim_ordertype","description","listorder","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_ordertype", "Order Type"},{"description", "Description"},{"listorder", "List Order"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 52837b18-6537-4eef-8816-629135e83ea1
+	queryGroup: Orders
+
+	annotation PBI_ResultType = Table
+
+expression dim_promoproductpack =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_promoproductpack1 = public{[Name="dim_promoproductpack"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_promoproductpack1,{"dim_promoproductpack","promotion","promodescription","productpack","listorder","dealtype","include","deleted","dealu1overbonusqtyconstraint","dealu2overbonusqtyconstraint","dealu3overbonusqtyconstraint","dealu1orderqtyconstraint","dealu2orderqtyconstraint","dealu3orderqtyconstraint","dealu1sampleqtyconstraint","dealu2sampleqtyconstraint","dealu3sampleqtyconstraint","caseoffdiscount","couponrebate","dealcaseprice","dmprice1","dmprice2","dmprice3","dmprice4","dmprice5","dealunitcost","promoprice","u1price","u2price","u3price","shelfprice","retailmargindollar","retailmarginperc","scanrebate","archiveddate","deleteddate","productpackname","historicalproductpack"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_promoproductpack", "Promo Product Pack"},{"promotion", "Promotion"},{"promodescription", "Promodescription"},{"productpack", "Productpack"},{"listorder", "List Order"},{"dealtype", "Deal Type"},{"include", "Include"},{"deleted", "Deleted"},{"dealu1overbonusqtyconstraint", "Deal U1 Over Bonus Qty Constraint"},{"dealu2overbonusqtyconstraint", "Deal U2 Over Bonus Qty Constraint"},{"dealu3overbonusqtyconstraint", "Deal U3 Over Bonus Qty Constraint"},{"dealu1orderqtyconstraint", "Deal U1 Order Qty Constraint"},{"dealu2orderqtyconstraint", "Deal U2 Order Qty Constraint"},{"dealu3orderqtyconstraint", "Deal U3 Order Qty Constraint"},{"dealu1sampleqtyconstraint", "Deal U1 Sample Qty Constraint"},{"dealu2sampleqtyconstraint", "Deal U2 Sample Qty Constraint"},{"dealu3sampleqtyconstraint", "Deal U3 Sample Qty Constraint"},{"caseoffdiscount", "Case Off Discount"},{"couponrebate", "Coupon Rebate"},{"dealcaseprice", "Deal Case Price"},{"dmprice1", "Dmprice1"},{"dmprice2", "Dmprice2"},{"dmprice3", "Dmprice3"},{"dmprice4", "Dmprice4"},{"dmprice5", "Dmprice5"},{"dealunitcost", "Deal Unit Cost"},{"promoprice", "Promo Price"},{"u1price", "U1Price"},{"u2price", "U2Price"},{"u3price", "U3Price"},{"shelfprice", "Shelf Price"},{"retailmargindollar", "Retail Margin Dollar"},{"retailmarginperc", "Retail Margin Perc"},{"scanrebate", "Scan Rebate"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"productpackname", "Product Pac Kname"},{"historicalproductpack", "Historical Produc Tpack"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: b193d18e-8acc-4bae-a4e3-fef1aaac5291
+	queryGroup: Promotions
+
+	annotation PBI_ResultType = Exception
+
+expression dim_promostore =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_promostore1 = public{[Name="dim_promostore"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_promostore1,{"dim_promostore","promotion","promodescription","store","storename","accepted","dmint1","dmint2","dmint3","dmint4","dmint5","visitactivitycreated","archiveddate","deleteddate","storeprimaryterritory","storeprimaryterritoryname","storeprimaryterritoryregion","storeprimaryterritoryregionname","storeprimaryterritoryrep","storeprimaryterritoryrepname","storeprimaryterritorysalesteam","storeprimaryterritorysalesteamname","storeprimaryterritoryteam","storeprimaryterritoryteamname","currentstore","historicalstore","isdcgroupquestion","activitystart","activityfinish"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_promostore", "Promo Store"},{"promotion", "Promotion"},{"promodescription", "Promo Description"},{"store", "Store"},{"storename", "Store Name"},{"accepted", "Accepted"},{"dmint1", "Dmint1"},{"dmint2", "Dmint2"},{"dmint3", "Dmint3"},{"dmint4", "Dmint4"},{"dmint5", "Dmint5"},{"visitactivitycreated", "Visit Activity Created"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"storeprimaryterritory", "Store Primary Territory"},{"storeprimaryterritoryname", "Store Primary Territory Name"},{"storeprimaryterritoryregion", "Store Primary Territory Region"},{"storeprimaryterritoryregionname", "Store Primary Territory Region Name"},{"storeprimaryterritoryrep", "Store Primary Territory Rep"},{"storeprimaryterritoryrepname", "Store Primary Territory Rep Name"},{"storeprimaryterritorysalesteam", "Store Primary Territory Sales Team"},{"storeprimaryterritorysalesteamname", "Store Primary Territory Sales Team Name"},{"storeprimaryterritoryteam", "Store Primary Territory Team"},{"storeprimaryterritoryteamname", "Store Primary Territory Team Name"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"isdcgroupquestion", "Is Dcgroup Question"},{"activitystart", "Activity Start"},{"activityfinish", "Activity Finish"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 09c82e30-c471-4b30-93f6-04110a478521
+	queryGroup: Promotions
+
+	annotation PBI_ResultType = Exception
+
+expression dim_promotion =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_promotion1 = public{[Name="dim_promotion"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_promotion1,{"dim_promotion","description","status","type","displaytype","start","finish","externalid","archiveddate","deleteddate","promoprodcategory","promoprodgroup","buyindate","buyenddate","promokeyaccount","promokeyaccountname","location","altlocation","deal","dealpricingtype","activitystart","activityfinish","dmnum1","dmnum2","dmnum3","dmnum4","dmnum5","dm1","dm2","dm3","dm4","dm5","teamnotes","technique"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_promotion", "Promotion"},{"description", "Description"},{"status", "Status"},{"type", "Type"},{"displaytype", "Display Type"},{"start", "Start"},{"finish", "Finish"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"promoprodcategory", "Promo Prod Category"},{"promoprodgroup", "Promo Prod Group"},{"buyindate", "Buy In Date"},{"buyenddate", "Buy End Date"},{"promokeyaccount", "Promo Keyaccount"},{"promokeyaccountname", "Promo Keyaccount Name"},{"location", "Location"},{"altlocation", "Alt Location"},{"deal", "Deal"},{"dealpricingtype", "Deal Pricing Type"},{"activitystart", "Activity Start"},{"activityfinish", "Activity Finish"},{"dmnum1", "Dmnum1"},{"dmnum2", "Dmnum2"},{"dmnum3", "Dmnum3"},{"dmnum4", "Dmnum4"},{"dmnum5", "Dmnum5"},{"dm1", "Dm1"},{"dm2", "Dm2"},{"dm3", "Dm3"},{"dm4", "Dm4"},{"dm5", "Dm5"},{"teamnotes", "Team Notes"},{"technique", "Technique"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: b93208a5-86a3-4281-bfa4-6b6792ee0ef7
+	queryGroup: Promotions
+
+	annotation PBI_ResultType = Exception
+
+expression dim_returnaction =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_returnaction1 = public{[Name="dim_returnaction"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_returnaction1,{"dim_returnaction","listorder","shortcode","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_returnaction", "Return Action"},{"listorder", "List Order"},{"shortcode", "Short Code"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 20623c92-0800-41bf-b23b-7117656c2c0e
+	queryGroup: Orders
+
+	annotation PBI_ResultType = Table
+
+expression dim_returnreason =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_returnreason1 = public{[Name="dim_returnreason"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_returnreason1,{"dim_returnreason","listorder","shortcode","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_returnreason", "Returnr Eason"},{"listorder", "List Order"},{"shortcode", "Shortcode"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 1b1895df-db40-44f6-839a-4b5cf27a55a5
+	queryGroup: Orders
+
+	annotation PBI_ResultType = Table
+
+expression dim_shelfprofile =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_shelfprofile1 = public{[Name="dim_shelfprofile"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_shelfprofile1,{"dim_shelfprofile","title","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_shelfprofile", "Shelf Profile"},{"title", "Title"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: a50416b5-636f-4a5c-9453-ad480606faf4
+	queryGroup: 'Shelf Profile'
+
+	annotation PBI_ResultType = Exception
+
+expression dim_shelfprofilelevel =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_shelfprofilelevel1 = public{[Name="dim_shelfprofilelevel"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_shelfprofilelevel1,{"dim_shelfprofilelevel","title","externalid","sequence","productbrand","productcategory","listorder","archiveddate","deleteddate","level","parentshelfprofilelevel","altproductcategory","altproductsegment","product","productsubcategory"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_shelfprofilelevel", "Shelf Profile Level"},{"title", "Title"},{"externalid", "External Id"},{"sequence", "Sequence"},{"productbrand", "Product Brand"},{"productcategory", "Product Category"},{"listorder", "List Order"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"level", "Level"},{"parentshelfprofilelevel", "Parent Shelf Profile Level"},{"altproductcategory", "Alt Product Category"},{"altproductsegment", "Alt Product Segment"},{"product", "Product"},{"productsubcategory", "Product Subcategory"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: fc78d85c-3028-4edf-bbae-feaa865f9840
+	queryGroup: 'Shelf Profile'
+
+	annotation PBI_ResultType = Exception
+
+expression fac_audit =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, [BatchSize=1000]),
+		    public = Source{[Name="public"]}[Data],
+		fac_audit1 = public{[Name="fac_audit"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_audit1,{"fac_audit", "auditdate", "audittype", "auditscope", "currentstore", "representative", "currentterritory", "team", "rangecheckkey", "currentproductpack", "historicalproductpack", "quantity", "shelfprice", "facings", "outofstock", "onpromotion", "ranged", "damaged", "openingstatus", "action", "resultingstatus", "authorizationstatus", "dmbit1", "dmbit2", "dmbit3", "dmbit4", "dmbit5", "instandard", "inassortment", "incompliance", "sopvalue", "sopdate", "sopid", "sopreasoncode", "sopactiondate", "sopaction1", "sopaction2", "sopaction3", "fac_auditflag", "plannedstartdate", "plannedfinishdate", "actualstartdate", "actualfinishdate", "type", "visitstatus", "visittype", "providervisitid", "providerrecordid", "providercategory", "providersegment1", "provideranalysisdate", "locationvisit"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_audit", "Audit"},{"auditdate", "Audit Date"},{"audittype", "Audit Type"},{"auditscope", "Audit Scope"},{"currentstore", "Current Store"},{"representative", "Representative"},{"currentterritory", "Current Territory"},{"team", "Team"},{"rangecheckkey", "Range Check Key"},{"currentproductpack", "Current Product Pack"},{"quantity", "Quantity"},{"shelfprice", "Shelf Price"},{"facings", "Facings"},{"outofstock", "Out Of Stock"},{"onpromotion", "On Promotion"},{"ranged", "Ranged"},{"damaged", "Damaged"},{"openingstatus", "Opening Status"},{"action", "Action"},{"resultingstatus", "Resulting Status"},{"authorizationstatus", "Authorization Status"},{"instandard", "In Standard Range"},{"inassortment", "In Assortment"},{"incompliance", "In Agreement"},{"sopvalue", "SOP Value"},{"sopdate", "SOP Date"},{"sopid", "SOP ID"},{"sopreasoncode", "SOP Reason Code"},{"sopactiondate", "SOP Action Date"},{"sopaction1", "SOP Action1"},{"sopaction2", "SOP Action2"},{"sopaction3", "SOP Action3"},{"locationvisit", "Location Visit"},{"fac_auditflag", "FAC_Audit Flag"},{"plannedstartdate", "Planned Start Date"},{"plannedfinishdate", "Planned Finish Date"},{"actualstartdate", "Actual Start Date"},{"actualfinishdate", "Actual Finish Date"},{"type", "Type"},{"visitstatus", "Visit Status"},{"visittype", "Visit Type"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Audit Date] >= DateFilter),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"Audit Date", "dim_date"}, {"Current Product Pack", "dim_productpack"}, {"Current Territory", "dim_territory"}, {"Current Store", "dim_store"}, {"historicalproductpack", "dim_productpack_hist"}, {"Location Visit", "dim_storevisit"}, {"Representative", "dim_representative"}})
+		in
+		    #"Renamed Columns1"
+	lineageTag: 671926dc-5e19-4b8c-bbbb-3054e26375ac
+	queryGroup: 'Audit & Ranging'
+
+	annotation PBI_ResultType = Table
+
+expression fac_orderdata =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		fac_orderdata1 = public{[Name="fac_orderdata"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_orderdata1,{"fac_orderdata","orderdate","representative","currentstore","historicalstore","team","currentterritory","historicalterritory","currentproductpack","historicalproductpack","replacementreason","returnreason","adjustmentreason","returnaction","ordersource","ordertype","replacedproduct","requesteddeliverydate","ordernumber","storeordernumber","invoicenumber","invoicedate","status","deliveryaddressstate","deliveryaddresscountry","deliveryaddresscity","deliveryaddresspostcode","deliverydate","lastdeliverydate","dsdroute","dsdroutedescription","source","u1orderquantity","u2orderquantity","u3orderquantity","u1bonusquantity","u2bonusquantity","u3bonusquantity","u1pickupquantity","u2pickupquantity","u3pickupquantity","u1manualdiscountvalue1","u2manualdiscountvalue1","u3manualdiscountvalue1","u1manualdiscountvalue2","u2manualdiscountvalue2","u3manualdiscountvalue2","u1discountvalue","u2discountvalue","u3discountvalue","u1listprice","u2listprice","u3listprice","u1netprice","u2netprice","u3netprice","tax","extendedlistprice","extendeddiscountprice","extendednetprice","u1onhandquantity","u2onhandquantity","u3onhandquantity","u1samplequantity","u2samplequantity","u3samplequantity","u1replacementquantity","u2replacementquantity","u3replacementquantity","tax1","tax2","tax3","u1overridediscount","u2overridediscount","u3overridediscount","u1overridebonusquantity","u2overridebonusquantity","u3overridebonusquantity","u1deliveredquantity","u2deliveredquantity","u3deliveredquantity","u1returnedquantity","u2returnedquantity","u3returnedquantity","u1returnprice","u2returnprice","u3returnprice","u1actualpickupquantity","u2actualpickupquantity","u3actualpickupquantity","u1ordersubquantity1","u2ordersubquantity1","u3ordersubquantity1","u1ordersubquantity2","u2ordersubquantity2","u3ordersubquantity2","u1ordersubquantity3","u2ordersubquantity3","u3ordersubquantity3","u1adjustmentquantity","u2adjustmentquantity","u3adjustmentquantity","u1acceptedquantity","u2acceptedquantity","u3acceptedquantity","u1backorderquantity","u2backorderquantity","u3backorderquantity","u1lastdeliveryquantity","u2lastdeliveryquantity","u3lastdeliveryquantity","dm_numeric1","dm_numeric2","dm_numeric3","dm_numeric4","dm_numeric5","archiveddate","deleteddate","ordersummary","locationvisit","u1stdorderquantity","u2stdorderquantity","u3stdorderquantity","stdorderquantity","u1stdbonusquantity","u2stdbonusquantity","u3stdbonusquantity","stdbonusquantity","u1stdpickupquantity","u2stdpickupquantity","u3stdpickupquantity","stdpickupquantity","u1stdonhandquantity","u2stdonhandquantity","u3stdonhandquantity","stdonhandquantity","u1stdsamplequantity","u2stdsamplequantity","u3stdsamplequantity","stdsamplequantity","u1stdreplacementquantity","u2stdreplacementquantity","u3stdreplacementquantity","stdreplacementquantity","u1stdoverridebonusquantity","u2stdoverridebonusquantity","u3stdoverridebonusquantity","stdoverridebonusquantity","u1stddeliveredquantity","u2stddeliveredquantity","u3stddeliveredquantity","stddeliveredquantity","u1stdreturnedquantity","u2stdreturnedquantity","u3stdreturnedquantity","stdreturnedquantity","u1stdactualpickupquantity","u2stdactualpickupquantity","u3stdactualpickupquantity","stdactualpickupquantity","u1stdordersubquantity1","u2stdordersubquantity1","u3stdordersubquantity1","stdordersubquantity1","u1stdordersubquantity2","u2stdordersubquantity2","u3stdordersubquantity2","stdordersubquantity2","u1stdordersubquantity3","u2stdordersubquantity3","u3stdordersubquantity3","stdordersubquantity3","u1stdadjustmentquantity","u2stdadjustmentquantity","u3stdadjustmentquantity","stdadjustmentquantity","u1stdacceptedquantity","u2stdacceptedquantity","u3stdacceptedquantity","stdacceptedquantity","u1stdbackorderquantity","u2stdbackorderquantity","u3stdbackorderquantity","stdbackorderquantity","u1stdlastdeliveryquantity","u2stdlastdeliveryquantity","u3stdlastdeliveryquantity","stdlastdeliveryquantity","promostore","promoproductpack","fac_orderdataflag","plannedstartdate","plannedfinishdate","actualstartdate","actualfinishdate","orderaveragecost","visitstatus","visittype","promotion"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_orderdata", "Order Data"},{"orderdate", "Order Date"},{"representative", "Representative"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"team", "Team"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"currentproductpack", "Current Product Pack"},{"historicalproductpack", "Historical Product Pack"},{"replacementreason", "Replacement Reason"},{"returnreason", "Return Reason"},{"adjustmentreason", "Adjustment Reason"},{"returnaction", "Return Action"},{"ordersource", "Order Source"},{"ordertype", "Order Type"},{"replacedproduct", "Replaced Product"},{"requesteddeliverydate", "Requested Delivery Date"},{"ordernumber", "Order Number"},{"storeordernumber", "Store Order Number"},{"invoicenumber", "Invoice Number"},{"invoicedate", "Invoice Date"},{"status", "Status"},{"deliveryaddressstate", "Delivery Address State"},{"deliveryaddresscountry", "Delivery Address Country"},{"deliveryaddresscity", "Delivery Address City"},{"deliveryaddresspostcode", "Delivery Post Code"},{"deliverydate", "Delivery Date"},{"lastdeliverydate", "Last Delivery Date"},{"dsdroute", "DSD Route"},{"dsdroutedescription", "DSD Route Description"},{"source", "Source"},{"u1orderquantity", "U1 Order Quantity"},{"u2orderquantity", "U2 Order Quantity"},{"u3orderquantity", "U3 Order Quantity"},{"u1bonusquantity", "U1 Bonus Quantity"},{"u2bonusquantity", "U2 Bonus Quantity"},{"u3bonusquantity", "U3 Bonus Quantity"},{"u1pickupquantity", "U1 Pickup Quantity"},{"u2pickupquantity", "U2 Pickup Quantity"},{"u3pickupquantity", "U3 Pickup Quantity"},{"u1manualdiscountvalue1", "U1 Manual Discount Value1"},{"u2manualdiscountvalue1", "U2 Manual Discount Value1"},{"u3manualdiscountvalue1", "U3 Manual Discount Value1"},{"u1manualdiscountvalue2", "U1 Manual Discount Value2"},{"u2manualdiscountvalue2", "U2 Manual Discount Value2"},{"u3manualdiscountvalue2", "U3 Manual Discount Value2"},{"u1discountvalue", "U1 Discount Value"},{"u2discountvalue", "U2 Discount Value"},{"u3discountvalue", "U3 Discount Value"},{"u1listprice", "U1 List Price"},{"u2listprice", "U2 List Price"},{"u3listprice", "U3 List Price"},{"u1netprice", "U1 Net Price"},{"u2netprice", "U2 Net Price"},{"u3netprice", "U3 Net Price"},{"tax", "Tax"},{"extendedlistprice", "Extended List Price"},{"extendeddiscountprice", "Extended Discount Price"},{"extendednetprice", "Extended Net Price"},{"u1onhandquantity", "U1 On Hand Quantity"},{"u2onhandquantity", "U2 On Hand Quantity"},{"u3onhandquantity", "U3 On Hand Quantity"},{"u1samplequantity", "U1 Sample Quantity"},{"u2samplequantity", "U2 Sample Quantity"},{"u3samplequantity", "U3 Sample Quantity"},{"u1replacementquantity", "U1 Replacement Quantity"},{"u2replacementquantity", "U2 Replacement Quantity"},{"u3replacementquantity", "U3 Replacement Quantity"},{"tax1", "Tax1"},{"tax2", "Tax2"},{"tax3", "Tax3"},{"u1overridediscount", "U1 Override Discount"},{"u2overridediscount", "U2 Override Discount"},{"u3overridediscount", "U3 Override Discount"},{"u1overridebonusquantity", "U1 Override Bonus Quantity"},{"u2overridebonusquantity", "U2 Override Bonus Quantity"},{"u3overridebonusquantity", "U3 Override Bonus Quantity"},{"u1deliveredquantity", "U1 Delivered Quantity"},{"u2deliveredquantity", "U2 Delivered Quantity"},{"u3deliveredquantity", "U3 Delivered Quantity"},{"u1returnedquantity", "U1 Returned Quantity"},{"u2returnedquantity", "U2 Returned Quantity"},{"u3returnedquantity", "U3 Returned Quantity"},{"u1returnprice", "U1 Return Price"},{"u2returnprice", "U2 Return Price"},{"u3returnprice", "U3 Return Price"},{"u1actualpickupquantity", "U1 Actual Pickup Quantity"},{"u2actualpickupquantity", "U2 Actual Pickup Quantity"},{"u3actualpickupquantity", "U3 Actual Pickup Quantity"},{"u1ordersubquantity1", "U1 Order Sub Quantity1"},{"u2ordersubquantity1", "U2 Order Sub Quantity1"},{"u3ordersubquantity1", "U3 Order Sub Quantity1"},{"u1ordersubquantity2", "U1 Order Sub Quantity2"},{"u2ordersubquantity2", "U2 Order Sub Quantity2"},{"u3ordersubquantity2", "U3 Order Sub Quantity2"},{"u1ordersubquantity3", "U1 Order Sub Quantity3"},{"u2ordersubquantity3", "U2 Order Sub Quantity3"},{"u3ordersubquantity3", "U3 Order Sub Quantity3"},{"u1adjustmentquantity", "U1 Adjustment Quantity"},{"u2adjustmentquantity", "U2 Adjustment Quantity"},{"u3adjustmentquantity", "U3 Adjustment Quantity"},{"u1acceptedquantity", "U1 Accepted Quantity"},{"u2acceptedquantity", "U2 Accepted Quantity"},{"u3acceptedquantity", "U3 Accepted Quantity"},{"u1backorderquantity", "U1 Back Order Quantity"},{"u2backorderquantity", "U2 Back Order Quantity"},{"u3backorderquantity", "U3 Back Order Quantity"},{"u1lastdeliveryquantity", "U1 Last Delivery Quantity"},{"u2lastdeliveryquantity", "U2 Last Delivery Quantity"},{"u3lastdeliveryquantity", "U3 Last Delivery Quantity"},{"dm_numeric1", "DM_Numeric1"},{"dm_numeric2", "DM_Numeric2"},{"dm_numeric3", "DM_Numeric3"},{"dm_numeric4", "DM_Numeric4"},{"dm_numeric5", "DM_Numeric5"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"ordersummary", "Order Summary"},{"locationvisit", "Location Visit"},{"u1stdorderquantity", "U1 Std Order Quantity"},{"u2stdorderquantity", "U2 Std Order Quantity"},{"u3stdorderquantity", "U3 Std Order Quantity"},{"stdorderquantity", "Std Order Quantity"},{"u1stdbonusquantity", "U1 Std Bonus Quantity"},{"u2stdbonusquantity", "U2 Std Bonus Quantity"},{"u3stdbonusquantity", "U3 Std Bonus Quantity"},{"stdbonusquantity", "Std Bonus Quantity"},{"u1stdpickupquantity", "U1 Std Pickup Quantity"},{"u2stdpickupquantity", "U2 Std Pickup Quantity"},{"u3stdpickupquantity", "U3 Std Pickup Quantity"},{"stdpickupquantity", "Std Pickup Quantity"},{"u1stdonhandquantity", "U1 Std On Hand Quantity"},{"u2stdonhandquantity", "U2 Std On Hand Quantity"},{"u3stdonhandquantity", "U3 Std On Hand Quantity"},{"stdonhandquantity", "Std On Hand Quantity"},{"u1stdsamplequantity", "U1 Std Sample Quantity"},{"u2stdsamplequantity", "U2 Std Sample Quantity"},{"u3stdsamplequantity", "U3 Std Sample Quantity"},{"stdsamplequantity", "Std Sample Quantity"},{"u1stdreplacementquantity", "U1 Std Replacement Quantity"},{"u2stdreplacementquantity", "U2 Std Replacement Quantity"},{"u3stdreplacementquantity", "U3 Std Replacement Quantity"},{"stdreplacementquantity", "Std Replacement Quantity"},{"u1stdoverridebonusquantity", "U1 Std Override Bonus Quantity"},{"u2stdoverridebonusquantity", "U2 Std Override Bonus Quantity"},{"u3stdoverridebonusquantity", "U3 Std Override Bonus Quantity"},{"stdoverridebonusquantity", "Std Override Bonus Quantity"},{"u1stddeliveredquantity", "U1 Std Delivered Quantity"},{"u2stddeliveredquantity", "U2 Std Delivered Quantity"},{"u3stddeliveredquantity", "U3 Std Delivered Quantity"},{"stddeliveredquantity", "Std Delivered Quantity"},{"u1stdreturnedquantity", "U1 Std Returned Quantity"},{"u2stdreturnedquantity", "U2 Std Returned Quantity"},{"u3stdreturnedquantity", "U3 Std Returned Quantity"},{"stdreturnedquantity", "Std Returned Quantity"},{"u1stdactualpickupquantity", "U1 Std Actual Pickup Quantity"},{"u2stdactualpickupquantity", "U2 Std Actual Pickup Quantity"},{"u3stdactualpickupquantity", "U3 Std Actual Pickup Quantity"},{"stdactualpickupquantity", "Std Actual Pickup Quantity"},{"u1stdordersubquantity1", "U1 Std Order Sub Quantity1"},{"u2stdordersubquantity1", "U2 Std Order Sub Quantity1"},{"u3stdordersubquantity1", "U3 Std Order Sub Quantity1"},{"stdordersubquantity1", "Std Order Sub Quantity1"},{"u1stdordersubquantity2", "U1 Std Order Sub Quantity2"},{"u2stdordersubquantity2", "U2 Std Order Sub Quantity2"},{"u3stdordersubquantity2", "U3 Std Order Sub Quantity2"},{"stdordersubquantity2", "Std Order Sub Quantity2"},{"u1stdordersubquantity3", "U1 Std Order Sub Quantity3"},{"u2stdordersubquantity3", "U2 Std Order Sub Quantity3"},{"u3stdordersubquantity3", "U3 Std Order Sub Quantity3"},{"stdordersubquantity3", "Std Order Sub Quantity3"},{"u1stdadjustmentquantity", "U1 Std Adjustment Quantity"},{"u2stdadjustmentquantity", "U2 Std Adjustment Quantity"},{"u3stdadjustmentquantity", "U3 Std Adjustment Quantity"},{"stdadjustmentquantity", "Std Adjustment Quantity"},{"u1stdacceptedquantity", "U1 Std Accepted Quantity"},{"u2stdacceptedquantity", "U2 Std Accepted Quantity"},{"u3stdacceptedquantity", "U3 Std Accepted Quantity"},{"stdacceptedquantity", "Std Accepted Quantity"},{"u1stdbackorderquantity", "U1 Std Back Order Quantity"},{"u2stdbackorderquantity", "U2 Std Back Order Quantity"},{"u3stdbackorderquantity", "U3 Std Back Order Quantity"},{"stdbackorderquantity", "Std Back Order Quantity"},{"u1stdlastdeliveryquantity", "U1 Std Last Delivery Quantity"},{"u2stdlastdeliveryquantity", "U2 Std Last Delivery Quantity"},{"u3stdlastdeliveryquantity", "U3 Std Last Delivery Quantity"},{"stdlastdeliveryquantity", "Std Last Delivery Quantity"},{"promostore", "Promo Store"},{"promoproductpack", "Promo Product Pack"},{"fac_orderdataflag", "FAC_OrderData Flag"},{"plannedstartdate", "Planned Start Date"},{"plannedfinishdate", "Planned Finish Date"},{"actualstartdate", "Actual Start Date"},{"actualfinishdate", "Actual Finish Date"},{"orderaveragecost", "Order Average Cost"},{"visitstatus", "Visit Status"},{"visittype", "Visit Type"},{"promotion", "Promotion"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Order Date] >= DateFilter),
+		    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"Current Store", "dim_store"}, {"Historical Store", "dim_store_hist"}, {"Order Date", "dim_date"}})
+		in
+		    #"Renamed Columns1"
+	lineageTag: 34ceab23-db1c-49b4-95b3-5493f3922420
+	queryGroup: Orders
+
+	annotation PBI_ResultType = Exception
+
+expression fac_ordersummary =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		fac_ordersummary1 = public{[Name="fac_ordersummary"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_ordersummary1,{"fac_ordersummary","orderdate","representative","currentstore","historicalstore","currentterritory","historicalterritory","team","ordersource","ordertype","requesteddeliverydate","ordernumber","storeordernumber","invoicenumber","invoicedate","status","deliveryaddressstate","deliveryaddresscountry","deliveryaddresscity","deliveryaddresspostcode","deliverydate","blockedorderreason1","blockedorderreason2","payment2type","payment3type","payment1type","dsdroute","dsdroutedescription","nooforderlines","totallowerorderqty","headerdiscount","headerdiscountvalue","totallistprice","totaldiscvalue","totalnetvalue","totaltax","totaldnetvalue","totaldtax","totalorder","u1totalorderqty","u2totalorderqty","u3totalorderqty","u1totalbonusqty","u2totalbonusqty","u3totalbonusqty","u1totalsampleqty","u2totalsampleqty","u3totalsampleqty","u1totalreplacementqty","u2totalreplacementqty","u3totalreplacementqty","u1totalpickupreturnqty","u2totalpickupreturnqty","u3totalpickupreturnqty","u1totalpickupreplacedqty","u2totalpickupreplacedqty","u3totalpickupreplacedqty","totalorderweight","totalorderweightmeasure","totalordervolume","totalordervolumemeasure","u1totalbonusentitlement","u2totalbonusentitlement","u3totalbonusentitlement","payment1amount","payment2amount","payment3amount","totalpayment","dm_numeric1","dm_numeric2","dm_numeric3","dm_numeric4","dm_numeric5","source","archiveddate","deleteddate","locationvisit","u1stdtotalorderqty","u2stdtotalorderqty","u3stdtotalorderqty","stdtotalorderqty","u1stdtotalbonusqty","u2stdtotalbonusqty","u3stdtotalbonusqty","stdtotalbonusqty","u1stdtotalsampleqty","u2stdtotalsampleqty","u3stdtotalsampleqty","stdtotalsampleqty","u1stdtotalreplacementqty","u2stdtotalreplacementqty","u3stdtotalreplacementqty","stdtotalreplacementqty","u1stdtotalpickupreturnqty","u2stdtotalpickupreturnqty","u3stdtotalpickupreturnqty","stdtotalpickupreturnqty","u1stdtotalpickupreplacedqty","u2stdtotalpickupreplacedqty","u3stdtotalpickupreplacedqty","stdtotalpickupreplacedqty","fac_ordersummaryflag","promostore","plannedstartdate","plannedfinishdate","actualstartdate","actualfinishdate","visitstatus","visittype","promotion"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_ordersummary", "Order Summary"},{"orderdate", "Order Date"},{"representative", "Representative"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"team", "Team"},{"ordersource", "Order Source"},{"ordertype", "Order Type"},{"requesteddeliverydate", "Requested Delivery Date"},{"ordernumber", "Order Number"},{"storeordernumber", "Store Order Number"},{"invoicenumber", "Invoice Number"},{"invoicedate", "Invoice Date"},{"status", "Status"},{"deliveryaddressstate", "Delivery Address State"},{"deliveryaddresscountry", "Delivery Address Country"},{"deliveryaddresscity", "Delivery Address City"},{"deliveryaddresspostcode", "Delivery Address Post Code"},{"deliverydate", "Delivery Date"},{"blockedorderreason1", "Blocked Order Reason1"},{"blockedorderreason2", "Blocked Order Reason2"},{"payment2type", "Payment Type 2"},{"payment3type", "Payment Type 3"},{"payment1type", "Payment Type 1"},{"dsdroute", "DSD Route"},{"dsdroutedescription", "DSDRoute Description"},{"nooforderlines", "No Of Order Lines"},{"totallowerorderqty", "Total Lower Order Qty"},{"headerdiscount", "Header Discount"},{"headerdiscountvalue", "Header Discount Value"},{"totallistprice", "Total List Price"},{"totaldiscvalue", "Total Disc Value"},{"totalnetvalue", "Total Net Value"},{"totaltax", "Total Tax"},{"totaldnetvalue", "Total DNet Value"},{"totaldtax", "Total DTax"},{"totalorder", "Total Order"},{"u1totalorderqty", "U1 Total Order Qty"},{"u2totalorderqty", "U2 Total Order Qty"},{"u3totalorderqty", "U3 Total Order Qty"},{"u1totalbonusqty", "U1 Total Bonus Qty"},{"u2totalbonusqty", "U2 Total Bonus Qty"},{"u3totalbonusqty", "U3 Total Bonus Qty"},{"u1totalsampleqty", "U1 Total Sample Qty"},{"u2totalsampleqty", "U2 Total Sample Qty"},{"u3totalsampleqty", "U3 Total Sample Qty"},{"u1totalreplacementqty", "U1 Total Replacement Qty"},{"u2totalreplacementqty", "U2 Total Replacement Qty"},{"u3totalreplacementqty", "U3 Total Replacement Qty"},{"u1totalpickupreturnqty", "U1 Total Pickup Return Qty"},{"u2totalpickupreturnqty", "U2 Total Pickup Return Qty"},{"u3totalpickupreturnqty", "U3 Total Pickup Return Qty"},{"u1totalpickupreplacedqty", "U1 Total Pickup Replaced Qty"},{"u2totalpickupreplacedqty", "U2 Total Pickup Replaced Qty"},{"u3totalpickupreplacedqty", "U3 Total Pickup Replaced Qty"},{"totalorderweight", "Total Order Weight"},{"totalorderweightmeasure", "Total Order Weight Measure"},{"totalordervolume", "Total Order Volume"},{"totalordervolumemeasure", "Total Order Volume Measure"},{"u1totalbonusentitlement", "U1 Total Bonus Entitlement"},{"u2totalbonusentitlement", "U2 Total Bonus Entitlement"},{"u3totalbonusentitlement", "U3 Total Bonus Entitlement"},{"payment1amount", "Payment1 Amount"},{"payment2amount", "Payment2 Amount"},{"payment3amount", "Payment3 Amount"},{"totalpayment", "Total Payment"},{"dm_numeric1", "DM_Numeric1"},{"dm_numeric2", "DM_Numeric2"},{"dm_numeric3", "DM_Numeric3"},{"dm_numeric4", "DM_Numeric4"},{"dm_numeric5", "DM_Numeric5"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"locationvisit", "Location Visit"},{"u1stdtotalorderqty", "U1 Std Total Order Qty"},{"u2stdtotalorderqty", "U2 Std Total Order Qty"},{"u3stdtotalorderqty", "U3 Std Total Order Qty"},{"stdtotalorderqty", "Std Total Order Qty"},{"u1stdtotalbonusqty", "U1 Std Total Bonus Qty"},{"u2stdtotalbonusqty", "U2 Std Total Bonus Qty"},{"u3stdtotalbonusqty", "U3 Std Total Bonus Qty"},{"stdtotalbonusqty", "Std Total Bonus Qty"},{"u1stdtotalsampleqty", "U1 Std Total Sample Qty"},{"u2stdtotalsampleqty", "U2 Std Total Sample Qty"},{"u3stdtotalsampleqty", "U3 Std Total Sample Qty"},{"stdtotalsampleqty", "Std Total Sample Qty"},{"u1stdtotalreplacementqty", "U1 Std Total Replacement Qty"},{"u2stdtotalreplacementqty", "U2 Std Total Replacement Qty"},{"u3stdtotalreplacementqty", "U3 Std Total Replacement Qty"},{"stdtotalreplacementqty", "Std Total Replacement Qty"},{"u1stdtotalpickupreturnqty", "U1 Std Total Pickup Return Qty"},{"u2stdtotalpickupreturnqty", "U2 Std Total Pickup Return Qty"},{"u3stdtotalpickupreturnqty", "U3 Std Total Pickup Return Qty"},{"stdtotalpickupreturnqty", "Std Total Pickup Return Qty"},{"u1stdtotalpickupreplacedqty", "U1 Std Total Pickup Replaced Qty"},{"u2stdtotalpickupreplacedqty", "U2 Std Total Pickup Replaced Qty"},{"u3stdtotalpickupreplacedqty", "U3 Std Total Pickup Replaced Qty"},{"stdtotalpickupreplacedqty", "Std Total Pickup Replaced Qty"},{"fac_ordersummaryflag", "FAC_OrderSummary Flag"},{"promostore", "Promo Store"},{"plannedstartdate", "Planned Start Date"},{"plannedfinishdate", "Planned Finish Date"},{"actualstartdate", "Actual Start Date"},{"actualfinishdate", "Actual Finish Date"},{"visitstatus", "Visit Status"},{"visittype", "Visit Type"},{"promotion", "Promotion"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Order Date] >= DateFilter)
+		in
+		    #"Filtered Rows"
+	lineageTag: c3fb8000-2ca9-49f1-8a58-04706346537d
+	queryGroup: Orders
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression fac_shelfprofiletrans =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    #"Table" = public{[Name="fac_shelfprofiletrans"]}[Data],
+		    #"Selected Columns" = Table.SelectColumns(#"Table",{"fac_shelfprofiletrans","calldate","locationvisit","currentstore","historicalstore","currentterritory","historicalterritory","profileset","representative","shelflevel","value1","value2","value3","value4","value5","value6","value7","value8","value9","value10","value11","value12","value13","value14","value15","value16","value17","value18","value19","value20","source","archiveddate","deleteddate","plannedstartdate","plannedfinishdate","actualstartdate","actualfinishdate","type","fac_shelfprofiletransflag","visitstatus","visittype","providervisitid","providerrecordid","providercategory","providersegment1","provideranalysisdate","dmproviderint1","dmproviderint2","dmproviderint3","dmproviderint4","dmproviderint5","dmproviderint6","dmproviderint7","dmproviderint8","dmproviderint9","dmproviderint10","dmprovidernum1","dmprovidernum2","dmprovidernum3","dmprovidernum4","dmprovidernum5","dmproviderbit1","dmproviderbit2","dmproviderbit3","dmproviderbit4","dmproviderbit5","dmproviderdata1","dmproviderdata2","dmproviderdata3","dmproviderdata4","dmproviderdata5"}),
+		    #"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_shelfprofiletrans", "Shelf Profile Trans"},{"calldate", "Call Date"},{"locationvisit", "Location Visit"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"profileset", "Profile Set"},{"representative", "Representative"},{"shelflevel", "Shelf Level"},{"value1", "Value1"},{"value2", "Value2"},{"value3", "Value3"},{"value4", "Value4"},{"value5", "Value5"},{"value6", "Value6"},{"value7", "Value7"},{"value8", "Value8"},{"value9", "Value9"},{"value10", "Value10"},{"value11", "Value11"},{"value12", "Value12"},{"value13", "Value13"},{"value14", "Value14"},{"value15", "Value15"},{"value16", "Value16"},{"value17", "Value17"},{"value18", "Value18"},{"value19", "Value19"},{"value20", "Value20"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"plannedstartdate", "Planned Start Date"},{"plannedfinishdate", "Planned Finish Date"},{"actualstartdate", "Actual Start Date"},{"actualfinishdate", "Actual Finish Date"},{"type", "Type"},{"fac_shelfprofiletransflag", "FAC_ShelfProfileTrans Flag"},{"visitstatus", "Visit Status"},{"visittype", "Visit Type"},{"providervisitid", "Provider Visit ID"},{"providerrecordid", "Provider Record ID"},{"providercategory", "Provider Category"},{"providersegment1", "Provider Segment1"},{"provideranalysisdate", "Provider Analysis Date"},{"dmproviderint1", "DM Provider Int 1"},{"dmproviderint2", "DM Provider Int 2"},{"dmproviderint3", "DM Provider Int 3"},{"dmproviderint4", "DM Provider Int 4"},{"dmproviderint5", "DM Provider Int 5"},{"dmproviderint6", "DM Provider Int 6"},{"dmproviderint7", "DM Provider Int 7"},{"dmproviderint8", "DM Provider Int 8"},{"dmproviderint9", "DM Provider Int 9"},{"dmproviderint10", "DM Provider Int 10"},{"dmprovidernum1", "DM Provider Num 1"},{"dmprovidernum2", "DM Provider Num 2"},{"dmprovidernum3", "DM Provider Num 3"},{"dmprovidernum4", "DM Provider Num 4"},{"dmprovidernum5", "DM Provider Num 5"},{"dmproviderbit1", "DM Provider Bit 1"},{"dmproviderbit2", "DM Provider Bit 2"},{"dmproviderbit3", "DM Provider Bit 3"},{"dmproviderbit4", "DM Provider Bit 4"},{"dmproviderbit5", "DM Provider Bit 5"},{"dmproviderdata1", "DM Provider Data 1"},{"dmproviderdata2", "DM Provider Data 2"},{"dmproviderdata3", "DM Provider Data 3"},{"dmproviderdata4", "DM Provider Data 4"},{"dmproviderdata5", "DM Provider Data 5"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Call Date] >= #"DateFilter")
+		in
+		    #"Filtered Rows"
+	lineageTag: a7566942-f2c1-4933-b7b4-fab88e0724c1
+	queryGroup: 'Shelf Profile'
+
+	annotation PBI_ResultType = Exception
+
+expression dim_question =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    dim_question = public{[Name="dim_question"]}[Data]
+		in
+		    dim_question
+	lineageTag: 9289433f-d2a8-44f3-846a-22cecafb25cc
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Exception
+
+expression dim_answervalue =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    dim_answervalue = public{[Name="dim_answervalue"]}[Data],
+		    #"Renamed Columns" = Table.RenameColumns(dim_answervalue,{{"questionkey", "dim_question"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: e9324034-f700-4ec4-add6-dc174165980c
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Exception
+
+expression fac_task =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    fac_task = public{[Name="fac_task"]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(fac_task, each [asatdate] >= #"DateFilter"),
+		    #"Renamed Columns" = Table.RenameColumns( #"Filtered Rows",{{"answereddate", "dim_date"}, {"currentproductpack", "dim_productpack"}, {"currentterritory", "dim_territory"}, {"activity", "dim_activity"}, {"currentstore", "dim_store"}, {"historicalstore", "dim_store_hist"}, {"historicalterritory", "dim_territory_hist"}, {"promostore", "dim_promostore"}, {"promoproductpack", "dim_promoproductpack"}, {"answervalue", "dim_answervalue"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: fe46dfde-3c70-414c-b0a5-4c92e5e46a68
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Exception
+
+expression dim_activity =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    #"table" = public{[Name="dim_activity"]}[Data]
+		in
+		    table
+	lineageTag: e6ea5d50-1f1c-48e1-a7aa-ad911c4c0cd1
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression fac_surveyanswer =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    fac_surveyanswer = public{[Name="fac_surveyanswer"]}[Data],
+		    #"Filtered Rows" = Table.SelectRows(fac_surveyanswer, each [asatdate] >= DateFilter)
+		in
+		    #"Filtered Rows"
+	lineageTag: 2e9972d2-3b90-4546-831d-399cafb1d559
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Table
+
+expression dim_questiongroup =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		    dim_questiongroup1 = public{[Name="dim_questiongroup"]}[Data]
+		in
+		    dim_questiongroup1
+	lineageTag: 4e6c3290-c6d5-4b98-8d48-d21a38819961
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Exception
+
+expression dim_ranginggroup =
+		let
+		    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i45W8s9TCCjKz80vyczPU9JRCgBiQ6VYnWglzzyF4JLEvJTEohSgWDCyuGNxcX5RSW5qXglQ1LEYRSq9KDUVJpMOkYkFAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [#"Ranging Group" = _t, #"Ranging Group Filter" = _t, #"Ranging Group Value" = _t]),
+		    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Ranging Group", type text}, {"Ranging Group Filter", type text}, {"Ranging Group Value", Int64.Type}})
+		in
+		    #"Changed Type"
+	lineageTag: 68bca51a-4efd-40b2-a6f3-57830c46ff91
+	queryGroup: 'Tasks & Surveys'
+
+	annotation PBI_ResultType = Table
+
+expression fac_scandata =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null)
+		    ,public = Source{[Name="public"]}[Data]
+		    ,#"Table" = public{[Name="fac_scandata"]}[Data]
+		    ,#"Selected Columns" = Table.SelectColumns(Table,{"fac_scandata", "scandatadate", "currentstore", "historicalstore", "currentproductpack", "historicalproductpack", "scandataactualvolume", "scandataactualsales", "source", "currentterritory", "historicalterritory", "dmnum1", "dmnum2", "dmnum3", "dmnum4", "dmnum5", "dmnum6"})
+		    ,#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_scandata","fac_scandata"},{"scandatadate", "dim_date"}, {"currentproductpack", "dim_productpack"}, {"historicalproductpack", "dim_productpack_hist"}, {"currentterritory", "dim_territory"}, {"currentstore", "dim_store"}, {"historicalstore", "dim_store_hist"}, {"historicalterritory", "dim_territory_hist"}})
+		    ,#"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [dim_date] >= #"DateFilter")
+		in
+		    #"Filtered Rows"
+	lineageTag: b70f7b63-3bd1-4f10-8350-cdec1d3cc6f0
+	queryGroup: Sales
+
+	annotation PBI_ResultType = Exception
+
+expression dim_source =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null)
+		    ,public = Source{[Name="public"]}[Data]
+		    ,#"Table" = public{[Name="dim_source"]}[Data]
+		    ,#"Selected Columns" = Table.SelectColumns(Table,{"dim_source", "listorder", "name"})
+		    ,#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_source","dim_source"}})
+		    //,#"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [dim_date] >= #"DateFilter")
+		in
+		    #"Renamed Columns"
+	lineageTag: 53b51851-96ad-451e-b722-b8612f5ad436
+	queryGroup: Sales
+
+	annotation PBI_ResultType = Exception
+
+expression fac_route =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null)
+		    ,public = Source{[Name="public"]}[Data]
+		    ,#"Table" = public{[Name="fac_route"]}[Data]
+		    ,#"Selected Columns" = Table.SelectColumns(Table,{"fac_route", "currentterritory", "historicalterritory", "createdby", "loader", "assembler", "downloadedby", "startedby", "endedby", "startdate", "enddate", "actualstartdate", "actualenddate", "initialloaddate", "downloadeddate", "team", "routevehicle", "routegroup", "routeid", "routetype", "routedescription", "externalid", "cashadvance", "cashbalance", "calculatedcashbalance", "cashcarriedforward", "inventoryvaluevariance", "odometerstart", "odometerend", "distancetravelled", "numvisits", "numcompletedvisits", "numnotcompletedvisits", "numroutevendors", "totalroutevendortax", "totalroutevendorpaid", "numinventories", "numorders", "numoforderlines", "totalorderqty", "totalordernetvalue", "totalordertax", "totalorder", "totalorderpayment", "numnonvisits", "numtransactions", "totaltransactionamount", "totaltransactionbalance", "numrequestedloads", "totalrequestedloadstax", "totalrequestedloadspaid", "numreportedto", "totalreportedtonetvalue", "totalreportedtotax", "totalreportedtopaid", "numreassignedvisits", "numcompletedreassignedvisits", "numnotcompletedreassignedvisits", "numcheckreports", "totalcheckreportvariance", "totalcheckreportpaid", "checkreportvariance", "checkreportunsaleablevariance", "numbankdeposits", "totalcashbanked", "totalnoncashbanked", "numadditionalloads", "numpayments", "totalpaymentamount", "totalallocatedamount", "totalunallocatedamount", "dm1", "dm2", "dm3", "dm4", "dm5", "dmnum1", "dmnum2", "dmnum3", "dmnum4", "dmnum5", "dmbit1", "dmbit2", "dmbit3", "dmbit4", "dmbit5", "dmdate1", "dmdate2", "dmdate3", "dmdate4", "dmdate5", "archiveddate", "deleteddate", "totalrequestedloadsnetvalue", "totaladditionalloadspaid", "totaladditionalloadstax", "totaladditionalloadsnetvalue", "totalroutevendornetvalue", "routestatus", "source"})
+		    ,#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_route","fac_route"}})
+		    ,#"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [startdate]>= #"DateFilter")
+		in
+		    #"Filtered Rows"
+	lineageTag: f77fe687-7166-4ac4-b824-e3c53461be1b
+	queryGroup: Route
+
+	annotation PBI_ResultType = Exception
+
+expression fac_routeinventory =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null)
+		    ,public = Source{[Name="public"]}[Data]
+		    ,#"Table" = public{[Name="fac_routeinventory"]}[Data]
+		    ,#"Selected Columns" = Table.SelectColumns(Table,{"fac_routeinventory", "currentproductpack", "historicalproductpack", "addedby", "route", "u1", "u1std", "u2", "u2std", "u3", "u3std", "u1unsaleable", "u1stdunsaleable", "u2unsaleable", "u2stdunsaleable", "u3unsaleable", "u3stdunsaleable", "u1start", "u1stdstart", "u2start", "u2stdstart", "u3start", "u3stdstart", "u1unsaleablestart", "u1stdunsaleablestart", "u2unsaleablestart", "u2stdunsaleablestart", "u3unsaleablestart", "u3stdunsaleablestart", "u1prevbal", "u1stdprevbal", "u2prevbal", "u2stdprevbal", "u3prevbal", "u3stdprevbal", "u1unsaleableprevbal", "u1stdunsaleableprevbal", "u2unsaleableprevbal", "u2stdunsaleableprevbal", "u3unsaleableprevbal", "u3stdunsaleableprevbal", "u1locn", "u2locn", "u3locn", "u1committed", "u1stdcommitted", "u2committed", "u2stdcommitted", "u3committed", "u3stdcommitted", "u1unsaleablecommitted", "u1stdunsaleablecommitted", "u2unsaleablecommitted", "u2stdunsaleablecommitted", "u3unsaleablecommitted", "u3stdunsaleablecommitted", "u1opening", "u1stdopening", "u2opening", "u2stdopening", "u3opening", "u3stdopening", "u1unsaleableopening", "u1stdunsaleableopening", "u2unsaleableopening", "u2stdunsaleableopening", "u3unsaleableopening", "u3stdunsaleableopening", "u1closing", "u1stdclosing", "u2closing", "u2stdclosing", "u3closing", "u3stdclosing", "u1unsaleableclosing", "u1stdunsaleableclosing", "u2unsaleableclosing", "u2stdunsaleableclosing", "u3unsaleableclosing", "u3stdunsaleableclosing", "u1available", "u1stdavailable", "u2available", "u2stdavailable", "u3available", "u3stdavailable", "archiveddate", "deleteddate", "source"})
+		    ,#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_routeinventory","fac_routeinventory"}})
+		    //,#"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [dim_date] >= #"DateFilter")
+		in
+		    #"Renamed Columns"
+	lineageTag: cd27fc6c-5b4d-476d-9b29-07bf5ef4571b
+	queryGroup: Route
+
+	annotation PBI_ResultType = Exception
+
+expression fac_routeinventorytrans =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null)
+		    ,public = Source{[Name="public"]}[Data]
+		    ,#"Table" = public{[Name="fac_routeinventorytrans"]}[Data]
+		    ,#"Selected Columns" = Table.SelectColumns(Table,{"fac_routeinventorytrans", "addedby", "routeinventory", "ordersummary", "u1unsaleabletranqty", "trantype", "u1tranqty", "u2tranqty", "u3tranqty", "u2unsaleabletranqty", "u3unsaleabletranqty", "route", "additionalload", "source"})
+		    ,#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_routeinventorytrans","fac_routeinventorytrans"}})
+		    //,#"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [dim_date] >= #"DateFilter")
+		in
+		    #"Renamed Columns"
+	lineageTag: f012f4f8-e161-4729-93ea-cf50c7f6e9af
+	queryGroup: Route
+
+	annotation PBI_ResultType = Exception
+
+expression dim_displaytype =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_displaytype1 = public{[Name="dim_displaytype"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_displaytype1,{"dim_displaytype","listorder","description","externalid","archiveddate","deleteddate","equivalence","size"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_displaytype", "Display Type"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"equivalence", "Equivalence"},{"size", "Size"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: acc3d981-aabc-4daf-8800-0319b6c1f8b9
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression dim_displayitem =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_displayitem1 = public{[Name="dim_displayitem"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_displayitem1,{"dim_displayitem","listorder","description","externalid","grouplistorder","groupdescription","groupexternalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_displayitem", "Display Item"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"grouplistorder", "Group List Order"},{"groupdescription", "Group Description"},{"groupexternalid", "Group External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 45bebed0-b29d-4c01-8474-f3ea8e4a622e
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression dim_displaylocation =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_displaylocation1 = public{[Name="dim_displaylocation"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_displaylocation1,{"dim_displaylocation","listorder","description","externalid","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_displaylocation", "Display Location"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 7652e116-500c-48dd-9ceb-a49ef0293798
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression dim_displaystatus =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_displaystatus1 = public{[Name="dim_displaystatus"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_displaystatus1,{"dim_displaystatus","listorder","description","externalid","isup","archiveddate","deleteddate"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_displaystatus", "Display Status"},{"listorder", "List Order"},{"description", "Description"},{"externalid", "External Id"},{"isup", "Is Up"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: c2520ab0-b444-4c26-8df4-aa12a028b38b
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression dim_displaysubtype =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		dim_displaysubtype1 = public{[Name="dim_displaysubtype"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(dim_displaysubtype1,{"dim_displaysubtype","description","listorder","externalid","displaytype"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_displaysubtype", "Display Subtype"},{"description", "Description"},{"listorder", "List Order"},{"externalid", "External Id"},{"displaytype", "Display Type"}})
+		in
+		    #"Renamed Columns"
+	lineageTag: 661388e2-f9de-4ab7-8179-616be20256bb
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression fac_displayitem =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		fac_displayitem1 = public{[Name="fac_displayitem"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_displayitem1,{"fac_displayitem","asatdate","displayitem","displayid","location","title","status","type","currentstore","historicalstore","currentterritory","historicalterritory","calldate","representative","startdate","finishdate","daysup","productbrand","productcategory","team","reportinggroup","value1","dm1","dm2","dm3","dm4","dm5","dm6","dm7","dm8","dm9","dm10","dm11","dm12","dm13","dm14","dm15","dm16","dm17","dm18","dm19","dm20","dm21","dm22","dm23","dm24","dm25","dm26","dm27","dm28","dm29","dm30","dm31","dm32","dm33","dm34","dm35","dm36","dm37","dm38","dm39","dm40","dm41","dm42","dm43","dm44","dm45","dm46","dm47","dm48","dm49","dm50","dmbit1","dmbit2","dmbit3","dmbit4","dmbit5","dmbit6","dmbit7","dmbit8","dmbit9","dmbit10","dmbit11","dmbit12","dmbit13","dmbit14","dmbit15","dmbit16","dmbit17","dmbit18","dmbit19","dmbit20","dmnum1","dmnum2","dmnum3","dmnum4","dmnum5","dmnum6","dmnum7","dmnum8","dmnum9","dmnum10","dmdate1","dmdate2","dmdate3","dmdate4","dmdate5","dmdate6","dmdate7","dmdate8","dmdate9","dmdate10","source","archiveddate","deleteddate","lastupdated","productcategory2","productcategory3","productbrand2","productbrand3","promotion","promostore","dml1","dml2","dml3","dml4","dml5"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_displayitem", "DisplayItem"},{"asatdate", "As At Date"},{"displayitem", "Display Item"},{"displayid", "Display ID"},{"location", "Location"},{"title", "Title"},{"status", "Status"},{"type", "Type"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"calldate", "Call Date"},{"representative", "Representative"},{"startdate", "Start Date"},{"finishdate", "Finish Date"},{"daysup", "Days Up"},{"productbrand", "Product Brand"},{"productcategory", "Product Category"},{"team", "Team"},{"reportinggroup", "Reporting Group"},{"value1", "Value1"},{"dm1", "DM1"},{"dm2", "DM2"},{"dm3", "DM3"},{"dm4", "DM4"},{"dm5", "DM5"},{"dm6", "DM6"},{"dm7", "DM7"},{"dm8", "DM8"},{"dm9", "DM9"},{"dm10", "DM10"},{"dm11", "DM11"},{"dm12", "DM12"},{"dm13", "DM13"},{"dm14", "DM14"},{"dm15", "DM15"},{"dm16", "DM16"},{"dm17", "DM17"},{"dm18", "DM18"},{"dm19", "DM19"},{"dm20", "DM20"},{"dm21", "DM21"},{"dm22", "DM22"},{"dm23", "DM23"},{"dm24", "DM24"},{"dm25", "DM25"},{"dm26", "DM26"},{"dm27", "DM27"},{"dm28", "DM28"},{"dm29", "DM29"},{"dm30", "DM30"},{"dm31", "DM31"},{"dm32", "DM32"},{"dm33", "DM33"},{"dm34", "DM34"},{"dm35", "DM35"},{"dm36", "DM36"},{"dm37", "DM37"},{"dm38", "DM38"},{"dm39", "DM39"},{"dm40", "DM40"},{"dm41", "DM41"},{"dm42", "DM42"},{"dm43", "DM43"},{"dm44", "DM44"},{"dm45", "DM45"},{"dm46", "DM46"},{"dm47", "DM47"},{"dm48", "DM48"},{"dm49", "DM49"},{"dm50", "DM50"},{"dmbit1", "DMBit1"},{"dmbit2", "DMBit2"},{"dmbit3", "DMBit3"},{"dmbit4", "DMBit4"},{"dmbit5", "DMBit5"},{"dmbit6", "DMBit6"},{"dmbit7", "DMBit7"},{"dmbit8", "DMBit8"},{"dmbit9", "DMBit9"},{"dmbit10", "DMBit10"},{"dmbit11", "DMBit11"},{"dmbit12", "DMBit12"},{"dmbit13", "DMBit13"},{"dmbit14", "DMBit14"},{"dmbit15", "DMBit15"},{"dmbit16", "DMBit16"},{"dmbit17", "DMBit17"},{"dmbit18", "DMBit18"},{"dmbit19", "DMBit19"},{"dmbit20", "DMBit20"},{"dmnum1", "DMNum1"},{"dmnum2", "DMNum2"},{"dmnum3", "DMNum3"},{"dmnum4", "DMNum4"},{"dmnum5", "DMNum5"},{"dmnum6", "DMNum6"},{"dmnum7", "DMNum7"},{"dmnum8", "DMNum8"},{"dmnum9", "DMNum9"},{"dmnum10", "DMNum10"},{"dmdate1", "DMDate1"},{"dmdate2", "DMDate2"},{"dmdate3", "DMDate3"},{"dmdate4", "DMDate4"},{"dmdate5", "DMDate5"},{"dmdate6", "DMDate6"},{"dmdate7", "DMDate7"},{"dmdate8", "DMDate8"},{"dmdate9", "DMDate9"},{"dmdate10", "DMDate10"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"lastupdated", "Last Updated"},{"productcategory2", "Product Category2"},{"productcategory3", "Product Category3"},{"productbrand2", "Product Brand2"},{"productbrand3", "Product Brand3"},{"promotion", "Promotion"},{"promostore", "Promo Store"},{"dml1", "DML1"},{"dml2", "DML2"},{"dml3", "DML3"},{"dml4", "DML4"},{"dml5", "DML5"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Start Date] >= #date(2022, 5, 1))
+		in
+		    #"Filtered Rows"
+	lineageTag: 6ef83678-1540-4066-b640-6888ca45fc58
+	queryGroup: Displays
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
+expression fac_displaytrans =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		fac_displaytrans1 = public{[Name="fac_displaytrans"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_displaytrans1,{"fac_displaytrans","locationvisit","currentstore","historicalstore","currentterritory","historicalterritory","id","location","productbrand","productbrand2","productbrand3","productcategory","productcategory2","productcategory3","promotion","reportinggroup","representative","startdate","finishdate","status","team","title","type","daysup","dm1","dm2","dm3","dm4","dm5","dm6","dm7","dm8","dm9","dm10","dm11","dm12","dm13","dm14","dm15","dm16","dm17","dm18","dm19","dm20","dm21","dm22","dm23","dm24","dm25","dm26","dm27","dm28","dm29","dm30","dm31","dm32","dm33","dm34","dm35","dm36","dm37","dm38","dm39","dm40","dm41","dm42","dm43","dm44","dm45","dm46","dm47","dm48","dm49","dm50","dmbit1","dmbit2","dmbit3","dmbit4","dmbit5","dmbit6","dmbit7","dmbit8","dmbit9","dmbit10","dmbit11","dmbit12","dmbit13","dmbit14","dmbit15","dmbit16","dmbit17","dmbit18","dmbit19","dmbit20","dmnum1","dmnum2","dmnum3","dmnum4","dmnum5","dmnum6","dmnum7","dmnum8","dmnum9","dmnum10","dmdate1","dmdate2","dmdate3","dmdate4","dmdate5","dmdate6","dmdate7","dmdate8","dmdate9","dmdate10","archiveddate","deleteddate","source","calldate","productbrandcode","productcategorycode","productbrand2code","productcategory2code","productbrand3code","productcategory3code","promostore","dml1","dml2","dml3","dml4","dml5","plannedstartdate","plannedfinishdate","actualstartdate","actualfinishdate","fac_displaytransflag","visitstatus","visittype","productsubcategory","productsubcategory2","productsubcategory3","subtype"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_displaytrans", "Display Trans"},{"locationvisit", "Location Visit"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"id", "ID"},{"location", "Location"},{"productbrand", "Product Brand"},{"productbrand2", "Product Brand2"},{"productbrand3", "Product Brand3"},{"productcategory", "Product Category"},{"productcategory2", "Product Category2"},{"productcategory3", "Product Category3"},{"promotion", "Promotion"},{"reportinggroup", "Reporting Group"},{"representative", "Representative"},{"startdate", "Start Date"},{"finishdate", "Finish Date"},{"status", "Status"},{"team", "Team"},{"title", "Title"},{"type", "Type"},{"daysup", "Days Up"},{"dm1", "DM1"},{"dm2", "DM2"},{"dm3", "DM3"},{"dm4", "DM4"},{"dm5", "DM5"},{"dm6", "DM6"},{"dm7", "DM7"},{"dm8", "DM8"},{"dm9", "DM9"},{"dm10", "DM10"},{"dm11", "DM11"},{"dm12", "DM12"},{"dm13", "DM13"},{"dm14", "DM14"},{"dm15", "DM15"},{"dm16", "DM16"},{"dm17", "DM17"},{"dm18", "DM18"},{"dm19", "DM19"},{"dm20", "DM20"},{"dm21", "DM21"},{"dm22", "DM22"},{"dm23", "DM23"},{"dm24", "DM24"},{"dm25", "DM25"},{"dm26", "DM26"},{"dm27", "DM27"},{"dm28", "DM28"},{"dm29", "DM29"},{"dm30", "DM30"},{"dm31", "DM31"},{"dm32", "DM32"},{"dm33", "DM33"},{"dm34", "DM34"},{"dm35", "DM35"},{"dm36", "DM36"},{"dm37", "DM37"},{"dm38", "DM38"},{"dm39", "DM39"},{"dm40", "DM40"},{"dm41", "DM41"},{"dm42", "DM42"},{"dm43", "DM43"},{"dm44", "DM44"},{"dm45", "DM45"},{"dm46", "DM46"},{"dm47", "DM47"},{"dm48", "DM48"},{"dm49", "DM49"},{"dm50", "DM50"},{"dmbit1", "DMBit1"},{"dmbit2", "DMBit2"},{"dmbit3", "DMBit3"},{"dmbit4", "DMBit4"},{"dmbit5", "DMBit5"},{"dmbit6", "DMBit6"},{"dmbit7", "DMBit7"},{"dmbit8", "DMBit8"},{"dmbit9", "DMBit9"},{"dmbit10", "DMBit10"},{"dmbit11", "DMBit11"},{"dmbit12", "DMBit12"},{"dmbit13", "DMBit13"},{"dmbit14", "DMBit14"},{"dmbit15", "DMBit15"},{"dmbit16", "DMBit16"},{"dmbit17", "DMBit17"},{"dmbit18", "DMBit18"},{"dmbit19", "DMBit19"},{"dmbit20", "DMBit20"},{"dmnum1", "DMNum1"},{"dmnum2", "DMNum2"},{"dmnum3", "DMNum3"},{"dmnum4", "DMNum4"},{"dmnum5", "DMNum5"},{"dmnum6", "DMNum6"},{"dmnum7", "DMNum7"},{"dmnum8", "DMNum8"},{"dmnum9", "DMNum9"},{"dmnum10", "DMNum10"},{"dmdate1", "DMDate1"},{"dmdate2", "DMDate2"},{"dmdate3", "DMDate3"},{"dmdate4", "DMDate4"},{"dmdate5", "DMDate5"},{"dmdate6", "DMDate6"},{"dmdate7", "DMDate7"},{"dmdate8", "DMDate8"},{"dmdate9", "DMDate9"},{"dmdate10", "DMDate10"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"source", "Source"},{"calldate", "Call Date"},{"productbrandcode", "Product Brand Code"},{"productcategorycode", "Product Category Code"},{"productbrand2code", "Product Brand2 Code"},{"productcategory2code", "Product Category2 Code"},{"productbrand3code", "Product Brand3 Code"},{"productcategory3code", "Product Category3 Code"},{"promostore", "Promo Store"},{"dml1", "DML1"},{"dml2", "DML2"},{"dml3", "DML3"},{"dml4", "DML4"},{"dml5", "DML5"},{"plannedstartdate", "Planned Start Date"},{"plannedfinishdate", "Planned Finish Date"},{"actualstartdate", "Actual Start Date"},{"actualfinishdate", "Actual Finish Date"},{"fac_displaytransflag", "FAC_DisplayTrans Flag"},{"visitstatus", "VisitStatus"},{"visittype", "Visit Type"},{"productsubcategory", "Product Sub Category"},{"productsubcategory2", "Product Sub Category 2"},{"productsubcategory3", "Product Sub Category 3"},{"subtype", "Sub Type"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Start Date] >= DateFilter)
+		in
+		    #"Filtered Rows"
+	lineageTag: b645d1ee-ba75-499c-81ba-98fd57ba57f3
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+expression fac_display =
+		let
+		    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+		    public = Source{[Name="public"]}[Data],
+		fac_display1 = public{[Name="fac_display"]}[Data],
+		#"Selected Columns" = Table.SelectColumns(fac_display1,{"fac_display","asatdate","id","location","title","status","type","currentstore","historicalstore","currentterritory","historicalterritory","calldate","representative","startdate","finishdate","daysup","productbrand","team","reportinggroup","dm1","dm2","dm3","dm4","dm5","dm6","dm7","dm8","dm9","dm10","dm11","dm12","dm13","dm14","dm15","dm16","dm17","dm18","dm19","dm20","dm21","dm22","dm23","dm24","dm25","dm26","dm27","dm28","dm29","dm30","dm31","dm32","dm33","dm34","dm35","dm36","dm37","dm38","dm39","dm40","dm41","dm42","dm43","dm44","dm45","dm46","dm47","dm48","dm49","dm50","dmbit1","dmbit2","dmbit3","dmbit4","dmbit5","dmbit6","dmbit7","dmbit8","dmbit9","dmbit10","dmbit11","dmbit12","dmbit13","dmbit14","dmbit15","dmbit16","dmbit17","dmbit18","dmbit19","dmbit20","dmnum1","dmnum2","dmnum3","dmnum4","dmnum5","dmnum6","dmnum7","dmnum8","dmnum9","dmnum10","dmdate1","dmdate2","dmdate3","dmdate4","dmdate5","dmdate6","dmdate7","dmdate8","dmdate9","dmdate10","source","archiveddate","deleteddate","lastupdated","productbrand2","productbrand3","promotion","productbrandcode","productcategorycode","productbrand2code","productcategory2code","productbrand3code","productcategory3code","promostore","dml1","dml2","dml3","dml4","dml5","productcategory","productcategory2","productcategory3","productsubcategory","productsubcategory2","productsubcategory3","subtype"}),
+		#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_display", "Display"},{"asatdate", "As At Date"},{"id", "ID"},{"location", "Location"},{"title", "Title"},{"status", "Status"},{"type", "Type"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"calldate", "Call Date"},{"representative", "Representative"},{"startdate", "Start Date"},{"finishdate", "Finish Date"},{"daysup", "Days Up"},{"productbrand", "Product Brand"},{"team", "Team"},{"reportinggroup", "Reporting Group"},{"dm1", "DM1"},{"dm2", "DM2"},{"dm3", "DM3"},{"dm4", "DM4"},{"dm5", "DM5"},{"dm6", "DM6"},{"dm7", "DM7"},{"dm8", "DM8"},{"dm9", "DM9"},{"dm10", "DM10"},{"dm11", "DM11"},{"dm12", "DM12"},{"dm13", "DM13"},{"dm14", "DM14"},{"dm15", "DM15"},{"dm16", "DM16"},{"dm17", "DM17"},{"dm18", "DM18"},{"dm19", "DM19"},{"dm20", "DM20"},{"dm21", "DM21"},{"dm22", "DM22"},{"dm23", "DM23"},{"dm24", "DM24"},{"dm25", "DM25"},{"dm26", "DM26"},{"dm27", "DM27"},{"dm28", "DM28"},{"dm29", "DM29"},{"dm30", "DM30"},{"dm31", "DM31"},{"dm32", "DM32"},{"dm33", "DM33"},{"dm34", "DM34"},{"dm35", "DM35"},{"dm36", "DM36"},{"dm37", "DM37"},{"dm38", "DM38"},{"dm39", "DM39"},{"dm40", "DM40"},{"dm41", "DM41"},{"dm42", "DM42"},{"dm43", "DM43"},{"dm44", "DM44"},{"dm45", "DM45"},{"dm46", "DM46"},{"dm47", "DM47"},{"dm48", "DM48"},{"dm49", "DM49"},{"dm50", "DM50"},{"dmbit1", "DMBit1"},{"dmbit2", "DMBit2"},{"dmbit3", "DMBit3"},{"dmbit4", "DMBit4"},{"dmbit5", "DMBit5"},{"dmbit6", "DMBit6"},{"dmbit7", "DMBit7"},{"dmbit8", "DMBit8"},{"dmbit9", "DMBit9"},{"dmbit10", "DMBit10"},{"dmbit11", "DMBit11"},{"dmbit12", "DMBit12"},{"dmbit13", "DMBit13"},{"dmbit14", "DMBit14"},{"dmbit15", "DMBit15"},{"dmbit16", "DMBit16"},{"dmbit17", "DMBit17"},{"dmbit18", "DMBit18"},{"dmbit19", "DMBit19"},{"dmbit20", "DMBit20"},{"dmnum1", "DMNum1"},{"dmnum2", "DMNum2"},{"dmnum3", "DMNum3"},{"dmnum4", "DMNum4"},{"dmnum5", "DMNum5"},{"dmnum6", "DMNum6"},{"dmnum7", "DMNum7"},{"dmnum8", "DMNum8"},{"dmnum9", "DMNum9"},{"dmnum10", "DMNum10"},{"dmdate1", "DMDate1"},{"dmdate2", "DMDate2"},{"dmdate3", "DMDate3"},{"dmdate4", "DMDate4"},{"dmdate5", "DMDate5"},{"dmdate6", "DMDate6"},{"dmdate7", "DMDate7"},{"dmdate8", "DMDate8"},{"dmdate9", "DMDate9"},{"dmdate10", "DMDate10"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"lastupdated", "Last Updated"},{"productbrand2", "Product Brand2"},{"productbrand3", "Product Brand3"},{"promotion", "Promotion"},{"productbrandcode", "Product Brand Code"},{"productcategorycode", "Product Category Code"},{"productbrand2code", "Product Brand2 Code"},{"productcategory2code", "Product Category2 Code"},{"productbrand3code", "Product Brand3 Code"},{"productcategory3code", "Product Category3 Code"},{"promostore", "Promo Store"},{"dml1", "DML1"},{"dml2", "DML2"},{"dml3", "DML3"},{"dml4", "DML4"},{"dml5", "DML5"},{"productcategory", "Product Category"},{"productcategory2", "Product Category2"},{"productcategory3", "Product Category3"},{"productsubcategory", "Product Sub Category"},{"productsubcategory2", "Product Sub Category 2"},{"productsubcategory3", "Product Sub Category 3"},{"subtype", "Sub Type"}}),
+		    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [As At Date] >= DateFilter)
+		in
+		    #"Filtered Rows"
+	lineageTag: 9d778663-a474-4878-b563-474dd96e3170
+	queryGroup: Displays
+
+	annotation PBI_ResultType = Table
+
+/// # of Periods per year
+/// 4 - Quater level filtering
+/// 12 - Month Level Filtering
+/// 13 - Period Level Filtering
+expression 'Time Filter Selector' = "Quarters" meta [IsParameterQuery=true, List={"Quarters", "Months", "12 Periods", "13 Periods"}, DefaultValue="Quarters", Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 89503673-b8fa-46f4-a887-5772e21da0ab
+
+	annotation PBI_ResultType = Text
+

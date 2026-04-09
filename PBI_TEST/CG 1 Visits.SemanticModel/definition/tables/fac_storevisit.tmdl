@@ -1,0 +1,1788 @@
+/// View of Visits in Model DMG
+table fac_storevisit
+	lineageTag: e9db849e-afc4-4e1a-9f35-554107bde425
+
+	column 'Store Visit'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 84e067aa-cecd-44e3-9fe4-aa029f30fd50
+		summarizeBy: none
+		sourceColumn: Store Visit
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: d62f4e72-da38-4c40-9ae0-e6ec4725c219
+		summarizeBy: none
+		sourceColumn: Actual Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Actual Start Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 314c7e4e-829c-4789-a74f-66eb42b446c5
+		summarizeBy: none
+		sourceColumn: Actual Start Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Actual Duration'
+		dataType: int64
+		formatString: 0.0
+		sourceProviderType: int
+		lineageTag: c583d038-a51b-4850-a0f1-e927e212f75b
+		summarizeBy: average
+		sourceColumn: Actual Duration
+
+		annotation SummarizationSetBy = User
+
+	column Representative
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: f04be33b-d6be-42f9-8db1-092b0a297660
+		summarizeBy: none
+		sourceColumn: Representative
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Store'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 22849cd0-b409-4663-a888-d884a6e89172
+		summarizeBy: none
+		sourceColumn: Current Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Historical Store'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 9d623191-0a27-4543-80a6-8fff4bc852bd
+		summarizeBy: none
+		sourceColumn: Historical Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 6a901ee2-bafd-43f8-b33a-b361cc7a0029
+		summarizeBy: sum
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Current Territory'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: b9d73a23-c633-4453-aba5-448925541688
+		summarizeBy: none
+		sourceColumn: Current Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Historical Territory'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 0d558655-c8ff-4b7e-ae45-10c58bc05e0d
+		summarizeBy: none
+		sourceColumn: Historical Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Visit Cancel Reason'
+		dataType: string
+		sourceProviderType: nvarchar(15)
+		lineageTag: f4b0b6e0-93fe-4441-a059-8b0e5e383315
+		summarizeBy: none
+		sourceColumn: Visit Cancel Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Visit Type'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: c2f3ead9-3931-436b-bb25-e840786c3c57
+		summarizeBy: none
+		sourceColumn: Visit Type
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Created By'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 8663ce0a-a47b-4998-a669-a5fe6019c073
+		summarizeBy: none
+		sourceColumn: Created By
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: dc3a1afd-00e2-416b-80b8-76ab33c0e56b
+		summarizeBy: none
+		sourceColumn: Review Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Review Start Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 956406ee-2256-4050-9cc8-74c9701bf3e7
+		summarizeBy: none
+		sourceColumn: Review Start Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Duration'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7e332e7c-79a1-4d50-9702-ebc450084fd7
+		summarizeBy: sum
+		sourceColumn: Review Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Distance From Store'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: bb8ebc0b-e220-44d0-8827-9aafd226d9cb
+		summarizeBy: sum
+		sourceColumn: Distance From Store
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Store Visit External ID'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 958dec8d-f1c4-4211-8866-63c107ced2d5
+		summarizeBy: none
+		sourceColumn: Store Visit External ID
+
+		annotation SummarizationSetBy = Automatic
+
+	column Status
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 35e2b57a-a395-4142-b549-bacd2f1059f5
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scheduled Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: fe3fd340-96d9-4e6a-8a31-2ff926f4f934
+		summarizeBy: none
+		sourceColumn: Scheduled Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Scheduled Start Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 39d1709c-fe27-4a9d-ab54-9a922f99595d
+		summarizeBy: none
+		sourceColumn: Scheduled Start Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scheduled Duration'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 916ec794-8dfb-4659-8fc3-a08b6811535c
+		summarizeBy: sum
+		sourceColumn: Scheduled Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scheduled Call'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 2ef6e1af-8d4c-4951-9096-fcd5ca6a58a2
+		summarizeBy: none
+		sourceColumn: Scheduled Call
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planned Start Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: a9ccb55e-56be-4b06-83aa-cf9c7c86df97
+		summarizeBy: none
+		sourceColumn: Planned Start Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Planned Start Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 90e963c9-68cb-4bb3-bf01-a1fbd3172d18
+		summarizeBy: none
+		sourceColumn: Planned Start Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planned Duration'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 99cef8b2-88be-4123-94d0-94406b7705b6
+		summarizeBy: sum
+		sourceColumn: Planned Duration
+
+		annotation SummarizationSetBy = Automatic
+
+	column Route
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 55387c61-0ab2-410e-b4da-c959faf2c9e6
+		summarizeBy: none
+		sourceColumn: Route
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Route Description'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 9bdef9b9-eac0-42b1-a217-844e32976c8b
+		summarizeBy: none
+		sourceColumn: Route Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Source
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 1563968b-2915-402c-90fa-a0218a75bc19
+		summarizeBy: none
+		sourceColumn: Source
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Archived Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: c83f1d07-689b-47de-b47b-22427198ec61
+		summarizeBy: none
+		sourceColumn: Archived Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Deleted Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: fa7f56db-d90b-406c-84b9-ce170efe1a5a
+		summarizeBy: none
+		sourceColumn: Deleted Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Completed Orders'
+		dataType: int64
+		lineageTag: b22e1433-325d-4213-abc5-b58ccda5a283
+		summarizeBy: sum
+		sourceColumn: Completed Orders
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Line Items'
+		dataType: int64
+		lineageTag: 1f879c84-1750-439b-abde-7753801f284d
+		summarizeBy: sum
+		sourceColumn: Total Line Items
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Gross'
+		dataType: double
+		sourceProviderType: decimal(15, 5)
+		lineageTag: 52999b6b-713b-472b-a485-5d0235467c0f
+		summarizeBy: sum
+		sourceColumn: Total Gross
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Discount Value'
+		dataType: double
+		sourceProviderType: decimal(15, 5)
+		lineageTag: b9eb2d44-0676-42c1-81b3-d4b2cf6e20e8
+		summarizeBy: sum
+		sourceColumn: Total Discount Value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Net'
+		dataType: double
+		sourceProviderType: decimal(15, 5)
+		lineageTag: e3187634-7545-4a42-9ce5-474c6917a69f
+		summarizeBy: sum
+		sourceColumn: Total Net
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Payment'
+		dataType: double
+		sourceProviderType: decimal(15, 5)
+		lineageTag: eef539bd-26db-419d-9c9f-bfb68ee6f3a7
+		summarizeBy: sum
+		sourceColumn: Total Payment
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Weight'
+		dataType: double
+		sourceProviderType: decimal(14, 7)
+		lineageTag: f1a5a479-79d2-4f73-94f6-dfb4d546fcc9
+		summarizeBy: sum
+		sourceColumn: Total Weight
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Weight UOM'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: c6c87ed1-311f-4baf-8d2c-5082e0660aae
+		summarizeBy: sum
+		sourceColumn: Total Weight UOM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total Volume'
+		dataType: double
+		sourceProviderType: decimal(14, 7)
+		lineageTag: 87e607c4-c35a-4b12-a67d-79d853635624
+		summarizeBy: sum
+		sourceColumn: Total Volume
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total Volume UOM'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 0b55da86-7e42-403f-bbfa-de0978f8af0b
+		summarizeBy: sum
+		sourceColumn: Total Volume UOM
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total U1 Order Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: c886181e-792c-4e42-8e86-27a8133b2ca9
+		summarizeBy: sum
+		sourceColumn: Total U1 Order Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U2 Order Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 96943322-7d42-46c7-960d-96da655a0dd4
+		summarizeBy: sum
+		sourceColumn: Total U2 Order Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U3 Order Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: eac9df1f-94d7-42f7-b0f6-189f657a1951
+		summarizeBy: sum
+		sourceColumn: Total U3 Order Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U1 Bonus Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 585dab86-264a-4dc6-96fe-f8b3f231edd3
+		summarizeBy: sum
+		sourceColumn: Total U1 Bonus Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U2 Bonus Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 26c50fa3-c9de-45e7-bbfc-ef9e613bb2ea
+		summarizeBy: sum
+		sourceColumn: Total U2 Bonus Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U3 Bonus Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 3f91713b-72ff-4473-88d1-5c1fec3ca9a6
+		summarizeBy: sum
+		sourceColumn: Total U3 Bonus Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U2 Return Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 511c6f21-c045-4ff6-8737-1a9007d758c5
+		summarizeBy: sum
+		sourceColumn: Total U2 Return Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U3 Return Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: ca81b2f7-9351-47f8-8811-ad71584936c1
+		summarizeBy: sum
+		sourceColumn: Total U3 Return Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U2 Replacement Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 11d37846-1859-465d-a76a-8d11b4929fba
+		summarizeBy: sum
+		sourceColumn: Total U2 Replacement Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U3 Replacement Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: d01c02f0-bc3b-4918-9b6e-2f37c9a576a0
+		summarizeBy: sum
+		sourceColumn: Total U3 Replacement Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U1 Sample Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: d4b8e4f3-3e7f-42f0-b274-6df61b2849e4
+		summarizeBy: sum
+		sourceColumn: Total U1 Sample Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U2 Sample Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: cafd6c29-f203-4fd0-a0b4-de63bd7cfa1e
+		summarizeBy: sum
+		sourceColumn: Total U2 Sample Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U3 Sample Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 6926466e-47dc-4a20-a05f-081ecc9bc9a6
+		summarizeBy: sum
+		sourceColumn: Total U3 Sample Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Distance To Call'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: ffd3d13f-effc-43f3-abf9-7176b07dfdaf
+		summarizeBy: sum
+		sourceColumn: Distance To Call
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Distance From Rep Home'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 0d4885f5-fedc-4cb3-89ba-7f58f72a4449
+		summarizeBy: sum
+		sourceColumn: Distance From Rep Home
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Days Since Last Call'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5207572d-e2e9-492d-a78e-0e8354c51e92
+		summarizeBy: sum
+		sourceColumn: Days Since Last Call
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Alerted Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: a9824fa9-5ac1-4b6a-bfcc-d8ee931790b1
+		summarizeBy: sum
+		sourceColumn: Audit 1 Alerted Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Alerted Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: c7fecfea-c76e-4747-88ce-8391aef99656
+		summarizeBy: sum
+		sourceColumn: Audit 1 Alerted Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Alerted Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: babc55ac-2b23-475a-a5fb-ffdd9472bf69
+		summarizeBy: sum
+		sourceColumn: Audit 1 Alerted Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3a2bbb8d-3e80-41ac-b424-134bee2811ad
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f1c5abde-6dc7-4bbc-be89-993657488500
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9198e9f1-86dd-4b76-b174-8e51c900fbce
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fe336959-2ce9-4792-866a-c95c7c125eb6
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items In Standard Range Not Ranged'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 76d64aa7-490a-41c4-8269-f9e0c2c76372
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items In Standard Range Not Ranged
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Items Ranged Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 36fdc7a0-f250-439c-8c67-21fb01565eab
+		summarizeBy: sum
+		sourceColumn: Audit 1 Items Ranged Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Facings In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9feef617-dc69-4ae7-be07-012b5dc01c7b
+		summarizeBy: sum
+		sourceColumn: Audit 1 Facings In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 1 Facings Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 27891064-810c-438e-bbe8-ac4f45206010
+		summarizeBy: sum
+		sourceColumn: Audit 1 Facings Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Alerted Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2f659fc2-d25f-4058-9521-7f83df6bfffb
+		summarizeBy: sum
+		sourceColumn: Audit 2 Alerted Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Alerted Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 66bd1538-2b43-4538-963d-36f6d0a1dfa0
+		summarizeBy: sum
+		sourceColumn: Audit 2 Alerted Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Alerted Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2c609757-e326-443e-9a6f-583693e95c3e
+		summarizeBy: sum
+		sourceColumn: Audit 2 Alerted Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 77cf50dc-6858-4132-96f5-a8d0c08ff8bf
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 3a3243ff-44a3-43ca-8eb5-d27dbcf503fa
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 115c4c27-1d25-4c67-b35f-f785a287d318
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fb415566-322e-4358-a51e-4f2804a25639
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items In Standard Range Not Ranged'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: dc228675-065a-48f0-b661-123fa9cc1c16
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items In Standard Range Not Ranged
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Items Ranged Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: ea22d721-3400-4831-bb75-b40ee2655446
+		summarizeBy: sum
+		sourceColumn: Audit 2 Items Ranged Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Facings In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: dd0b122d-cb1f-4f38-9fe7-082f1662abe0
+		summarizeBy: sum
+		sourceColumn: Audit 2 Facings In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 2 Facings Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f76e4267-d638-4d7a-bd12-9bb878ee9fdd
+		summarizeBy: sum
+		sourceColumn: Audit 2 Facings Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Alerted Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 21adcbae-280e-46c2-adf1-2767cb7c3aad
+		summarizeBy: sum
+		sourceColumn: Audit 3 Alerted Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Alerted Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 324f401d-23eb-4d5a-95a8-1386bd2eb7c8
+		summarizeBy: sum
+		sourceColumn: Audit 3 Alerted Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Alerted Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f88e3149-79a6-4338-8b36-a64d3054169b
+		summarizeBy: sum
+		sourceColumn: Audit 3 Alerted Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: bb200f80-5509-4285-bb67-32dcb65b0016
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cb63df41-58a9-448e-b04f-34c72f40cbf3
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items Not Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d84282be-e12f-4f1d-bd39-43684694b951
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items Not Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 60c61b12-6960-4597-a5cd-d07a4cb82277
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items In Standard Range Not Ranged'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 80d3c9f0-15af-463c-b3ac-ae7aff2cf427
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items In Standard Range Not Ranged
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Items Ranged Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 366a2d52-b9de-452f-9f8c-cebd87d4dd41
+		summarizeBy: sum
+		sourceColumn: Audit 3 Items Ranged Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Facings In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: fca7471f-be6d-43fb-8b73-47252ca4364e
+		summarizeBy: sum
+		sourceColumn: Audit 3 Facings In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Audit 3 Facings Not In Standard Range'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f88e0cce-5bd0-42c5-9d44-1b8191c20cee
+		summarizeBy: sum
+		sourceColumn: Audit 3 Facings Not In Standard Range
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Displays At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: de1a0260-910c-4ac8-9c9f-a6ccebbdb0dd
+		summarizeBy: sum
+		sourceColumn: Displays At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Displays Added'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: d21f7583-4290-4b4c-9154-736d320c3dbf
+		summarizeBy: sum
+		sourceColumn: Displays Added
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Displays Deleted'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cb4e8771-ac43-4e94-a616-78195e46a811
+		summarizeBy: sum
+		sourceColumn: Displays Deleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Displays Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 571f543e-df2d-42b2-a2a3-5ef7e3789858
+		summarizeBy: sum
+		sourceColumn: Displays Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Issues At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 17f634c3-ff55-4687-934e-0e0cf017f9ae
+		summarizeBy: sum
+		sourceColumn: Issues At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Issues Added'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 2ad1b5db-63a1-4815-8af3-14b9fe6cba1a
+		summarizeBy: sum
+		sourceColumn: Issues Added
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Issues Deleted'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: b2ebb270-15d4-4ab9-b0ff-53932b9f074c
+		summarizeBy: sum
+		sourceColumn: Issues Deleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Issues Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 50135fc9-6b4c-417e-8753-f72d079390d8
+		summarizeBy: sum
+		sourceColumn: Issues Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Competitor Activities At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: cc1910c3-5ae8-42d1-afe2-0a5377fb5633
+		summarizeBy: sum
+		sourceColumn: Competitor Activities At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Competitor Activities Added'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 5ecf943d-1bab-4d60-8acc-f6253f835437
+		summarizeBy: sum
+		sourceColumn: Competitor Activities Added
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Competitor Activities Deleted'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 40adada0-79a4-44d4-9d33-94f3e7911990
+		summarizeBy: sum
+		sourceColumn: Competitor Activities Deleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Competitor Activities Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 29651bc3-e7e1-4243-a5d9-7a014841c6e5
+		summarizeBy: sum
+		sourceColumn: Competitor Activities Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shelf Profiles At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: f68822d3-304c-4ba8-a2c4-e519395bd3ee
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shelf Profiles Added'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 60256e0f-fa15-4762-b278-0ca26934ecf5
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Added
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shelf Profiles Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 79855856-fb7b-4984-a765-26737a953093
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shelf Profiles Start Value1'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 22e03201-c410-48ee-952e-822d5f8144f6
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value2'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: f934a5bf-4c2b-45c7-b31f-d822626a1bf6
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value3'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: afb85e37-f4a5-4a87-ba8d-ea1c9bbea516
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value4'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: aa587539-847e-4f4d-ab1a-1797de7c3e61
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value4
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value4'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 765bec2d-5330-4010-98d6-7cea44bb5398
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value4
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value5'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: d073d21b-25e3-4c5d-a6f9-c09f13e72e47
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value5
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value5'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 418fcb88-e820-402f-b185-b8bca53c0cdf
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value5
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value6'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: c8ee2d00-de08-49a6-a431-6d3f3c322bd3
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value6
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value6'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: d24345e4-7ed4-4cf7-b7be-dde1b346cf1c
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value6
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value7'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: cb13e9ad-2c25-4e60-890e-3ad8d58c6a91
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value7
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value8'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 36aff16c-bef5-4ce0-b954-8125faa21831
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value8
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value8'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: f753a63d-ddcd-4858-b210-d51d29309082
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value8
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value9'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 45cf24b7-e9e7-4312-9662-1c98ffa5fb37
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value9
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value9'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 9c872719-dc9b-4446-9e48-646154cb4eba
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value9
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Start Value10'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 37e24b66-7391-4cd6-aac2-7a908c28cfbe
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Start Value10
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value10'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: eda81c2a-ee5c-4545-89b4-ce40c3e5c369
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value10
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Opportunities At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 4abac683-bef2-45fb-9226-cf2a8c3d699e
+		summarizeBy: sum
+		sourceColumn: Opportunities At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunities Added'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 98b1a0b8-e94f-4879-a7ef-bf1889c9eb7f
+		summarizeBy: sum
+		sourceColumn: Opportunities Added
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunities Deleted'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 9c6b2f95-38fa-468d-a5b1-c534e217ae02
+		summarizeBy: sum
+		sourceColumn: Opportunities Deleted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunities Updated'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 0f1de579-e7ae-4e28-badd-0079f297f983
+		summarizeBy: sum
+		sourceColumn: Opportunities Updated
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Opportunities Achieved'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: da949732-a3fd-41a1-8b27-e2ba05074476
+		summarizeBy: sum
+		sourceColumn: Opportunities Achieved
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tasks Assigned'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 66ae935d-9266-484b-b9b7-204090966bd1
+		summarizeBy: sum
+		sourceColumn: Tasks Assigned
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tasks Completed'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 7c0bbe60-0cfd-43c6-a5b1-afb7e956e889
+		summarizeBy: sum
+		sourceColumn: Tasks Completed
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Survey Questions Assigned'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 37156c3f-3c92-4b82-bf14-4644f8fd82ae
+		summarizeBy: sum
+		sourceColumn: Survey Questions Assigned
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Survey Questions Answered'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 35de4d06-f9dc-494d-bbd3-37f5b753e465
+		summarizeBy: sum
+		sourceColumn: Survey Questions Answered
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Open Promotions At Start'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: e2392ef7-8990-4744-aab8-7b6b86d3e3cf
+		summarizeBy: sum
+		sourceColumn: Open Promotions At Start
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Promotions Accepted'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 18a5065e-a155-4fde-8688-1521cede7924
+		summarizeBy: sum
+		sourceColumn: Promotions Accepted
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Shelf Profiles Finish Value1'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: d5d71718-384e-4d89-93ee-12604ba75aa6
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value2'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 8e1a0df3-7ea5-4134-b934-588de29ba027
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value2
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value3'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: ee1610a6-e274-4e12-a658-5a165711584c
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value3
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Shelf Profiles Finish Value7'
+		dataType: double
+		sourceProviderType: decimal(10, 2)
+		lineageTag: 842db5ee-4af5-49db-aebd-8b93c7c25d4b
+		summarizeBy: sum
+		sourceColumn: Shelf Profiles Finish Value7
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Actual Finish Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: 2352be7d-9c38-49ab-9a6c-fdaa4be8e39b
+		summarizeBy: none
+		sourceColumn: Actual Finish Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Actual Finish Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: e726754f-4996-4bf3-ae29-3dc3705738d9
+		summarizeBy: none
+		sourceColumn: Actual Finish Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Planned Finish Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: 59886b11-9e9c-4c72-9c27-e384144c7b2f
+		summarizeBy: none
+		sourceColumn: Planned Finish Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Planned Finish Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 7e465adf-1ab3-4182-a614-6c07629ba1ac
+		summarizeBy: none
+		sourceColumn: Planned Finish Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scheduled Finish Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: f2055fe1-7c63-4aa4-a9a3-f61bc16e59e6
+		summarizeBy: none
+		sourceColumn: Scheduled Finish Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Scheduled Finish Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 3b51029f-2f80-44d3-ac2f-9c946b464835
+		summarizeBy: none
+		sourceColumn: Scheduled Finish Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Review Finish Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: 773d3715-387d-4e27-97b6-246b1473cda5
+		summarizeBy: none
+		sourceColumn: Review Finish Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Review Finish Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 5c446b83-b7dd-4ace-bfb8-15a54b34a33b
+		summarizeBy: none
+		sourceColumn: Review Finish Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Total U1 Replacement Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 293561a6-2b1c-433e-ab1c-5b9d08e9dffc
+		summarizeBy: sum
+		sourceColumn: Total U1 Replacement Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Total U1 Return Quantity'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: aeff8485-4899-4e49-9b22-8f55a3c70b10
+		summarizeBy: sum
+		sourceColumn: Total U1 Return Quantity
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Minutes Between Calls'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: int
+		lineageTag: 389dd28a-ae25-4019-87f8-cc0878821726
+		summarizeBy: sum
+		sourceColumn: Minutes Between Calls
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'SOP Potential'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 358f3e12-636e-4b30-a410-8175d854c83e
+		summarizeBy: sum
+		sourceColumn: SOP Potential
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SOP Value Achieved'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 27a1b64a-e50d-48f6-9b88-24ba1ce35526
+		summarizeBy: sum
+		sourceColumn: SOP Value Achieved
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'SOP Value Unachieved'
+		dataType: double
+		sourceProviderType: decimal(12, 3)
+		lineageTag: 3d6165fb-2b3c-40f8-a472-132d93603e00
+		summarizeBy: sum
+		sourceColumn: SOP Value Unachieved
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Cancelled Hour'
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: 8152bda6-ca81-4818-bef6-2256f90aee1c
+		summarizeBy: none
+		sourceColumn: Cancelled Hour
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Cancelled Date'
+		dataType: dateTime
+		formatString: Short Date
+		sourceProviderType: date
+		lineageTag: d1a75032-7187-4093-b91c-5ca77f08ff8a
+		summarizeBy: none
+		sourceColumn: Cancelled Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Start Latitude'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 2e2c1012-9eed-40e2-89c7-0e2359336953
+		summarizeBy: sum
+		sourceColumn: Start Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Start Longitude'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 5764793b-540a-4ca4-8433-06997926d9bf
+		summarizeBy: sum
+		sourceColumn: Start Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Start Datum'
+		dataType: string
+		sourceProviderType: nvarchar(10)
+		lineageTag: 675a3460-39ea-4e4e-8bd9-38d98aa6cb66
+		summarizeBy: none
+		sourceColumn: Start Datum
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Finish Latitude'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: d523e7e7-c827-4323-a618-a8e11f8b408f
+		summarizeBy: sum
+		sourceColumn: Finish Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Finish Longitude'
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 64abad9a-d7f4-4b3e-a6f7-43fc95e29089
+		summarizeBy: sum
+		sourceColumn: Finish Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column 'Finish Datum'
+		dataType: string
+		sourceProviderType: nvarchar(10)
+		lineageTag: 25ebc37e-2792-43d1-bc1b-e4a51dff81ff
+		summarizeBy: none
+		sourceColumn: Finish Datum
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit1
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 6c1175a1-0f1f-4d1f-b5bc-333ee13bd12a
+		summarizeBy: none
+		sourceColumn: DMBit1
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Synonyms = Planogram Compliance Exceeded
+
+	column DMBit2
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 810196c8-a969-4c30-a30b-8085d1332a76
+		summarizeBy: none
+		sourceColumn: DMBit2
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit3
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 30431161-b9eb-475f-b9b0-0ce134fc5973
+		summarizeBy: none
+		sourceColumn: DMBit3
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit4
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 73dc8d3b-c682-491d-bbcf-1a69be83a1b0
+		summarizeBy: none
+		sourceColumn: DMBit4
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit5
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 9be0dbc7-3101-45ac-ac41-ce6acd2414af
+		summarizeBy: none
+		sourceColumn: DMBit5
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Tour Store Indicator
+	column dmbit6
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 37766cc1-d385-40f5-b5d1-0412fffea6b1
+		summarizeBy: none
+		sourceColumn: dmbit6
+
+		annotation SummarizationSetBy = Automatic
+
+	/// Digital Pilot Store Visit
+	column DMBit7
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: fedfa58c-a6d1-408a-917d-c44e3c38bccb
+		summarizeBy: none
+		sourceColumn: DMBit7
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit8
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 7df1e105-5df7-4f38-95bb-698910d93925
+		summarizeBy: none
+		sourceColumn: DMBit8
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit9
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: d920a88c-e037-41aa-b71d-d0ab1108a6b3
+		summarizeBy: none
+		sourceColumn: DMBit9
+
+		annotation SummarizationSetBy = Automatic
+
+	column DMBit10
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: 78ce62a9-bcd3-4ce0-a7fe-789194373ebb
+		summarizeBy: none
+		sourceColumn: DMBit10
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation Synonyms = All Authorized SKUs Present
+
+	column 'FAC_StoreVisit Flag'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 77113783-6484-4264-83a8-2971d5b10503
+		summarizeBy: none
+		sourceColumn: FAC_StoreVisit Flag
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Route In Sequence'
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		sourceProviderType: bit
+		lineageTag: fb9937e4-ed28-44da-8743-9cef6529477d
+		summarizeBy: none
+		sourceColumn: Route In Sequence
+
+		annotation SummarizationSetBy = Automatic
+
+	column DC_RepStoreVisit = fac_storevisit[Actual Start Date]&fac_storevisit[Representative]
+		lineageTag: 4c5e6017-3f8e-46aa-af37-a1efaa84781b
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreTerritory = fac_storevisit[Current Store]&" "&fac_storevisit[Current Territory]
+		lineageTag: 1ac147f3-9b9f-4edb-b331-da529a5a6ec5
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fac_storevisit-540ace7c-eb71-4655-beeb-dd2f7883baa5 = m
+		mode: import
+		queryGroup: 'Store Visits'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				fac_storevisit1 = public{[Name="fac_storevisit"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(fac_storevisit1,{"fac_storevisit","actualstartdate","actualstarthour","actualduration","representative","currentstore","historicalstore","team","currentterritory","historicalterritory","visitcancelreason","visittype","createdby","reviewstartdate","reviewstarthour","reviewduration","distancefromstore","storevisitexternalid","status","scheduledstartdate","scheduledstarthour","scheduledduration","scheduledcall","plannedstartdate","plannedstarthour","plannedduration","route","routedescription","source","archiveddate","deleteddate","completedorders","totallineitems","totalgross","totaldiscountvalue","totalnet","totalpayment","totalweight","totalweightuom","totalvolume","totalvolumeuom","totalu1orderquantity","totalu2orderquantity","totalu3orderquantity","totalu1bonusquantity","totalu2bonusquantity","totalu3bonusquantity","totalu2returnquantity","totalu3returnquantity","totalu2replacementquantity","totalu3replacementquantity","totalu1samplequantity","totalu2samplequantity","totalu3samplequantity","distancetocall","distancefromrephome","dayssincelastcall","a1alerteditems","a1alerteditemsupdated","a1alerteditemsnotupdated","a1items","a1itemsupdated","a1itemsnotupdated","a1standard","a1standardnotranged","a1rangednotstandard","a1standardfacings","a1notstandardfacings","a2alerteditems","a2alerteditemsupdated","a2alerteditemsnotupdated","a2items","a2itemsupdated","a2itemsnotupdated","a2standard","a2standardnotranged","a2rangednotstandard","a2standardfacings","a2notstandardfacings","a3alerteditems","a3alerteditemsupdated","a3alerteditemsnotupdated","a3items","a3itemsupdated","a3itemsnotupdated","a3standard","a3standardnotranged","a3rangednotstandard","a3standardfacings","a3notstandardfacings","displaysatstart","displaysadded","displaysdeleted","displaysupdated","issuesatstart","issuesadded","issuesdeleted","issuesupdated","competitoractivitiesatstart","competitoractivitiesadded","competitoractivitiesdeleted","competitoractivitiesupdated","shelfprofilesatstart","shelfprofilesadded","shelfprofilesupdated","shelfprofilevalue1atstart","shelfprofilevalue2atstart","shelfprofilevalue3atstart","shelfprofilevalue4atstart","shelfprofilevalue4atfinish","shelfprofilevalue5atstart","shelfprofilevalue5atfinish","shelfprofilevalue6atstart","shelfprofilevalue6atfinish","shelfprofilevalue7atstart","shelfprofilevalue8atstart","shelfprofilevalue8atfinish","shelfprofilevalue9atstart","shelfprofilevalue9atfinish","shelfprofilevalue10atstart","shelfprofilevalue10atfinish","opportunitiesatstart","opportunitiesadded","opportunitiesdeleted","opportunitiesupdated","opportunitiesachieved","tasksassigned","taskscompleted","questionsassigned","questionsanswered","openpromotionsatstart","acceptedpromotions","shelfprofilevalue1atfinish","shelfprofilevalue2atfinish","shelfprofilevalue3atfinish","shelfprofilevalue7atfinish","actualfinishdate","actualfinishhour","plannedfinishdate","plannedfinishhour","scheduledfinishdate","scheduledfinishhour","reviewfinishdate","reviewfinishhour","totalu1replacementquantity","totalu1returnquantity","minutesbetweencalls","soppotential","sopvalueachieved","sopvalueunachieved","cancelledhour","cancelleddate","startlatitude","startlongitude","startdatum","finishlatitude","finishlongitude","finishdatum","dmbit1","dmbit2","dmbit3","dmbit4","dmbit5","dmbit6","dmbit7","dmbit8","dmbit9","dmbit10","fac_storevisitflag","routeinsequence"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"fac_storevisit", "Store Visit"},{"actualstartdate", "Actual Start Date"},{"actualstarthour", "Actual Start Hour"},{"actualduration", "Actual Duration"},{"representative", "Representative"},{"currentstore", "Current Store"},{"historicalstore", "Historical Store"},{"team", "Team"},{"currentterritory", "Current Territory"},{"historicalterritory", "Historical Territory"},{"visitcancelreason", "Visit Cancel Reason"},{"visittype", "Visit Type"},{"createdby", "Created By"},{"reviewstartdate", "Review Start Date"},{"reviewstarthour", "Review Start Hour"},{"reviewduration", "Review Duration"},{"distancefromstore", "Distance From Store"},{"storevisitexternalid", "Store Visit External ID"},{"status", "Status"},{"scheduledstartdate", "Scheduled Start Date"},{"scheduledstarthour", "Scheduled Start Hour"},{"scheduledduration", "Scheduled Duration"},{"scheduledcall", "Scheduled Call"},{"plannedstartdate", "Planned Start Date"},{"plannedstarthour", "Planned Start Hour"},{"plannedduration", "Planned Duration"},{"route", "Route"},{"routedescription", "Route Description"},{"source", "Source"},{"archiveddate", "Archived Date"},{"deleteddate", "Deleted Date"},{"completedorders", "Completed Orders"},{"totallineitems", "Total Line Items"},{"totalgross", "Total Gross"},{"totaldiscountvalue", "Total Discount Value"},{"totalnet", "Total Net"},{"totalpayment", "Total Payment"},{"totalweight", "Total Weight"},{"totalweightuom", "Total Weight UOM"},{"totalvolume", "Total Volume"},{"totalvolumeuom", "Total Volume UOM"},{"totalu1orderquantity", "Total U1 Order Quantity"},{"totalu2orderquantity", "Total U2 Order Quantity"},{"totalu3orderquantity", "Total U3 Order Quantity"},{"totalu1bonusquantity", "Total U1 Bonus Quantity"},{"totalu2bonusquantity", "Total U2 Bonus Quantity"},{"totalu3bonusquantity", "Total U3 Bonus Quantity"},{"totalu2returnquantity", "Total U2 Return Quantity"},{"totalu3returnquantity", "Total U3 Return Quantity"},{"totalu2replacementquantity", "Total U2 Replacement Quantity"},{"totalu3replacementquantity", "Total U3 Replacement Quantity"},{"totalu1samplequantity", "Total U1 Sample Quantity"},{"totalu2samplequantity", "Total U2 Sample Quantity"},{"totalu3samplequantity", "Total U3 Sample Quantity"},{"distancetocall", "Distance To Call"},{"distancefromrephome", "Distance From Rep Home"},{"dayssincelastcall", "Days Since Last Call"},{"a1alerteditems", "Audit 1 Alerted Items"},{"a1alerteditemsupdated", "Audit 1 Alerted Items Updated"},{"a1alerteditemsnotupdated", "Audit 1 Alerted Items Not Updated"},{"a1items", "Audit 1 Items"},{"a1itemsupdated", "Audit 1 Items Updated"},{"a1itemsnotupdated", "Audit 1 Items Not Updated"},{"a1standard", "Audit 1 Items In Standard Range"},{"a1standardnotranged", "Audit 1 Items In Standard Range Not Ranged"},{"a1rangednotstandard", "Audit 1 Items Ranged Not In Standard Range"},{"a1standardfacings", "Audit 1 Facings In Standard Range"},{"a1notstandardfacings", "Audit 1 Facings Not In Standard Range"},{"a2alerteditems", "Audit 2 Alerted Items"},{"a2alerteditemsupdated", "Audit 2 Alerted Items Updated"},{"a2alerteditemsnotupdated", "Audit 2 Alerted Items Not Updated"},{"a2items", "Audit 2 Items"},{"a2itemsupdated", "Audit 2 Items Updated"},{"a2itemsnotupdated", "Audit 2 Items Not Updated"},{"a2standard", "Audit 2 Items In Standard Range"},{"a2standardnotranged", "Audit 2 Items In Standard Range Not Ranged"},{"a2rangednotstandard", "Audit 2 Items Ranged Not In Standard Range"},{"a2standardfacings", "Audit 2 Facings In Standard Range"},{"a2notstandardfacings", "Audit 2 Facings Not In Standard Range"},{"a3alerteditems", "Audit 3 Alerted Items"},{"a3alerteditemsupdated", "Audit 3 Alerted Items Updated"},{"a3alerteditemsnotupdated", "Audit 3 Alerted Items Not Updated"},{"a3items", "Audit 3 Items"},{"a3itemsupdated", "Audit 3 Items Updated"},{"a3itemsnotupdated", "Audit 3 Items Not Updated"},{"a3standard", "Audit 3 Items In Standard Range"},{"a3standardnotranged", "Audit 3 Items In Standard Range Not Ranged"},{"a3rangednotstandard", "Audit 3 Items Ranged Not In Standard Range"},{"a3standardfacings", "Audit 3 Facings In Standard Range"},{"a3notstandardfacings", "Audit 3 Facings Not In Standard Range"},{"displaysatstart", "Displays At Start"},{"displaysadded", "Displays Added"},{"displaysdeleted", "Displays Deleted"},{"displaysupdated", "Displays Updated"},{"issuesatstart", "Issues At Start"},{"issuesadded", "Issues Added"},{"issuesdeleted", "Issues Deleted"},{"issuesupdated", "Issues Updated"},{"competitoractivitiesatstart", "Competitor Activities At Start"},{"competitoractivitiesadded", "Competitor Activities Added"},{"competitoractivitiesdeleted", "Competitor Activities Deleted"},{"competitoractivitiesupdated", "Competitor Activities Updated"},{"shelfprofilesatstart", "Shelf Profiles At Start"},{"shelfprofilesadded", "Shelf Profiles Added"},{"shelfprofilesupdated", "Shelf Profiles Updated"},{"shelfprofilevalue1atstart", "Shelf Profiles Start Value1"},{"shelfprofilevalue2atstart", "Shelf Profiles Start Value2"},{"shelfprofilevalue3atstart", "Shelf Profiles Start Value3"},{"shelfprofilevalue4atstart", "Shelf Profiles Start Value4"},{"shelfprofilevalue4atfinish", "Shelf Profiles Finish Value4"},{"shelfprofilevalue5atstart", "Shelf Profiles Start Value5"},{"shelfprofilevalue5atfinish", "Shelf Profiles Finish Value5"},{"shelfprofilevalue6atstart", "Shelf Profiles Start Value6"},{"shelfprofilevalue6atfinish", "Shelf Profiles Finish Value6"},{"shelfprofilevalue7atstart", "Shelf Profiles Start Value7"},{"shelfprofilevalue8atstart", "Shelf Profiles Start Value8"},{"shelfprofilevalue8atfinish", "Shelf Profiles Finish Value8"},{"shelfprofilevalue9atstart", "Shelf Profiles Start Value9"},{"shelfprofilevalue9atfinish", "Shelf Profiles Finish Value9"},{"shelfprofilevalue10atstart", "Shelf Profiles Start Value10"},{"shelfprofilevalue10atfinish", "Shelf Profiles Finish Value10"},{"opportunitiesatstart", "Opportunities At Start"},{"opportunitiesadded", "Opportunities Added"},{"opportunitiesdeleted", "Opportunities Deleted"},{"opportunitiesupdated", "Opportunities Updated"},{"opportunitiesachieved", "Opportunities Achieved"},{"tasksassigned", "Tasks Assigned"},{"taskscompleted", "Tasks Completed"},{"questionsassigned", "Survey Questions Assigned"},{"questionsanswered", "Survey Questions Answered"},{"openpromotionsatstart", "Open Promotions At Start"},{"acceptedpromotions", "Promotions Accepted"},{"shelfprofilevalue1atfinish", "Shelf Profiles Finish Value1"},{"shelfprofilevalue2atfinish", "Shelf Profiles Finish Value2"},{"shelfprofilevalue3atfinish", "Shelf Profiles Finish Value3"},{"shelfprofilevalue7atfinish", "Shelf Profiles Finish Value7"},{"actualfinishdate", "Actual Finish Date"},{"actualfinishhour", "Actual Finish Hour"},{"plannedfinishdate", "Planned Finish Date"},{"plannedfinishhour", "Planned Finish Hour"},{"scheduledfinishdate", "Scheduled Finish Date"},{"scheduledfinishhour", "Scheduled Finish Hour"},{"reviewfinishdate", "Review Finish Date"},{"reviewfinishhour", "Review Finish Hour"},{"totalu1replacementquantity", "Total U1 Replacement Quantity"},{"totalu1returnquantity", "Total U1 Return Quantity"},{"minutesbetweencalls", "Minutes Between Calls"},{"soppotential", "SOP Potential"},{"sopvalueachieved", "SOP Value Achieved"},{"sopvalueunachieved", "SOP Value Unachieved"},{"cancelledhour", "Cancelled Hour"},{"cancelleddate", "Cancelled Date"},{"startlatitude", "Start Latitude"},{"startlongitude", "Start Longitude"},{"startdatum", "Start Datum"},{"finishlatitude", "Finish Latitude"},{"finishlongitude", "Finish Longitude"},{"finishdatum", "Finish Datum"},{"dmbit1", "DMBit1"},{"dmbit2", "DMBit2"},{"dmbit3", "DMBit3"},{"dmbit4", "DMBit4"},{"dmbit5", "DMBit5"},{"dmbit6", "DMBit6"},{"dmbit7", "DMBit7"},{"dmbit8", "DMBit8"},{"dmbit9", "DMBit9"},{"dmbit10", "DMBit10"},{"fac_storevisitflag", "FAC_StoreVisit Flag"},{"routeinsequence", "Route In Sequence"}}),
+				    #"Filtered Rows" = Table.SelectRows(#"Renamed Columns", each [Actual Start Date] >= DateFilter),
+				    #"Renamed Columns1" = Table.RenameColumns(#"Filtered Rows",{{"DMBit6", "dmbit6"}})
+				in
+				    #"Renamed Columns1"
+
+	annotation PBI_ResultType = Exception
+

@@ -1,0 +1,46 @@
+table dim_dwuser
+	lineageTag: b92af0e3-8845-4ed0-a153-24b1b362f67d
+
+	column Dim_Dwuser
+		dataType: string
+		isNullable: false
+		sourceProviderType: nvarchar(50)
+		lineageTag: 5c472f30-92cb-428e-9452-5b4f7700c6cb
+		summarizeBy: none
+		sourceColumn: Dim_Dwuser
+
+		annotation SummarizationSetBy = Automatic
+
+	column Userid
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: ea2b2e49-d31b-44a5-bb09-5730076e0956
+		summarizeBy: none
+		sourceColumn: Userid
+
+		annotation SummarizationSetBy = Automatic
+
+	column Loginid
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 56dc5c33-ba74-4ab7-b17e-5f12fec2acb0
+		summarizeBy: none
+		sourceColumn: Loginid
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_dwuser-20eb5242-6f80-46f0-acb6-1586e4a19ed0 = m
+		mode: import
+		queryGroup: Security
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_dwuser1 = public{[Name="dim_dwuser"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_dwuser1,{"dim_dwuser", "userid", "loginid"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_dwuser", "Dim_Dwuser"},{"userid", "Userid"},{"loginid", "Loginid"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Exception
+

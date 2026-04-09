@@ -1,0 +1,169 @@
+table dim_territory
+	lineageTag: 438d8b22-f4d6-43e4-be18-92898a16befe
+
+	column Dim_Territory
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: dc4b5503-f5e4-4607-a666-d263fa28a1a8
+		summarizeBy: none
+		sourceColumn: Dim_Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Territory Name'
+		dataType: string
+		sourceProviderType: nvarchar(105)
+		lineageTag: 04004467-21d0-4a1c-b4f7-1e7de6dcc1a2
+		summarizeBy: none
+		sourceColumn: Territory Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Team'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 778af013-aa8a-4424-91bd-8e3206ebad7d
+		summarizeBy: none
+		sourceColumn: Sales Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Team Names'
+		dataType: string
+		sourceProviderType: nvarchar(90)
+		lineageTag: c07a3ef7-dc4d-4c27-8ab8-bb2ae873f6ea
+		summarizeBy: none
+		sourceColumn: Sales Team Names
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Representative'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 66b28c20-338b-467f-a5fa-b731693d0cd7
+		summarizeBy: none
+		sourceColumn: Primary Representative
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Representative Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 8876a852-33f5-4826-8564-5c909f647be7
+		summarizeBy: none
+		sourceColumn: Primary Representative Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: ac3a902f-864f-4fd9-993c-e9511e9a4e77
+		summarizeBy: sum
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Team Name'
+		dataType: string
+		sourceProviderType: nvarchar(150)
+		lineageTag: cdac996d-6d86-4097-89f4-314b18583d6f
+		summarizeBy: none
+		sourceColumn: Team Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Externalid
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 544bb948-6b6d-4f8e-984c-9c2301b7d80e
+		summarizeBy: none
+		sourceColumn: Externalid
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: de62363d-7072-4ea0-adde-fe6ff7b76c6c
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region Name'
+		dataType: string
+		sourceProviderType: nvarchar(90)
+		lineageTag: 3fe82b81-669c-4c98-aae0-4f9fd98dffff
+		summarizeBy: none
+		sourceColumn: Region Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Representative Id'
+		dataType: string
+		sourceProviderType: nvarchar(90)
+		lineageTag: 3a108a9e-1153-4e2a-a711-1397df7b40ab
+		summarizeBy: none
+		sourceColumn: Primary Representative Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Region External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 94b7cc87-4270-422a-8d64-bdd2cd91144d
+		summarizeBy: none
+		sourceColumn: Region External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Team External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: b222c5c4-b0ad-4e3e-a3b8-4c3d4a3777c6
+		summarizeBy: none
+		sourceColumn: Sales Team External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Team External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 4cf1101b-caa5-49d7-af03-80a612c1cc8d
+		summarizeBy: none
+		sourceColumn: Team External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Sales Team Manager'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 68bf1918-7e8e-4836-8d58-71c922d96cb9
+		summarizeBy: none
+		sourceColumn: Sales Team Manager
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Territory Primary Rep Name' = dim_territory[Territory Name]&" "&SUBSTITUTE(dim_territory[Primary Representative Name]," - Touch CG","")
+		lineageTag: 67afdb7c-370c-47e9-81ef-0ec0a351c8c8
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_territory-1f9278f6-dac8-4564-8341-d44a1f4f584f = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_territory1 = public{[Name="dim_territory"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_territory1,{"dim_territory","territoryname","salesteam","salesteamname","primaryrepresentative","primaryrepresentativename","team","teamname","externalid","region","regionname","primaryrepresentativeid","regionexternalid","salesteamexternalid","teamexternalid","salesteammanager"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_territory", "Dim_Territory"},{"territoryname", "Territory Name"},{"salesteam", "Sales Team"},{"salesteamname", "Sales Team Names"},{"primaryrepresentative", "Primary Representative"},{"primaryrepresentativename", "Primary Representative Name"},{"team", "Team"},{"teamname", "Team Name"},{"externalid", "Externalid"},{"region", "Region"},{"regionname", "Region Name"},{"primaryrepresentativeid", "Primary Representative Id"},{"regionexternalid", "Region External Id"},{"salesteamexternalid", "Sales Team External Id"},{"teamexternalid", "Team External Id"},{"salesteammanager", "Sales Team Manager"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+

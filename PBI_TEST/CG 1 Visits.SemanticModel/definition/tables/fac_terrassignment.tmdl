@@ -1,0 +1,49 @@
+table fac_terrassignment
+	lineageTag: 07af414c-feed-4a2f-b443-5ab038543a48
+
+	column currentstore
+		dataType: string
+		lineageTag: d920a175-be83-4db8-9b1e-b2980876b0b7
+		summarizeBy: none
+		sourceColumn: currentstore
+
+		annotation SummarizationSetBy = Automatic
+
+	column currentterritory
+		dataType: string
+		lineageTag: 777d6d47-8968-4ba7-b100-112e5e039e5d
+		summarizeBy: none
+		sourceColumn: currentterritory
+
+		annotation SummarizationSetBy = Automatic
+
+	column assignmenttype
+		dataType: string
+		lineageTag: d77767ce-5bae-49f8-b03a-3ab2f2dfae26
+		summarizeBy: none
+		sourceColumn: assignmenttype
+
+		annotation SummarizationSetBy = Automatic
+
+	column StoreTerritory = fac_terrassignment[currentstore]&" "&fac_terrassignment[currentterritory]
+		lineageTag: d7d7ca9a-9b92-4581-9d4f-e3a12f96b04d
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fac_terrassignment-bd267f22-a272-4902-9208-0d75e0066ab5 = m
+		mode: import
+		queryGroup: 'Territory Assignment'
+		source =
+				let
+				    Source = AmazonRedshift.Database(#"ServerName", #"DatabaseName", null)
+				    ,public = Source{[Name="public"]}[Data]
+				    ,#"Table" = public{[Name="fac_terrassignment"]}[Data]
+				    ,#"Selected Columns" = Table.SelectColumns(Table,{"currentstore", "currentterritory", "assignmenttype"})
+				    ,#"Filtered Rows" = Table.SelectRows(#"Selected Columns", each ([assignmenttype] = "storeterritory")),
+				    #"Removed Duplicates" = Table.Distinct(#"Filtered Rows")
+				in
+				    #"Removed Duplicates"
+
+	annotation PBI_ResultType = Table
+

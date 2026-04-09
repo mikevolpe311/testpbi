@@ -1,0 +1,32 @@
+table dim_cg_ranginggroup
+	lineageTag: 664b72dc-54cc-414d-a4a6-a82839547750
+
+	calculationGroup
+		precedence: 2
+
+		calculationItem 'On Promotion' = CALCULATE(SELECTEDMEASURE(), fac_audit[On Promotion])
+
+		calculationItem 'In Standard Range' = CALCULATE(SELECTEDMEASURE(), fac_audit[In Standard Range])
+
+		calculationItem 'In Assortment' = CALCULATE(SELECTEDMEASURE(), fac_audit[In Assortment])
+
+		calculationItem 'In Agreement' = CALCULATE(SELECTEDMEASURE(), fac_audit[In Agreement])
+
+	column 'Ranging Group'
+		dataType: string
+		lineageTag: cc206c15-df8d-4a5a-bfff-84aad39726ad
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		lineageTag: 4e462046-293b-427a-953c-bef482aedcbb
+		summarizeBy: sum
+		sourceColumn: Ordinal
+
+		annotation SummarizationSetBy = Automatic
+

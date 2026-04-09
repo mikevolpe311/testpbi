@@ -1,0 +1,401 @@
+table dim_store
+	lineageTag: 08389c91-231d-4fba-81ec-adffe6b51c52
+
+	measure Stores = COUNT(dim_store[dim_store])
+		formatString: 0
+		lineageTag: 2d88eabb-b9a3-4251-b711-3df413075d8b
+
+	column Dim_Store
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 6abe5458-7cc2-471a-9db5-14f84451bc0f
+		summarizeBy: none
+		sourceColumn: Dim_Store
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: f6f55c35-ee89-49be-b616-20d562bd6267
+		summarizeBy: none
+		sourceColumn: Store Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Address
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 46b0010a-401a-4ea3-828a-b3a9b2c016e2
+		summarizeBy: none
+		sourceColumn: Address
+
+		annotation SummarizationSetBy = Automatic
+
+	column City
+		dataType: string
+		sourceProviderType: nvarchar(180)
+		lineageTag: dc975f23-ff8a-4f4c-8bdd-2e85a38446dc
+		summarizeBy: none
+		sourceColumn: City
+
+		annotation SummarizationSetBy = Automatic
+
+	column Postcode
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: e1ce03ed-9071-4dbf-8f4c-849bedd29368
+		summarizeBy: none
+		sourceColumn: Postcode
+
+		annotation SummarizationSetBy = Automatic
+
+	column Suburb
+		dataType: string
+		sourceProviderType: nvarchar(180)
+		lineageTag: 9c08fdd1-ce25-4bbe-a908-89e1481b5cb9
+		summarizeBy: none
+		sourceColumn: Suburb
+
+		annotation SummarizationSetBy = Automatic
+
+	column State
+		dataType: string
+		sourceProviderType: nvarchar(120)
+		lineageTag: f757444a-4a6c-4095-ad41-c5d04636f818
+		summarizeBy: none
+		sourceColumn: State
+
+		annotation SummarizationSetBy = Automatic
+
+	column District
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: 4c7ad00e-97f3-45c2-bbca-101ab33f26b2
+		summarizeBy: none
+		sourceColumn: District
+
+		annotation SummarizationSetBy = Automatic
+
+	column Region
+		dataType: string
+		sourceProviderType: nvarchar(90)
+		lineageTag: 1ac8bb5f-c1a5-42b5-b67d-b3160e6aee5d
+		summarizeBy: none
+		sourceColumn: Region
+
+		annotation SummarizationSetBy = Automatic
+
+	column Country
+		dataType: string
+		sourceProviderType: nchar
+		lineageTag: e15ea55f-5da0-4b47-b730-a5a8c758c3f7
+		summarizeBy: none
+		sourceColumn: Country
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Legal Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 62acfb6f-b3c9-4322-8d88-6ccb61f0a82d
+		summarizeBy: none
+		sourceColumn: Legal Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Key Account'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 26bc17d9-0c6d-4065-bf4f-7f7b2268f342
+		summarizeBy: none
+		sourceColumn: Key Account
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Key Account Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: f8f992ad-2496-4690-a3f3-a890bc34d35f
+		summarizeBy: none
+		sourceColumn: Key Account Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Segment'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 27f358f0-9d0b-4d32-a2b5-0a29cfe5ccf9
+		summarizeBy: sum
+		sourceColumn: Market Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Market Segment Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 10b367be-426d-431d-b99d-6c250644a315
+		summarizeBy: none
+		sourceColumn: Market Segment Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Id'
+		dataType: string
+		sourceProviderType: nvarchar(75)
+		lineageTag: fa6da797-d259-4fa2-b990-8ff92b8448f6
+		summarizeBy: none
+		sourceColumn: Store Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Tdlinx '
+		dataType: string
+		sourceProviderType: nvarchar(21)
+		lineageTag: 2eeea3e6-34fe-48d5-8f92-df9b812ba977
+		summarizeBy: none
+		sourceColumn: "Tdlinx "
+
+		annotation SummarizationSetBy = Automatic
+
+	column Gln
+		dataType: string
+		sourceProviderType: nvarchar(39)
+		lineageTag: e2169f4f-cf19-4cdc-88cf-7c9863d17018
+		summarizeBy: none
+		sourceColumn: Gln
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operating Group'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: bd4f832a-fc05-40e8-aafc-8ef450548ee4
+		summarizeBy: none
+		sourceColumn: Operating Group
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Operating Group Name'
+		dataType: string
+		sourceProviderType: nvarchar(210)
+		lineageTag: cc96a435-175a-4d83-9942-bef755835307
+		summarizeBy: none
+		sourceColumn: Operating Group Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Grade'
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 707bd599-f6e1-4313-a4b9-8bf26baebfc6
+		summarizeBy: sum
+		sourceColumn: Store Grade
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Store Grade Description'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 117a18f9-9b68-47b7-b57b-51f50ea50baf
+		summarizeBy: none
+		sourceColumn: Store Grade Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Territory'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 51db0e19-19fd-432a-8840-e15d71d06f4f
+		summarizeBy: none
+		sourceColumn: Primary Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Territory Name'
+		dataType: string
+		sourceProviderType: nvarchar(105)
+		lineageTag: 0475c126-1766-47e7-8747-ce6f0689f96f
+		summarizeBy: none
+		sourceColumn: Primary Territory Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Dsd Territory'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 362959d7-94bf-437f-85a8-539c27835786
+		summarizeBy: none
+		sourceColumn: Primary Dsd Territory
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Primary Dsd Territory Name'
+		dataType: string
+		sourceProviderType: nvarchar(105)
+		lineageTag: 03c26d38-aa13-48a8-a806-72081f45e3a7
+		summarizeBy: none
+		sourceColumn: Primary Dsd Territory Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Team
+		dataType: int64
+		formatString: 0
+		sourceProviderType: bigint
+		lineageTag: 1672c3f9-d923-44c1-bc02-391247f8c7f5
+		summarizeBy: sum
+		sourceColumn: Team
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Team Name'
+		dataType: string
+		sourceProviderType: nvarchar(150)
+		lineageTag: 72082b4f-0e0a-4079-a091-80456d3cdb96
+		summarizeBy: none
+		sourceColumn: Team Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Standardrange1
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: facb6878-8bb4-4bd6-a6be-c518aedb9e33
+		summarizeBy: none
+		sourceColumn: Standardrange1
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standardrange1 Description'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 5f1fcd24-30f3-4338-ad49-b96e08eed2db
+		summarizeBy: none
+		sourceColumn: Standardrange1 Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Standardrange2
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: d0704887-a04f-4fde-b9c2-e64b3bd40f60
+		summarizeBy: none
+		sourceColumn: Standardrange2
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standardrange2 Description'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: b7f7ec94-771e-4599-bc29-5101fa842a0a
+		summarizeBy: none
+		sourceColumn: Standardrange2 Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column Standardrange3
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 12116378-e691-41f7-8528-17f5dc7f02b6
+		summarizeBy: none
+		sourceColumn: Standardrange3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Standardrange3 Description'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 3aee4c1d-8dc9-4b83-9115-0f6db6ad965f
+		summarizeBy: none
+		sourceColumn: Standardrange3 Description
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'External Id'
+		dataType: string
+		sourceProviderType: nvarchar(60)
+		lineageTag: 014adefd-789b-4e51-a399-d29e997543de
+		summarizeBy: none
+		sourceColumn: External Id
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parent Key Account'
+		dataType: string
+		sourceProviderType: nvarchar(50)
+		lineageTag: 112e19af-de0f-4e11-a549-7d7ab84dde97
+		summarizeBy: none
+		sourceColumn: Parent Key Account
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Parent Key Account Name'
+		dataType: string
+		sourceProviderType: nvarchar(255)
+		lineageTag: 99300de9-bcba-4554-b80e-22fe554e556f
+		summarizeBy: none
+		sourceColumn: Parent Key Account Name
+
+		annotation SummarizationSetBy = Automatic
+
+	column Latitude
+		dataType: double
+		sourceProviderType: double
+		lineageTag: a90c9cd6-6b76-4cbc-b065-99ab18b58587
+		summarizeBy: sum
+		sourceColumn: Latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Longitude
+		dataType: double
+		sourceProviderType: double
+		lineageTag: 8df2f7df-4036-4e9c-94a2-12f6458edab8
+		summarizeBy: sum
+		sourceColumn: Longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Status
+		dataType: string
+		sourceProviderType: nvarchar(30)
+		lineageTag: 0baf4358-6a7f-4137-936a-cf1a0e7d11b9
+		summarizeBy: none
+		sourceColumn: Status
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'When Added'
+		dataType: dateTime
+		formatString: Long Date
+		sourceProviderType: date
+		lineageTag: 75ff159b-8153-4199-aa62-04d1bdc13a57
+		summarizeBy: none
+		sourceColumn: When Added
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	partition dim_store-f86311db-123d-41f4-a102-76705304ea02 = m
+		mode: import
+		queryGroup: 'Standard Dimensions'
+		source =
+				let
+				    Source = AmazonRedshift.Database(ServerName, DatabaseName, null),
+				    public = Source{[Name="public"]}[Data],
+				dim_store1 = public{[Name="dim_store"]}[Data],
+				#"Selected Columns" = Table.SelectColumns(dim_store1,{"dim_store","storename","address","city","postcode","suburb","state","district","region","country","legalname","keyaccount","keyaccountname","marketsegment","marketsegmentname","storeid","tdlinxid","gln","operatinggroup","operatinggroupname","storegrade","storegradedescription","primaryterritory","primaryterritoryname","primarydsdterritory","primarydsdterritoryname","team","teamname","standardrange1","standardrange1description","standardrange2","standardrange2description","standardrange3","standardrange3description","externalid","parentkeyaccount","parentkeyaccountname","latitude","longitude","status","whenadded"}),
+				#"Renamed Columns" = Table.RenameColumns(#"Selected Columns",{{"dim_store", "Dim_Store"},{"storename", "Store Name"},{"address", "Address"},{"city", "City"},{"postcode", "Postcode"},{"suburb", "Suburb"},{"state", "State"},{"district", "District"},{"region", "Region"},{"country", "Country"},{"legalname", "Legal Name"},{"keyaccount", "Key Account"},{"keyaccountname", "Key Account Name"},{"marketsegment", "Market Segment"},{"marketsegmentname", "Market Segment Name"},{"storeid", "Store Id"},{"tdlinxid", "Tdlinx "},{"gln", "Gln"},{"operatinggroup", "Operating Group"},{"operatinggroupname", "Operating Group Name"},{"storegrade", "Store Grade"},{"storegradedescription", "Store Grade Description"},{"primaryterritory", "Primary Territory"},{"primaryterritoryname", "Primary Territory Name"},{"primarydsdterritory", "Primary Dsd Territory"},{"primarydsdterritoryname", "Primary Dsd Territory Name"},{"team", "Team"},{"teamname", "Team Name"},{"standardrange1", "Standardrange1"},{"standardrange1description", "Standardrange1 Description"},{"standardrange2", "Standardrange2"},{"standardrange2description", "Standardrange2 Description"},{"standardrange3", "Standardrange3"},{"standardrange3description", "Standardrange3 Description"},{"externalid", "External Id"},{"parentkeyaccount", "Parent Key Account"},{"parentkeyaccountname", "Parent Key Account Name"},{"latitude", "Latitude"},{"longitude", "Longitude"},{"status", "Status"},{"whenadded", "When Added"}})
+				in
+				    #"Renamed Columns"
+
+	annotation PBI_ResultType = Table
+
